@@ -1,1 +1,1 @@
-var tipuesearch = {"pages": [{'title': 'About', 'text': 'Virtual Simulation for Mechatronic Control System Design \n', 'tags': '', 'url': 'About.html'}]};
+var tipuesearch = {"pages": [{'title': 'About', 'text': 'Virtual Simulation for Mechatronic Control System Design \n', 'tags': '', 'url': 'About.html'}, {'title': 'Git', 'text': 'git push --set-upstream origin master \n', 'tags': '', 'url': 'Git.html'}]};
