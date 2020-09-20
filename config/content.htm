@@ -23,6 +23,58 @@
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-319-78384-0">https://link.springer.com/book/10.1007/978-3-319-78384-0</a> </p>
 <p>2020 Feedback:</p>
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-030-34839-7">https://link.springer.com/book/10.1007/978-3-030-34839-7</a> </p>
+<p></p><h1>Feedback</h1>
+<p style="padding-left: 30px;">針對 CoppeliaSim 中 Python Remote API 不提供的功能, 可以透過 Lua 製作, 然後再以 <a href="https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction">https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction</a> 呼叫. 相關討論請參考 <a href="https://forum.coppeliarobotics.com/viewtopic.php?t=7699">https://forum.coppeliarobotics.com/viewtopic.php?t=7699</a></p>
+<h4><span style="background-color: #ffff99;">以下的 Inverted Pedulum 控制模擬可以視為專題 Task 之一:</span></h4>
+<p style="padding-left: 30px;"><a href="https://github.com/mdecourse/vrep_inverted_pendulum">https://github.com/mdecourse/vrep_inverted_pendulum</a> 採用舊版的 Python2 以及舊版的 V-rep 製作, 可以嘗試改為 Python3 以及 CoppeliaSim 4.1.0 rev1 版本相容.</p>
+<p>CoppeliaSim Lua feedback PID Control:</p>
+<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">function saturate(x,thr)
+    if x&gt;thr then return thr end
+    if x&lt;-thr then return -thr end
+    return x
+end
+
+function PID_create(Kp,Ki,Kd)
+    pid={}
+    pid.pre_error=0.0
+    pid.integral=0.0
+    pid.Kp=Kp
+    pid.Ki=Ki
+    pid.Kd=Kd
+    return pid
+end
+
+function PID(pid, setpoint, actual_position, dt)
+    error=setpoint-actual_position
+    if pid.Ki&gt;0.0 then
+        pid.integral=pid.integral+error*dt
+    end
+    derivative=(error-pid.pre_error)/dt
+    output=pid.Kp*error+saturate(pid.Ki*pid.integral,1000)+pid.Kd*derivative
+    output=saturate(output,2000)
+    pid.pre_error=error
+    return output
+end
+
+if (sim_call_type==sim.syscb_init) then
+    --graph=sim.getObjectHandle('Graph')
+    pjoint=sim.getObjectHandle('pjoint')
+    rjoint1=sim.getObjectHandle('rjoint1')
+    pad=sim.getObjectHandle('pad')
+    pidRot=PID_create(64.05,34.65,0.709)
+    pidPos=PID_create(54,0,0.629)
+    sim.addStatusbarMessage('angle controller = { P='..pidRot.Kp..'  I='..pidRot.Ki..'  D='..pidRot.Kd..' }   horizontal controller = { P='..pidPos.Kp..'  I='..pidPos.Ki..'  D='..pidPos.Kd..' }')
+end
+
+if (sim_call_type==sim.syscb_actuation) then  
+    dt=sim.getSimulationTimeStep()
+    u_angle=PID(pidRot, 0, sim.getJointPosition(rjoint1), dt)
+    u_pos=PID(pidPos, 0, sim.getJointPosition(pjoint), dt)
+   -- sim.setGraphUserData(graph,'e_ang',pid1.pre_error)
+   -- sim.setGraphUserData(graph,'e_pos',pid2.pre_error)
+    u=u_angle-u_pos
+    sim.setJointTargetVelocity(pjoint,u)
+end</pre>
 <p></p><h1>CMSiMDE</h1>
 <p><a href="https://github.com/mdecourse/cmsimde">https://github.com/mdecourse/cmsimde</a> 是一套以 Python + Flask 建構的網際內容管理系統, 以單人管理的模式建立, 其中包含動態網頁系統, 靜態網頁系統, Pelican 網誌與 Reveal.js 網際簡報系統.</p>
 <p><a href="https://github.com/mdecourse/cmsimde">https://github.com/mdecourse/cmsimde</a> 執行需要:</p>

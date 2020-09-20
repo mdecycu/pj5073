@@ -134,23 +134,59 @@ if ((location.href.search(/http:/) != -1) && (location.href.search(/login/) != -
           </div>
           
         </header>
-    <div id="tipue_search_content"> <a href='Ebooks.html'>Next</a> >> Ebooks<br /><h1>About</h1>
-<p><a href="./../downloads/introduction_to_automatic_control_system.pdf">Introduction to Automatic Control System.pdf</a></p>
-<h4>網際機電整合控制系統設計案例研究</h4>
-<h4>A Case Study on the Design of Web-based Mechatronic Automatic Control System</h4>
-<h4>Members:</h4>
-<p style="padding-left: 30px;">50733105</p>
-<p style="padding-left: 30px;">50733152</p>
-<p style="padding-left: 30px;">507331</p>
-<p style="padding-left: 30px;">507331</p>
-<h4>Methodology:</h4>
-<ul>
-<li>Use <a href="https://docs.plm.automation.siemens.com/tdoc/nx/12/nx_help/#uid:index">NX12</a>, <a href="https://www.onshape.com/">Onshape</a> and <a href="http://solvespace.com/index.pl">Solvespace</a> to create sytem part assembly</li>
-<li><a href="https://en.wikipedia.org/wiki/STL_(file_format)">STL</a> to <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a> and/or Webots</li>
-<li>Classic Control to Modern Control system design</li>
-<li>Flask + uwsgi on Ubuntu and Windows 10 2004</li>
-<li>Machine Learning and Optimal Control System Design</li>
-</ul><br /> <a href='Ebooks.html'>Next</a> >> Ebooks</div>
+    <div id="tipue_search_content">Ebooks << <a href='Ebooks.html'>Previous</a> <a href='CMSiMDE.html'>Next</a> >> CMSiMDE<br /><h1>Feedback</h1>
+<p style="padding-left: 30px;">針對 CoppeliaSim 中 Python Remote API 不提供的功能, 可以透過 Lua 製作, 然後再以 <a href="https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction">https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction</a> 呼叫. 相關討論請參考 <a href="https://forum.coppeliarobotics.com/viewtopic.php?t=7699">https://forum.coppeliarobotics.com/viewtopic.php?t=7699</a></p>
+<h4><span style="background-color: #ffff99;">以下的 Inverted Pedulum 控制模擬可以視為專題 Task 之一:</span></h4>
+<p style="padding-left: 30px;"><a href="https://github.com/mdecourse/vrep_inverted_pendulum">https://github.com/mdecourse/vrep_inverted_pendulum</a> 採用舊版的 Python2 以及舊版的 V-rep 製作, 可以嘗試改為 Python3 以及 CoppeliaSim 4.1.0 rev1 版本相容.</p>
+<p>CoppeliaSim Lua feedback PID Control:</p>
+<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">function saturate(x,thr)
+    if x&gt;thr then return thr end
+    if x&lt;-thr then return -thr end
+    return x
+end
+
+function PID_create(Kp,Ki,Kd)
+    pid={}
+    pid.pre_error=0.0
+    pid.integral=0.0
+    pid.Kp=Kp
+    pid.Ki=Ki
+    pid.Kd=Kd
+    return pid
+end
+
+function PID(pid, setpoint, actual_position, dt)
+    error=setpoint-actual_position
+    if pid.Ki&gt;0.0 then
+        pid.integral=pid.integral+error*dt
+    end
+    derivative=(error-pid.pre_error)/dt
+    output=pid.Kp*error+saturate(pid.Ki*pid.integral,1000)+pid.Kd*derivative
+    output=saturate(output,2000)
+    pid.pre_error=error
+    return output
+end
+
+if (sim_call_type==sim.syscb_init) then
+    --graph=sim.getObjectHandle('Graph')
+    pjoint=sim.getObjectHandle('pjoint')
+    rjoint1=sim.getObjectHandle('rjoint1')
+    pad=sim.getObjectHandle('pad')
+    pidRot=PID_create(64.05,34.65,0.709)
+    pidPos=PID_create(54,0,0.629)
+    sim.addStatusbarMessage('angle controller = { P='..pidRot.Kp..'  I='..pidRot.Ki..'  D='..pidRot.Kd..' }   horizontal controller = { P='..pidPos.Kp..'  I='..pidPos.Ki..'  D='..pidPos.Kd..' }')
+end
+
+if (sim_call_type==sim.syscb_actuation) then  
+    dt=sim.getSimulationTimeStep()
+    u_angle=PID(pidRot, 0, sim.getJointPosition(rjoint1), dt)
+    u_pos=PID(pidPos, 0, sim.getJointPosition(pjoint), dt)
+   -- sim.setGraphUserData(graph,'e_ang',pid1.pre_error)
+   -- sim.setGraphUserData(graph,'e_pos',pid2.pre_error)
+    u=u_angle-u_pos
+    sim.setJointTargetVelocity(pjoint,u)
+end</pre>
+<p></p><br />Ebooks << <a href='Ebooks.html'>Previous</a> <a href='CMSiMDE.html'>Next</a> >> CMSiMDE</div>
         
     <!-- footer -->
       <div class="container">
