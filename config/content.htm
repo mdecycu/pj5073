@@ -26,13 +26,19 @@
 <p style="padding-left: 30px;">了解機電系統與傳統與現代設計方法, 導入 Sympy 與 <a href="https://github.com/python-control/python-control">https://github.com/python-control/python-control,</a> <a href="/downloads/BookPythonForControl.pdf">2019 Python for Control.pdf</a> 與 <a href="/downloads/SymPy_Symbolic_computing_in_Python.pdf">Symbolic Computing in Python.pdf</a></p>
 <p>3. 學習如何安裝配置 Ubuntu 20.04 實體與虛擬主機, 將 <a href="https://github.com/mdecourse/cmsimde">CMSiMDE</a> 靜態與動態網站分別配置在實體與虛擬伺服器上. 學習如何將動態 Flask 程式部署至 <a href="https://www.heroku.com/">Heroku.</a></p>
 <p>4. 在 Ubuntu 20.04 伺服器上安裝 ubuntu-desktop 與 <a href="https://linuxize.com/post/how-to-install-xrdp-on-ubuntu-20-04/">Xrdp</a>, 安裝 <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a>, 透過 Remote Desktop Client 連至遠端伺服器, 以 interactive 及 <a href="https://www.coppeliarobotics.com/helpFiles/en/commandLine.htm">headless</a> 開啟 <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a> 場景檔案, 進行單機與網際 <a href="https://www.coppeliarobotics.com/helpFiles/en/remoteApiOverview.htm">Python Remote API</a> 模擬控制 <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a> 場景中的機電系統.</p>
-<p>5. 將 <a href="https://github.com/mdecourse/vrep_inverted_pendulum">https://github.com/mdecourse/vrep_inverted_pendulum</a> 改為 Python3 以及 CoppeliaSim 4.1.0 rev1 版本相容. 以下為參考資料:</p>
+<p>5. 將 <a href="https://github.com/mdecourse/vrep_inverted_pendulum">https://github.com/mdecourse/vrep_inverted_pendulum</a> 改為 Python3 以及 CoppeliaSim 4.1.0 rev1 版本 (若要在 Acer E5200 電腦上執行, 必須使用 <a href="https://www.coppeliarobotics.com/previousVersions">V-rep 3.6.1 版</a>) 相容. 以下為參考資料:</p>
 <p style="padding-left: 30px;"><a href="https://github.com/mdecourse/vrep-stuff">https://github.com/mdecourse/vrep-stuff</a></p>
 <p style="padding-left: 30px;"><a href="http://ctms.engin.umich.edu/CTMS/index.php?example=InvertedPendulum&amp;section=SystemModeling">inverted pendulum system modeling</a></p>
 <p style="padding-left: 30px;"><a href="/downloads/simulation of the inverted pendulum.pdf">simulation of the inverted pendulum.pdf</a></p>
 <p style="padding-left: 30px;"><a href="https://ieeexplore.ieee.org/document/8833168">solve the inverted pendulum problem using DQN algorithm</a></p>
 <p style="padding-left: 30px;"><a href="https://in.mathworks.com/help/control/ug/control-of-an-inverted-pendulum-on-a-cart.html">https://in.mathworks.com/help/control/ug/control-of-an-inverted-pendulum-on-a-cart.html</a></p>
-<p style="padding-left: 30px;">其中的機電系統 3D 零組件可以採 <a href="https://docs.plm.automation.siemens.com/tdoc/nx/12/nx_help/#uid:index">NX12</a>, <a href="https://www.onshape.com/">Onshape</a> 或 <a href="http://solvespace.com/index.pl">Solvespace</a> 繪製.</p><h1>Ebooks</h1>
+<p style="padding-left: 30px;">其中的機電系統 3D 零組件可以採 <a href="https://docs.plm.automation.siemens.com/tdoc/nx/12/nx_help/#uid:index">NX12</a>, <a href="https://www.onshape.com/">Onshape</a> 或 <a href="http://solvespace.com/index.pl">Solvespace</a> 繪製.</p><h3>ebook1</h3>
+<p>2010 Feedback and Control for Everyone:</p>
+<p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-642-03446-6">https://link.springer.com/book/10.1007/978-3-642-03446-6</a></p>
+<p>Control and Feedback are everywhere.</p>
+<p>Feedback is information obtained from a system used to change its behavior.</p>
+<p>A system is causal (符合因果關係) when for any signal in the behavior the future cannot influence the past of the signal. Because in our discussions signals are functions of time, causality (因果關係) is an all too natural a property. It is indeed not conceivable that the presently experienced shower temperature could possibly depend on future positions of the water taps. Indeed, our shower is a causal system (因果系統).</p>
+<p></p><h1>Ebooks</h1>
 <p>2010 Feedback and Control for Everyone:</p>
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-642-03446-6">https://link.springer.com/book/10.1007/978-3-642-03446-6</a></p>
 <p>2012 Mechatronic Systems: </p>
@@ -48,11 +54,14 @@
 <p style="padding-left: 30px;">針對 CoppeliaSim 中 Python Remote API 不提供的功能, 可以透過 Lua 製作, 然後再以 <a href="https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction">https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction</a> 呼叫. 相關討論請參考 <a href="https://forum.coppeliarobotics.com/viewtopic.php?t=7699">https://forum.coppeliarobotics.com/viewtopic.php?t=7699</a></p>
 <h4><span style="background-color: #ffff99;">以下的 Inverted Pedulum 控制模擬可以視為專題 Task 之一:</span></h4>
 <p style="padding-left: 30px;"><a href="https://github.com/mdecourse/vrep_inverted_pendulum">https://github.com/mdecourse/vrep_inverted_pendulum</a> 採用舊版的 Python2 以及舊版的 V-rep 製作, 可以嘗試改為 Python3 以及 CoppeliaSim 4.1.0 rev1 版本相容.</p>
-<p style="padding-left: 30px;"><a href="https://github.com/mdecourse/vrep-stuff">https://github.com/mdecourse/vrep-stuff</a> </p>
+<p style="padding-left: 30px;"><a href="https://github.com/mdecourse/vrep-stuff">https://github.com/mdecourse/vrep-stuff</a></p>
 <p style="padding-left: 30px;"><a href="http://ctms.engin.umich.edu/CTMS/index.php?example=InvertedPendulum&amp;section=SystemModeling">inverted pendulum system modeling</a></p>
 <p style="padding-left: 30px;"><a href="/downloads/simulation of the inverted pendulum.pdf">simulation of the inverted pendulum.pdf</a></p>
 <p style="padding-left: 30px;"><a href="https://ieeexplore.ieee.org/document/8833168">solve the inverted pendulum problem using DQN algorithm</a></p>
 <p style="padding-left: 30px;"><a href="https://in.mathworks.com/help/control/ug/control-of-an-inverted-pendulum-on-a-cart.html">https://in.mathworks.com/help/control/ug/control-of-an-inverted-pendulum-on-a-cart.html</a></p>
+<p> 磁浮控制系統:</p>
+<p style="padding-left: 30px;"><a href="/downloads/Experiment_4_magnetic_levitation_control.pdf">Magnetic levitation control.pdf</a></p>
+<p style="padding-left: 30px;"><a href="/downloads/Controller Design for a Magnetic Levitation Kit usingOpenModelica’s Integration with the Julia Language.pdf">Controller Design for a Magnetic Levitation Kit usingOpenModelica’s Integration with the Julia Language.pdf</a></p>
 <p>CoppeliaSim Lua feedback PID Control:</p>
 <pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">function saturate(x,thr)
     if x&gt;thr then return thr end
@@ -122,7 +131,9 @@ end</pre>
 <p><span>在 <a href="https://www.virtualbox.org/">Virtualbox</a> 與實體主機中利用 純 IPv6 網址, 配置 <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a> 模擬系統, 用於建立虛擬機電控制系統.</span></p>
 <p></p><h2>Heorku</h2>
 <p>將近端與自架伺服器中的 <a href="https://github.com/mdecourse/cmsimde">CMSiMDE</a> 靜態網頁部署至 <a href="https://www.heroku.com/">Heroku</a>.</p>
-<p>利用 <a href="https://www.heroku.com/">Heroku</a> 中的動態 Flask 程式與自架伺服器中的 <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a> 模擬系統互動.</p><h2>Certbot</h2>
+<p>利用 <a href="https://www.heroku.com/">Heroku</a> 中的動態 Flask 程式與自架伺服器中的 <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a> 模擬系統互動.</p>
+<h4>Heroku 操作</h4>
+<p>登入 @gm <a href="https://drive.google.com/file/d/1itKaIPSdIRZQ-qiLkUpxEPOLzSpP3eNY/view?usp=sharing">下載 Heroku cli 可攜.7z</a>, 解開壓縮檔案後, 在 start.bat 中將 Heroku bin 設定指令搜尋路徑, 重新啟動後, 以 heroku version 確定指令可以正常執行後, heroku login 成功後, 登入帳號密碼會存入 home/_netrc 中. 之後便可直接透過 heroku cli 指令直接對遠端主機下命令.</p><h2>Certbot</h2>
 <p><a href="https://letsencrypt.org/">https://letsencrypt.org/</a> </p>
 <h4>以下為實體主機配置 Certbot 時傳回資料:</h4>
 <p style="padding-left: 30px;">IMPORTANT NOTES:<br/> - Congratulations! Your certificate and chain have been saved at:<br/>   /etc/letsencrypt/live/jcad.kmol.info/fullchain.pem<br/>   Your key file has been saved at:<br/>   /etc/letsencrypt/live/jcad.kmol.info/privkey.pem<br/>   Your cert will expire on 2020-12-18. To obtain a new or tweaked<br/>   version of this certificate in the future, simply run certbot<br/>   again. To non-interactively renew *all* of your certificates, run<br/>   "certbot renew"<br/> - Your account credentials have been saved in your Certbot<br/>   configuration directory at /etc/letsencrypt. You should make a<br/>   secure backup of this folder now. This configuration directory will<br/>   also contain certificates and private keys obtained by Certbot so<br/>   making regular backups of this folder is ideal.</p>

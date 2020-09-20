@@ -123,7 +123,7 @@ if ((location.href.search(/http:/) != -1) && (location.href.search(/login/) != -
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li class='has-children'><a href='About.html'>About</a><ul class='dropdown'><li><a href='進行步驟.html'>進行步驟</a></li></ul><li><a href='Ebooks.html'>Ebooks</a><li><a href='Feedback.html'>Feedback</a><li class='has-children'><a href='CMSiMDE.html'>CMSiMDE</a><ul class='dropdown'><li><a href='Git.html'>Git</a><li><a href='Windows.html'>Windows</a><li><a href='Ubuntu.html'>Ubuntu</a><li><a href='Heorku.html'>Heorku</a><li><a href='Certbot.html'>Certbot</a></li>
+                     <li class='has-children'><a href='About.html'>About</a><ul class='dropdown'><li class='has-children'><a href='進行步驟.html'>進行步驟</a><ul class='dropdown'><li><a href='ebook1.html'>ebook1</a></li></li></ul></ul><li><a href='Ebooks.html'>Ebooks</a><li><a href='Feedback.html'>Feedback</a><li class='has-children'><a href='CMSiMDE.html'>CMSiMDE</a><ul class='dropdown'><li><a href='Git.html'>Git</a><li><a href='Windows.html'>Windows</a><li><a href='Ubuntu.html'>Ubuntu</a><li><a href='Heorku.html'>Heorku</a><li><a href='Certbot.html'>Certbot</a></li>
                       </ul>
                 </nav>
               </div>
@@ -136,7 +136,9 @@ if ((location.href.search(/http:/) != -1) && (location.href.search(/login/) != -
         </header>
     <div id="tipue_search_content">Ubuntu << <a href='Ubuntu.html'>Previous</a> <a href='Certbot.html'>Next</a> >> Certbot<br /><h1>Heorku</h1>
 <p>將近端與自架伺服器中的 <a href="https://github.com/mdecourse/cmsimde">CMSiMDE</a> 靜態網頁部署至 <a href="https://www.heroku.com/">Heroku</a>.</p>
-<p>利用 <a href="https://www.heroku.com/">Heroku</a> 中的動態 Flask 程式與自架伺服器中的 <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a> 模擬系統互動.</p><br />Ubuntu << <a href='Ubuntu.html'>Previous</a> <a href='Certbot.html'>Next</a> >> Certbot</div>
+<p>利用 <a href="https://www.heroku.com/">Heroku</a> 中的動態 Flask 程式與自架伺服器中的 <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a> 模擬系統互動.</p>
+<h4>Heroku 操作</h4>
+<p>登入 @gm <a href="https://drive.google.com/file/d/1itKaIPSdIRZQ-qiLkUpxEPOLzSpP3eNY/view?usp=sharing">下載 Heroku cli 可攜.7z</a>, 解開壓縮檔案後, 在 start.bat 中將 Heroku bin 設定指令搜尋路徑, 重新啟動後, 以 heroku version 確定指令可以正常執行後, heroku login 成功後, 登入帳號密碼會存入 home/_netrc 中. 之後便可直接透過 heroku cli 指令直接對遠端主機下命令.</p><br />Ubuntu << <a href='Ubuntu.html'>Previous</a> <a href='Certbot.html'>Next</a> >> Certbot</div>
         
     <!-- footer -->
       <div class="container">
