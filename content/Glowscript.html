@@ -133,19 +133,37 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">Glowscript << <a href='Glowscript.html'>Previous</a> <a href='Feedback.html'>Next</a> >> Feedback<br /><h1>Ebooks</h1>
-<p>2010 Feedback and Control for Everyone:</p>
-<p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-642-03446-6">https://link.springer.com/book/10.1007/978-3-642-03446-6</a></p>
-<p>2012 Mechatronic Systems: </p>
-<p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-642-22324-2">https://link.springer.com/book/10.1007/978-3-642-22324-2</a> </p>
-<p>2015 Feedback Control:</p>
-<p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-1-4471-6675-7">https://link.springer.com/book/10.1007/978-1-4471-6675-7</a></p>
-<p>2018 Reinforcement Learning for Optimal Feedback Control:</p>
-<p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-319-78384-0">https://link.springer.com/book/10.1007/978-3-319-78384-0</a> </p>
-<p><a href="./../downloads/BookPythonForControl.pdf">2019 Python for Control.pdf</a></p>
-<p>2020 Feedback:</p>
-<p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-030-34839-7">https://link.springer.com/book/10.1007/978-3-030-34839-7</a> </p>
-<p></p><br />Glowscript << <a href='Glowscript.html'>Previous</a> <a href='Feedback.html'>Next</a> >> Feedback</div>
+    <div id="tipue_search_content">ebook1 << <a href='ebook1.html'>Previous</a> <a href='Ebooks.html'>Next</a> >> Ebooks<br /><h1>Glowscript</h1>
+<p><a href="https://www.glowscript.org/">https://www.glowscript.org/</a> </p>
+<p><a href="https://github.com/vpython/glowscript">https://github.com/vpython/glowscript</a> </p>
+<p><a href="https://github.com/atsepkov/RapydScript">https://github.com/atsepkov/RapydScript</a> </p>
+<p><a href="https://bphilhour.trinket.io/physics-through-glowscript-an-introductory-course#/1-introduction-objects-parameters-and-the-3d-environment/welcome-and-introduction">Examples</a></p>
+<div class="glowscript" id="glowscript">
+<script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js" type="text/javascript"></script>
+<script src="https://s3.amazonaws.com/glowscript/package/glow.3.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }
+async function __main__() { // async wrapper permits use of await outside your own functions
+
+var vector = vec // optional: makes vector a synonym of the fundamental vec
+let scene = canvas()
+let b = box({color:color.cyan})
+async function f(obj) { // needs async because f() contains an await
+    let t = clock()
+    while (true) {
+        await rate(100)
+        obj.rotate({angle:0.01, axis:vec(0,1,0)})
+         // rotate forever
+        //if (clock()-t > 3) break
+    }
+    return 25
+}
+let x = await f(b) // needs await (inside async __main__) because f() contains an await
+//print(x)
+} // end of __main__ wrapper
+__main__()
+</script>
+</div><br />ebook1 << <a href='ebook1.html'>Previous</a> <a href='Ebooks.html'>Next</a> >> Ebooks</div>
         
     <!-- footer -->
       <div class="container">

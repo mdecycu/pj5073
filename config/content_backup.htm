@@ -4,18 +4,19 @@
 <h4>A Case Study on the Design of Web-based Mechatronic Automatic Control System</h4>
 <h4>Members:</h4>
 <p style="padding-left: 30px;">50733105</p>
+<p style="padding-left: 30px;">50733144</p>
+<p style="padding-left: 30px;">50733146</p>
 <p style="padding-left: 30px;">50733152</p>
-<p style="padding-left: 30px;">507331</p>
-<p style="padding-left: 30px;">507331</p>
 <h4>Methodology:</h4>
 <ul>
 <li>Use <a href="https://docs.plm.automation.siemens.com/tdoc/nx/12/nx_help/#uid:index">NX12</a>, <a href="https://www.onshape.com/">Onshape</a> and <a href="http://solvespace.com/index.pl">Solvespace</a> to create system part assembly</li>
-<li><a href="https://en.wikipedia.org/wiki/STL_(file_format)">STL</a> to <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a></li>
+<li><a href="https://en.wikipedia.org/wiki/STL_(file_format)">STL</a> to <a href="https://cyberbotics.com/">Webots</a> 或 <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a></li>
 <li>Classic Control to Modern Control system design</li>
 <li>Flask + uwsgi on Ubuntu and Windows 10 2004</li>
 <li>Machine Learning and Optimal Control System Design</li>
 </ul>
-<h2>進行步驟</h2>
+<p>Webots Inverted Pendulum:</p>
+<p style="padding-left: 30px;"><a href="https://robotbenchmark.net/benchmark/inverted_pendulum/">https://robotbenchmark.net/benchmark/inverted_pendulum/</a> </p><h2>進行步驟</h2>
 <p>1. 閱讀</p>
 <p style="padding-left: 30px;">2010 Feedback and Control for Everyone:</p>
 <p style="padding-left: 60px;"><a href="https://link.springer.com/book/10.1007/978-3-642-03446-6">https://link.springer.com/book/10.1007/978-3-642-03446-6</a></p>
@@ -38,7 +39,36 @@
 <p>Control and Feedback are everywhere.</p>
 <p>Feedback is information obtained from a system used to change its behavior.</p>
 <p>A system is causal (符合因果關係) when for any signal in the behavior the future cannot influence the past of the signal. Because in our discussions signals are functions of time, causality (因果關係) is an all too natural a property. It is indeed not conceivable that the presently experienced shower temperature could possibly depend on future positions of the water taps. Indeed, our shower is a causal system (因果系統).</p>
-<p></p><h1>Ebooks</h1>
+<p></p><h1>Glowscript</h1>
+<p><a href="https://www.glowscript.org/">https://www.glowscript.org/</a> </p>
+<p><a href="https://github.com/vpython/glowscript">https://github.com/vpython/glowscript</a> </p>
+<p><a href="https://github.com/atsepkov/RapydScript">https://github.com/atsepkov/RapydScript</a> </p>
+<p><a href="https://bphilhour.trinket.io/physics-through-glowscript-an-introductory-course#/1-introduction-objects-parameters-and-the-3d-environment/welcome-and-introduction">Examples</a></p>
+<div class="glowscript" id="glowscript">
+<script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js" type="text/javascript"></script>
+<script src="https://s3.amazonaws.com/glowscript/package/glow.3.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }
+async function __main__() { // async wrapper permits use of await outside your own functions
+
+var vector = vec // optional: makes vector a synonym of the fundamental vec
+let scene = canvas()
+let b = box({color:color.cyan})
+async function f(obj) { // needs async because f() contains an await
+    let t = clock()
+    while (true) {
+        await rate(100)
+        obj.rotate({angle:0.01, axis:vec(0,1,0)})
+        if (clock()-t > 3) break
+    }
+    return 25
+}
+let x = await f(b) // needs await (inside async __main__) because f() contains an await
+//print(x)
+} // end of __main__ wrapper
+__main__()
+</script>
+</div><h1>Ebooks</h1>
 <p>2010 Feedback and Control for Everyone:</p>
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-642-03446-6">https://link.springer.com/book/10.1007/978-3-642-03446-6</a></p>
 <p>2012 Mechatronic Systems: </p>
@@ -54,6 +84,8 @@
 <p style="padding-left: 30px;">針對 CoppeliaSim 中 Python Remote API 不提供的功能, 可以透過 Lua 製作, 然後再以 <a href="https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction">https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction</a> 呼叫. 相關討論請參考 <a href="https://forum.coppeliarobotics.com/viewtopic.php?t=7699">https://forum.coppeliarobotics.com/viewtopic.php?t=7699</a></p>
 <h4><span style="background-color: #ffff99;">以下的 Inverted Pedulum 控制模擬可以視為專題 Task 之一:</span></h4>
 <p style="padding-left: 30px;"><a href="https://github.com/mdecourse/vrep_inverted_pendulum">https://github.com/mdecourse/vrep_inverted_pendulum</a> 採用舊版的 Python2 以及舊版的 V-rep 製作, 可以嘗試改為 Python3 以及 CoppeliaSim 4.1.0 rev1 版本相容.</p>
+<p style="padding-left: 30px;">Webots Inverted Pendulum:</p>
+<p style="padding-left: 60px;"><a href="https://robotbenchmark.net/benchmark/inverted_pendulum/">https://robotbenchmark.net/benchmark/inverted_pendulum/</a> </p>
 <p style="padding-left: 30px;"><a href="https://github.com/mdecourse/vrep-stuff">https://github.com/mdecourse/vrep-stuff</a></p>
 <p style="padding-left: 30px;"><a href="http://ctms.engin.umich.edu/CTMS/index.php?example=InvertedPendulum&amp;section=SystemModeling">inverted pendulum system modeling</a></p>
 <p style="padding-left: 30px;"><a href="/downloads/simulation of the inverted pendulum.pdf">simulation of the inverted pendulum.pdf</a></p>
