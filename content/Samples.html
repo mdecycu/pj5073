@@ -88,6 +88,7 @@ img.add_border {
 if ((location.href.search(/http:/) != -1) && (location.href.search(/login/) != -1)) window.location= 'https://' + location.host + location.pathname + location.search;
 </script></head><body>
 <div class='container'><nav>
+        
     <div class="site-wrap">
 
     <div class="site-mobile-menu">
@@ -133,4 +134,181 @@ if ((location.href.search(/http:/) != -1) && (location.href.search(/login/) != -
           </div>
           
         </header>
-    </nav><section><h1>Site Map</h1><div id="tipue_search_content"></div><ul><li><a href='About.html'>About</a><ul><li><a href='進行步驟.html'>進行步驟</a><ul><li><a href='ebook1.html'>ebook1</a></li></li></ul></ul><li><a href='Bond Graphs.html'>Bond Graphs</a><li><a href='Glowscript.html'>Glowscript</a><ul><li><a href='Atoms.html'>Atoms</a><li><a href='Samples.html'>Samples</a><li><a href='RLearning.html'>RLearning</a></li></ul><li><a href='Ebooks.html'>Ebooks</a><li><a href='Feedback.html'>Feedback</a><li><a href='CMSiMDE.html'>CMSiMDE</a><ul><li><a href='Git.html'>Git</a><li><a href='Windows.html'>Windows</a><li><a href='Ubuntu.html'>Ubuntu</a><li><a href='Heorku.html'>Heorku</a><li><a href='Certbot.html'>Certbot</a></li></ul></section></div></body></html>
+    <div id="tipue_search_content">Atoms << <a href='Atoms.html'>Previous</a> <a href='RLearning.html'>Next</a> >> RLearning<br /><h1>Samples</h1>
+<div class="glowscript" id="glowscript">
+<script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js" type="text/javascript"></script>
+<script src="https://s3.amazonaws.com/glowscript/package/glow.3.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+//--><![CDATA[//><!--
+
+// START JAVASCRIPT
+;(function() {;
+async function __main__() {
+"use strict";
+
+var version = ["3.0", "glowscript"];
+Array.prototype.toString = function() { return __parsearray(this) };
+var scene = canvas();
+var vector = vec;
+
+scene.title = "A ball bounces in a box"
+/*
+var s = 'To rotate "camera", drag with right button or Ctrl-drag.<br>'
+s=s["+"]("To zoom, drag with middle button or Alt/Option depressed, or use scroll wheel.<br>")
+s=s["+"]("  On a two-button mouse, middle is left + right.<br>")
+s=s["+"]("To pan left/right and up/down, Shift-drag.<br>")
+s=s["+"]("Touch screen: pinch/extend to zoom, swipe or two-finger rotate.<br>")
+scene.caption = s
+*/
+var side = 4.0
+var thk = 0.3
+var s2 = 2["*"](side)["-"](thk)
+var s3 = 2["*"](side)["+"](thk)
+var wallR = box ( {pos:vec( side, 0, 0), size:vec(thk,s2,s3),  color : color.red} )
+var wallL = box ( {pos:vec(side["-u"](), 0, 0), size:vec(thk,s2,s3),  color : color.red} )
+var wallB = box ( {pos:vec(0, side["-u"](), 0), size:vec(s3,thk,s3),  color : color.blue} )
+var wallT = box ( {pos:vec(0,  side, 0), size:vec(s3,thk,s3),  color : color.blue} )
+var wallBK = box( {pos:vec(0, 0, side["-u"]()), size:vec(s2,s2,thk), color : color.gray(0.7)} )
+
+var ball = sphere ( {color : color.green, size : 0.8["*"](vec(1,1,1))} )
+ball.mass = 1.0
+ball.p = vec (0.15["-u"](), 0.23["-u"](), 0.27)
+attach_trail(ball, {pps:200, retain:100, color:ball.color})
+
+side = side["-"](thk["*"](0.5))["-"](ball.size.x["/"](2))
+var dt = 0.3
+
+while ( true) { 
+  // The rate statement tells GlowScript to execute the while statements
+  // about 200 times per second. The "wait" keyword is necessary to permit
+  // periodic updates to the window.
+  await rate(200)
+  ball.pos = ball.pos["+"](ball.p["/"](ball.mass)["*"](dt))
+  if (! (side["-u"]()["<"](ball.pos.x) && ball.pos.x["<"](side))) { 
+    ball.p.x = ball.p.x["-u"]()
+  }
+  if (! (side["-u"]()["<"](ball.pos.y) && ball.pos.y["<"](side))) { 
+    ball.p.y = ball.p.y["-u"]()
+  }
+  if (! (side["-u"]()["<"](ball.pos.z) && ball.pos.z["<"](side))) { 
+    ball.p.z = ball.p.z["-u"]()
+  }
+}
+
+}
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+// END JAVASCRIPT
+//--><!
+</script>
+</div>
+<p>Source Codes:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;div class="glowscript" id="glowscript"&gt;
+&lt;script type="text/javascript" src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://s3.amazonaws.com/glowscript/package/glow.3.0.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+
+// START JAVASCRIPT
+;(function() {;
+async function __main__() {
+"use strict";
+
+var version = ["3.0", "glowscript"];
+Array.prototype.toString = function() { return __parsearray(this) };
+var scene = canvas();
+var vector = vec;
+
+scene.title = "A ball bounces in a box"
+
+var side = 4.0
+var thk = 0.3
+var s2 = 2["*"](side)["-"](thk)
+var s3 = 2["*"](side)["+"](thk)
+var wallR = box ( {pos:vec( side, 0, 0), size:vec(thk,s2,s3),  color : color.red} )
+var wallL = box ( {pos:vec(side["-u"](), 0, 0), size:vec(thk,s2,s3),  color : color.red} )
+var wallB = box ( {pos:vec(0, side["-u"](), 0), size:vec(s3,thk,s3),  color : color.blue} )
+var wallT = box ( {pos:vec(0,  side, 0), size:vec(s3,thk,s3),  color : color.blue} )
+var wallBK = box( {pos:vec(0, 0, side["-u"]()), size:vec(s2,s2,thk), color : color.gray(0.7)} )
+
+var ball = sphere ( {color : color.green, size : 0.8["*"](vec(1,1,1))} )
+ball.mass = 1.0
+ball.p = vec (0.15["-u"](), 0.23["-u"](), 0.27)
+attach_trail(ball, {pps:200, retain:100, color:ball.color})
+
+side = side["-"](thk["*"](0.5))["-"](ball.size.x["/"](2))
+var dt = 0.3
+
+while ( true) { 
+  // The rate statement tells GlowScript to execute the while statements
+  // about 200 times per second. The "wait" keyword is necessary to permit
+  // periodic updates to the window.
+  await rate(200)
+  ball.pos = ball.pos["+"](ball.p["/"](ball.mass)["*"](dt))
+  if (! (side["-u"]()["&lt;"](ball.pos.x) &amp;&amp; ball.pos.x["&lt;"](side))) { 
+    ball.p.x = ball.p.x["-u"]()
+  }
+  if (! (side["-u"]()["&lt;"](ball.pos.y) &amp;&amp; ball.pos.y["&lt;"](side))) { 
+    ball.p.y = ball.p.y["-u"]()
+  }
+  if (! (side["-u"]()["&lt;"](ball.pos.z) &amp;&amp; ball.pos.z["&lt;"](side))) { 
+    ball.p.z = ball.p.z["-u"]()
+  }
+}
+
+}
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+// END JAVASCRIPT
+&lt;/script&gt;
+&lt;/div&gt;</pre>
+<p></p><br />Atoms << <a href='Atoms.html'>Previous</a> <a href='RLearning.html'>Next</a> >> RLearning</div>
+        
+    <!-- footer -->
+      <div class="container">
+        <div class="row pt-3 mx-auto">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+        </div>
+      </div>
+    <!-- for footer -->
+    
+        </div> <!-- for site wrap -->
+            <!-- <script src="../cmsimde/static/chimper/js/jquery-3.3.1.min.js"></script> -->
+            <script src="../cmsimde/static/chimper/js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery-ui.js"></script>
+            <script src="../cmsimde/static/chimper/js/popper.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/bootstrap.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/owl.carousel.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.stellar.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.countdown.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.magnific-popup.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/bootstrap-datepicker.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/aos.js"></script>
+            <!--
+            <script src="../cmsimde/static/chimper/js/typed.js"></script>
+                    <script>
+                    var typed = new Typed('.typed-words', {
+                    strings: ["Web Apps"," WordPress"," Mobile Apps"],
+                    typeSpeed: 80,
+                    backSpeed: 80,
+                    backDelay: 4000,
+                    startDelay: 1000,
+                    loop: true,
+                    showCursor: true
+                    });
+                    </script>
+            -->
+            <script src="../cmsimde/static/chimper/js/main.js"></script>
+        
+<!-- 啟用 LaTeX equations 編輯 -->
+  <!-- <script>
+  MathJax = {
+    tex: {inlineMath: [['$', '$'], ['\(', '\)']]}
+  };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>-->
+    </body></html>
+        

@@ -75,6 +75,1295 @@ let x = await f(b) // needs await (inside async __main__) because f() contains a
 } // end of __main__ wrapper
 __main__()
 </script>
+</div>
+<h2>Atoms</h2>
+<div class="glowscript" id="glowscript">
+<script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js" type="text/javascript"></script>
+<script src="https://s3.amazonaws.com/glowscript/package/glow.3.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+//--><![CDATA[//><!--
+
+// START JAVASCRIPT
+;(function() {;
+async function __main__() {
+"use strict";
+
+var version = ["3.0", "glowscript"];
+Array.prototype.toString = function() { return __parsearray(this) };
+var scene = canvas();
+var vector = vec;
+var axes = [vec(1,0,0), vec(0,1,0), vec(0,0,1)]
+
+var k = 1
+var m = 1
+var spacing = 1.0
+var atom_radius = 0.3["*"](spacing)
+var L0 = spacing["-"](1.8["*"](atom_radius))
+var V0 = pi["*"](pow(0.5["*"](atom_radius),2))["*"](L0) // initial volume of spring
+var N = 3
+var crystal = makeCrystal(N, atom_radius, spacing, 0.1["*"](spacing)["*"](sqrt(k["/"](m))))
+scene.center = 0.5["*"](N["-"](1))["*"](vec(1,1,1))
+scene.autoscale = false
+var dt = 0.04["*"](2["*"](pi)["*"](sqrt(m["/"](k))))
+
+// Display text below the 3D graphics:
+scene.title = "A model of a solid represented as atoms connected by interatomic bonds"
+
+function makeCrystal( N, atom_radius, spacing, momentumRange ) {
+    var crystal = { atoms:[], springs:[] }
+    var atom
+    var x,y,z
+
+    function atomAt(np) {
+        if (np.x[">="](0) && np.y[">="](0) && np.z[">="](0) && np.x["<"](N) && np.y["<"](N) && np.z["<"](N))
+            return crystal.atoms[np.x["+"](np.y["*"](N))["+"](np.z["*"](N)["*"](N))]
+        // Otherwise create an invisible wall and return it
+        var w = box()
+        w.visible = false  // comment out to see the true model
+        w.size = atom_radius["*"](vec(1,1,1))
+        w.pos = np["*"](spacing)
+        w.momentum = vec(0,0,0)
+        return w
+    }
+
+    // Create N^3 atoms in a grid
+    for(z=0; z["<"](N); z++)
+        for(y=0; y["<"](N); y++)
+            for(x=0; x["<"](N); x++) {
+                atom = sphere()
+                atom.pos = vec(x,y,z)["*"](spacing)
+                atom.size = 2["*"](atom_radius)["*"](vec(1,1,1))
+                atom.color = vec(0,0.58,0.69)
+                atom.momentum = momentumRange["*"](vec.random())
+                crystal.atoms.push( atom )
+            }
+    
+    // Create a grid of springs linking each atom to the adjacent atoms
+    // in each dimension, or to invisible walls where no atom is adjacent
+    for(var d=0; d["<"](3); d++)
+        for(z=1["-u"](); z["<"](N); z++)
+            for(y=1["-u"](); y["<"](N); y++)
+                for(x=1["-u"](); x["<"](N); x++) {
+                    atom = atomAt(vec(x,y,z))
+                    var neighbor = atomAt(vec(x,y,z)["+"](axes[d]))
+
+                    if (atom.visible || neighbor.visible) {
+                        var spring = helix()
+                        spring.visible = atom.visible && neighbor.visible
+                        spring.thickness = 0.05
+                        spring.size = vec(spacing,atom_radius,atom_radius)
+                        spring.atoms = [ atom, neighbor ]
+                        spring.color = vec(1,0.5,0)
+                        crystal.springs.push(spring)
+                    }
+                }
+    return crystal
+}
+
+while (true) {
+    await rate(60)
+    for(var a=0; a["<"](crystal.atoms.length); a++) {
+        var atom = crystal.atoms[a]
+        atom.pos = atom.pos["+"](atom.momentum["/"](m)["*"](dt))
+    }
+    for(var s=0; s["<"](crystal.springs.length); s++) {
+        var spring = crystal.springs[s]
+        spring.axis = spring.atoms[1].pos["-"](spring.atoms[0].pos)
+        var L = mag(spring.axis)
+        spring.axis = spring.axis.norm()
+        spring.pos = spring.atoms[0].pos["+"](0.5["*"](atom_radius)["*"](spring.axis))
+        var Ls = L["-"](1["*"](atom_radius))
+        spring.size.x = Ls
+        var Fdt = spring.axis["*"](k["*"](dt)["*"](1["-"](spacing["/"](L))))
+        spring.atoms[0].momentum = spring.atoms[0].momentum["+"](Fdt)
+        spring.atoms[1].momentum = spring.atoms[1].momentum["-"](Fdt)
+    }
+}
+
+}
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+// END JAVASCRIPT
+
+//--><!
+</script>
+</div>
+<p>Source Codes:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;div class="glowscript" id="glowscript"&gt;
+&lt;script type="text/javascript" src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://s3.amazonaws.com/glowscript/package/glow.3.0.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;// &lt;![CDATA[
+//--&gt;&lt;![CDATA[//&gt;&lt;!--
+
+// START JAVASCRIPT
+;(function() {;
+async function __main__() {
+"use strict";
+
+var version = ["3.0", "glowscript"];
+Array.prototype.toString = function() { return __parsearray(this) };
+var scene = canvas();
+var vector = vec;
+var axes = [vec(1,0,0), vec(0,1,0), vec(0,0,1)]
+
+var k = 1
+var m = 1
+var spacing = 1.0
+var atom_radius = 0.3["*"](spacing)
+var L0 = spacing["-"](1.8["*"](atom_radius))
+var V0 = pi["*"](pow(0.5["*"](atom_radius),2))["*"](L0) // initial volume of spring
+var N = 3
+var crystal = makeCrystal(N, atom_radius, spacing, 0.1["*"](spacing)["*"](sqrt(k["/"](m))))
+scene.center = 0.5["*"](N["-"](1))["*"](vec(1,1,1))
+scene.autoscale = false
+var dt = 0.04["*"](2["*"](pi)["*"](sqrt(m["/"](k))))
+
+// Display text below the 3D graphics:
+scene.title = "A model of a solid represented as atoms connected by interatomic bonds"
+
+function makeCrystal( N, atom_radius, spacing, momentumRange ) {
+    var crystal = { atoms:[], springs:[] }
+    var atom
+    var x,y,z
+
+    function atomAt(np) {
+        if (np.x["&gt;="](0) &amp;&amp; np.y["&gt;="](0) &amp;&amp; np.z["&gt;="](0) &amp;&amp; np.x["&lt;"](N) &amp;&amp; np.y["&lt;"](N) &amp;&amp; np.z["&lt;"](N))
+            return crystal.atoms[np.x["+"](np.y["*"](N))["+"](np.z["*"](N)["*"](N))]
+        // Otherwise create an invisible wall and return it
+        var w = box()
+        w.visible = false  // comment out to see the true model
+        w.size = atom_radius["*"](vec(1,1,1))
+        w.pos = np["*"](spacing)
+        w.momentum = vec(0,0,0)
+        return w
+    }
+
+    // Create N^3 atoms in a grid
+    for(z=0; z["&lt;"](N); z++)
+        for(y=0; y["&lt;"](N); y++)
+            for(x=0; x["&lt;"](N); x++) {
+                atom = sphere()
+                atom.pos = vec(x,y,z)["*"](spacing)
+                atom.size = 2["*"](atom_radius)["*"](vec(1,1,1))
+                atom.color = vec(0,0.58,0.69)
+                atom.momentum = momentumRange["*"](vec.random())
+                crystal.atoms.push( atom )
+            }
+    
+    // Create a grid of springs linking each atom to the adjacent atoms
+    // in each dimension, or to invisible walls where no atom is adjacent
+    for(var d=0; d["&lt;"](3); d++)
+        for(z=1["-u"](); z["&lt;"](N); z++)
+            for(y=1["-u"](); y["&lt;"](N); y++)
+                for(x=1["-u"](); x["&lt;"](N); x++) {
+                    atom = atomAt(vec(x,y,z))
+                    var neighbor = atomAt(vec(x,y,z)["+"](axes[d]))
+
+                    if (atom.visible || neighbor.visible) {
+                        var spring = helix()
+                        spring.visible = atom.visible &amp;&amp; neighbor.visible
+                        spring.thickness = 0.05
+                        spring.size = vec(spacing,atom_radius,atom_radius)
+                        spring.atoms = [ atom, neighbor ]
+                        spring.color = vec(1,0.5,0)
+                        crystal.springs.push(spring)
+                    }
+                }
+    return crystal
+}
+
+while (true) {
+    await rate(60)
+    for(var a=0; a["&lt;"](crystal.atoms.length); a++) {
+        var atom = crystal.atoms[a]
+        atom.pos = atom.pos["+"](atom.momentum["/"](m)["*"](dt))
+    }
+    for(var s=0; s["&lt;"](crystal.springs.length); s++) {
+        var spring = crystal.springs[s]
+        spring.axis = spring.atoms[1].pos["-"](spring.atoms[0].pos)
+        var L = mag(spring.axis)
+        spring.axis = spring.axis.norm()
+        spring.pos = spring.atoms[0].pos["+"](0.5["*"](atom_radius)["*"](spring.axis))
+        var Ls = L["-"](1["*"](atom_radius))
+        spring.size.x = Ls
+        var Fdt = spring.axis["*"](k["*"](dt)["*"](1["-"](spacing["/"](L))))
+        spring.atoms[0].momentum = spring.atoms[0].momentum["+"](Fdt)
+        spring.atoms[1].momentum = spring.atoms[1].momentum["-"](Fdt)
+    }
+}
+
+}
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+// END JAVASCRIPT
+
+//--&gt;&lt;!
+// ]]&gt;&lt;/script&gt;
+&lt;/div&gt;</pre>
+<p></p><h2>Samples</h2>
+<div class="glowscript" id="glowscript">
+<script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js" type="text/javascript"></script>
+<script src="https://s3.amazonaws.com/glowscript/package/glow.3.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+//--><![CDATA[//><!--
+
+// START JAVASCRIPT
+;(function() {;
+async function __main__() {
+"use strict";
+
+var version = ["3.0", "glowscript"];
+Array.prototype.toString = function() { return __parsearray(this) };
+var scene = canvas();
+var vector = vec;
+
+scene.title = "A ball bounces in a box"
+/*
+var s = 'To rotate "camera", drag with right button or Ctrl-drag.<br>'
+s=s["+"]("To zoom, drag with middle button or Alt/Option depressed, or use scroll wheel.<br>")
+s=s["+"]("  On a two-button mouse, middle is left + right.<br>")
+s=s["+"]("To pan left/right and up/down, Shift-drag.<br>")
+s=s["+"]("Touch screen: pinch/extend to zoom, swipe or two-finger rotate.<br>")
+scene.caption = s
+*/
+var side = 4.0
+var thk = 0.3
+var s2 = 2["*"](side)["-"](thk)
+var s3 = 2["*"](side)["+"](thk)
+var wallR = box ( {pos:vec( side, 0, 0), size:vec(thk,s2,s3),  color : color.red} )
+var wallL = box ( {pos:vec(side["-u"](), 0, 0), size:vec(thk,s2,s3),  color : color.red} )
+var wallB = box ( {pos:vec(0, side["-u"](), 0), size:vec(s3,thk,s3),  color : color.blue} )
+var wallT = box ( {pos:vec(0,  side, 0), size:vec(s3,thk,s3),  color : color.blue} )
+var wallBK = box( {pos:vec(0, 0, side["-u"]()), size:vec(s2,s2,thk), color : color.gray(0.7)} )
+
+var ball = sphere ( {color : color.green, size : 0.8["*"](vec(1,1,1))} )
+ball.mass = 1.0
+ball.p = vec (0.15["-u"](), 0.23["-u"](), 0.27)
+attach_trail(ball, {pps:200, retain:100, color:ball.color})
+
+side = side["-"](thk["*"](0.5))["-"](ball.size.x["/"](2))
+var dt = 0.3
+
+while ( true) { 
+  // The rate statement tells GlowScript to execute the while statements
+  // about 200 times per second. The "wait" keyword is necessary to permit
+  // periodic updates to the window.
+  await rate(200)
+  ball.pos = ball.pos["+"](ball.p["/"](ball.mass)["*"](dt))
+  if (! (side["-u"]()["<"](ball.pos.x) && ball.pos.x["<"](side))) { 
+    ball.p.x = ball.p.x["-u"]()
+  }
+  if (! (side["-u"]()["<"](ball.pos.y) && ball.pos.y["<"](side))) { 
+    ball.p.y = ball.p.y["-u"]()
+  }
+  if (! (side["-u"]()["<"](ball.pos.z) && ball.pos.z["<"](side))) { 
+    ball.p.z = ball.p.z["-u"]()
+  }
+}
+
+}
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+// END JAVASCRIPT
+//--><!
+</script>
+</div>
+<p>Source Codes:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;div class="glowscript" id="glowscript"&gt;
+&lt;script type="text/javascript" src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://s3.amazonaws.com/glowscript/package/glow.3.0.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+
+// START JAVASCRIPT
+;(function() {;
+async function __main__() {
+"use strict";
+
+var version = ["3.0", "glowscript"];
+Array.prototype.toString = function() { return __parsearray(this) };
+var scene = canvas();
+var vector = vec;
+
+scene.title = "A ball bounces in a box"
+
+var side = 4.0
+var thk = 0.3
+var s2 = 2["*"](side)["-"](thk)
+var s3 = 2["*"](side)["+"](thk)
+var wallR = box ( {pos:vec( side, 0, 0), size:vec(thk,s2,s3),  color : color.red} )
+var wallL = box ( {pos:vec(side["-u"](), 0, 0), size:vec(thk,s2,s3),  color : color.red} )
+var wallB = box ( {pos:vec(0, side["-u"](), 0), size:vec(s3,thk,s3),  color : color.blue} )
+var wallT = box ( {pos:vec(0,  side, 0), size:vec(s3,thk,s3),  color : color.blue} )
+var wallBK = box( {pos:vec(0, 0, side["-u"]()), size:vec(s2,s2,thk), color : color.gray(0.7)} )
+
+var ball = sphere ( {color : color.green, size : 0.8["*"](vec(1,1,1))} )
+ball.mass = 1.0
+ball.p = vec (0.15["-u"](), 0.23["-u"](), 0.27)
+attach_trail(ball, {pps:200, retain:100, color:ball.color})
+
+side = side["-"](thk["*"](0.5))["-"](ball.size.x["/"](2))
+var dt = 0.3
+
+while ( true) { 
+  // The rate statement tells GlowScript to execute the while statements
+  // about 200 times per second. The "wait" keyword is necessary to permit
+  // periodic updates to the window.
+  await rate(200)
+  ball.pos = ball.pos["+"](ball.p["/"](ball.mass)["*"](dt))
+  if (! (side["-u"]()["&lt;"](ball.pos.x) &amp;&amp; ball.pos.x["&lt;"](side))) { 
+    ball.p.x = ball.p.x["-u"]()
+  }
+  if (! (side["-u"]()["&lt;"](ball.pos.y) &amp;&amp; ball.pos.y["&lt;"](side))) { 
+    ball.p.y = ball.p.y["-u"]()
+  }
+  if (! (side["-u"]()["&lt;"](ball.pos.z) &amp;&amp; ball.pos.z["&lt;"](side))) { 
+    ball.p.z = ball.p.z["-u"]()
+  }
+}
+
+}
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+// END JAVASCRIPT
+&lt;/script&gt;
+&lt;/div&gt;</pre>
+<p></p><h2>RLearning</h2>
+<p>Train a model to balance a pole on a cart using reinforcement learning.</p>
+<p>Description</p>
+<p>This example illustrates how to use TensorFlow.js to perform simple <a href="https://en.wikipedia.org/wiki/Reinforcement_learning">reinforcement learning</a> (RL). Specifically, it showcases an implementation of the policy-gradient method in TensorFlow.js. This implementation is used to solve the classic <a href="https://en.wikipedia.org/wiki/Inverted_pendulum">cart-pole control problem.</a></p>
+<p>Through <span>self play</span> the agent will learn to balance the pole for as many <span>steps</span> as it can.</p>
+<p>Instructions</p>
+<p></p>
+<ul>
+<li>Choose a hidden layer size and click "Create Model".</li>
+<li>Select training parameters and then click "Train".</li>
+<li>Note that while the model is training it periodically saves a copy of itself to local browser storage, this mean you can refresh the page and continue training from the last save point. If at any point you want to start training from scratch, click "Delete stored Model".</li>
+<li>Once the model has finished training you can click "Test" to see how many 'steps' the agent can balance the pole for. You can also click 'Stop' to pause the training after the current iteration ends if you want to test the model sooner.</li>
+<li>During training and testing a small simulation of the agent behaviour will be rendered.</li>
+</ul>
+<p>Status</p>
+<div><span id="app-status">Standing by.</span></div>
+<div>
+<p>Initialize Model</p>
+<div>
+<div>
+<div><label>Hidden layer size(s) (e.g.: "256", "32,64"):</label> <input id="hidden-layer-sizes" type="text" value="128"/></div>
+<button disabled="disabled" id="create-model">Create model</button></div>
+<div>
+<div><label>Locally-stored model</label> <input disabled="disabled" id="stored-model-status" readonly="readonly" type="text" value="N/A"/></div>
+<button disabled="disabled" id="delete-stored-model">Delete stored model</button></div>
+</div>
+<p>Training Parameters</p>
+<div>
+<div><label>Number of iterations:</label> <input id="num-iterations" type="text" value="20"/></div>
+<div><label>Games per iteration:</label> <input id="games-per-iteration" type="text" value="20"/></div>
+<div><label>Max. steps per game:</label> <input id="max-steps-per-game" type="text" value="500"/></div>
+<div><label>Reward discount rate:</label> <input id="discount-rate" type="text" value="0.95"/></div>
+<div><label>Learning rate:</label> <input id="learning-rate" type="text" value="0.05"/></div>
+<div><label>Render during training:</label> <input id="render-during-training" type="checkbox"/> <span>Uncheck me to speed up training.</span></div>
+<div><button disabled="disabled" id="train">Train</button> <button disabled="disabled" id="test">Test</button></div>
+</div>
+</div>
+<p>Training Progress</p>
+<div>
+<div><label id="train-status">Iteration #:</label> <progress id="train-progress" max="100" value="0"></progress></div>
+<div><label id="iteration-status">Game #:</label> <progress id="iteration-progress" max="100" value="0"></progress></div>
+<div><label>Training speed:</label> <span id="train-speed"></span></div>
+<div id="steps-container"></div>
+</div>
+<p>Simulation</p>
+<div><canvas height="150px" id="cart-pole-canvas" width="500px"></canvas></div>
+<script type="text/javascript">
+//--><![CDATA[//><!--
+
+tf.setBackend('cpu');
+console.log(tf.getBackend());
+var b,c
+
+class CartPole {
+  constructor() {
+    // Constants that characterize the system.
+    this.gravity = 9.8;
+    this.massCart = 1.0;
+    this.massPole = 0.1;
+    this.totalMass = this.massCart + this.massPole;
+    this.cartWidth = 0.2;
+    this.cartHeight = 0.1;
+    this.length = 0.5;
+    this.poleMoment = this.massPole * this.length;
+    this.forceMag = 10.0;
+    this.tau = 0.02;  // Seconds between state updates.
+
+    // Threshold values, beyond which a simulation will be marked as failed.
+    this.xThreshold = 2.4;
+    this.thetaThreshold = 12 / 360 * 2 * Math.PI;
+
+    this.setRandomState();
+  }
+
+  setRandomState() {
+    // The control-theory state variables of the cart-pole system.
+    // Cart position, meters.
+    this.x = Math.random() - 0.5;
+    // Cart velocity.
+    this.xDot = (Math.random() - 0.5) * 1;
+    // Pole angle, radians.
+    this.theta = (Math.random() - 0.5) * 2 * (6 / 360 * 2 * Math.PI);
+    // Pole angle velocity.
+    this.thetaDot =  (Math.random() - 0.5) * 0.5;
+  }
+
+  getStateTensor() {
+    return tf.tensor2d([[this.x, this.xDot, this.theta, this.thetaDot]]);
+  }
+
+  update(action) {
+    const force = action > 0 ? this.forceMag : -this.forceMag;
+
+    const cosTheta = Math.cos(this.theta);
+    const sinTheta = Math.sin(this.theta);
+
+    const temp =
+        (force + this.poleMoment * this.thetaDot * this.thetaDot * sinTheta) /
+        this.totalMass;
+    const thetaAcc = (this.gravity * sinTheta - cosTheta * temp) /
+        (this.length *
+         (4 / 3 - this.massPole * cosTheta * cosTheta / this.totalMass));
+    const xAcc = temp - this.poleMoment * thetaAcc * cosTheta / this.totalMass;
+
+    // Update the four state variables, using Euler's metohd.
+    this.x += this.tau * this.xDot;
+    this.xDot += this.tau * xAcc;
+    this.theta += this.tau * this.thetaDot;
+    this.thetaDot += this.tau * thetaAcc;
+
+    return this.isDone();
+  }
+
+
+  isDone() {
+    return this.x < -this.xThreshold || this.x > this.xThreshold ||
+        this.theta < -this.thetaThreshold || this.theta > this.thetaThreshold;
+  }
+}
+
+
+//--><!
+</script>
+<script type="text/javascript">
+//--><![CDATA[//><!--
+
+/**
+ * Calculate the mean of an Array of numbers.
+ *
+ * @param {number[]} xs
+ * @returns {number} The arithmetic mean of `xs`
+ */
+function mean(xs) {
+  return sum(xs) / xs.length;
+}
+
+/**
+ * Calculate the sum of an Array of numbers.
+ *
+ * @param {number[]} xs
+ * @returns {number} The sum of `xs`.
+ * @throws Error if `xs` is empty.
+ */
+function sum(xs) {
+  if (xs.length === 0) {
+    throw new Error('Expected xs to be a non-empty Array.');
+  } else {
+    return xs.reduce((x, prev) => prev + x);
+  }
+}
+//--><!
+</script>
+<script type="text/javascript">
+//--><![CDATA[//><!--
+
+const appStatus = document.getElementById('app-status');
+const storedModelStatusInput = document.getElementById('stored-model-status');
+const hiddenLayerSizesInput = document.getElementById('hidden-layer-sizes');
+const createModelButton = document.getElementById('create-model');
+const deleteStoredModelButton = document.getElementById('delete-stored-model');
+const cartPoleCanvas = document.getElementById('cart-pole-canvas');
+
+const numIterationsInput = document.getElementById('num-iterations');
+const gamesPerIterationInput = document.getElementById('games-per-iteration');
+const discountRateInput = document.getElementById('discount-rate');
+const maxStepsPerGameInput = document.getElementById('max-steps-per-game');
+const learningRateInput = document.getElementById('learning-rate');
+const renderDuringTrainingCheckbox =
+    document.getElementById('render-during-training');
+
+const trainButton = document.getElementById('train');
+const testButton = document.getElementById('test');
+const iterationStatus = document.getElementById('iteration-status');
+const iterationProgress = document.getElementById('iteration-progress');
+const trainStatus = document.getElementById('train-status');
+const trainSpeed = document.getElementById('train-speed');
+const trainProgress = document.getElementById('train-progress');
+
+const stepsContainer = document.getElementById('steps-container');
+
+// Module-global instance of policy network.
+let policyNet;
+let stopRequested = false;
+
+/**
+ * Display a message to the info div.
+ *
+ * @param {string} message The message to be displayed.
+ */
+function logStatus(message) {
+  appStatus.textContent = message;
+}
+
+// Objects and functions to support display of cart pole status during training.
+let renderDuringTraining = true;
+async function maybeRenderDuringTraining(cartPole) {
+  if (renderDuringTraining) {
+    renderCartPole(cartPole, cartPoleCanvas);
+    await tf.nextFrame();  // Unblock UI thread.
+  }
+}
+
+/**
+ * A function invoked at the end of every game during training.
+ *
+ * @param {number} gameCount A count of how many games has completed so far in
+ *   the current iteration of training.
+ * @param {number} totalGames Total number of games to complete in the current
+ *   iteration of training.
+ */
+function onGameEnd(gameCount, totalGames) {
+  iterationStatus.textContent = `Game ${gameCount} of ${totalGames}`;
+  iterationProgress.value = gameCount / totalGames * 100;
+  if (gameCount === totalGames) {
+    iterationStatus.textContent = 'Updating weights...';
+  }
+}
+
+/**
+ * A function invokved at the end of a training iteration.
+ *
+ * @param {number} iterationCount A count of how many iterations has completed
+ *   so far in the current round of training.
+ * @param {*} totalIterations Total number of iterations to complete in the
+ *   current round of training.
+ */
+function onIterationEnd(iterationCount, totalIterations) {
+  trainStatus.textContent = `Iteration ${iterationCount} of ${totalIterations}`;
+  trainProgress.value = iterationCount / totalIterations * 100;
+}
+
+// Objects and function to support the plotting of game steps during training.
+let meanStepValues = [];
+function plotSteps() {
+  tfvis.render.linechart(stepsContainer, {values: meanStepValues}, {
+    xLabel: 'Training Iteration',
+    yLabel: 'Mean Steps Per Game',
+    width: 400,
+    height: 300,
+  });
+}
+
+function disableModelControls() {
+  trainButton.textContent = 'Stop';
+  testButton.disabled = true;
+  deleteStoredModelButton.disabled = true;
+}
+
+function enableModelControls() {
+  trainButton.textContent = 'Train';
+  testButton.disabled = false;
+  deleteStoredModelButton.disabled = false;
+}
+
+/**
+ * Render the current state of the system on an HTML canvas.
+ *
+ * @param {CartPole} cartPole The instance of cart-pole system to render.
+ * @param {HTMLCanvasElement} canvas The instance of HTMLCanvasElement on which
+ *   the rendering will happen.
+ */
+function renderCartPole(cartPole, canvas) {
+  if (!canvas.style.display) {
+    canvas.style.display = 'block';
+  }
+  const X_MIN = -cartPole.xThreshold;
+  const X_MAX = cartPole.xThreshold;
+  const xRange = X_MAX - X_MIN;
+  const scale = canvas.width / xRange;
+
+  const context = canvas.getContext('2d');
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  const halfW = canvas.width / 2;
+
+  // Draw the cart.
+  const railY = canvas.height * 0.8;
+  const cartW = cartPole.cartWidth * scale;
+  const cartH = cartPole.cartHeight * scale;
+
+  const cartX = cartPole.x * scale + halfW;
+
+  context.beginPath();
+  context.strokeStyle = '#000000';
+  context.lineWidth = 2;
+  context.rect(cartX - cartW / 2, railY - cartH / 2, cartW, cartH);
+  context.stroke();
+
+  // Draw the wheels under the cart.
+  const wheelRadius = cartH / 4;
+  for (const offsetX of [-1, 1]) {
+    context.beginPath();
+    context.lineWidth = 2;
+    context.arc(
+        cartX - cartW / 4 * offsetX, railY + cartH / 2 + wheelRadius,
+        wheelRadius, 0, 2 * Math.PI);
+    context.stroke();
+  }
+
+  // Draw the pole.
+  const angle = cartPole.theta + Math.PI / 2;
+  const poleTopX =
+      halfW + scale * (cartPole.x + Math.cos(angle) * cartPole.length);
+  const poleTopY = railY -
+      scale * (cartPole.cartHeight / 2 + Math.sin(angle) * cartPole.length);
+  context.beginPath();
+  context.strokeStyle = '#ffa500';
+  context.lineWidth = 6;
+  context.moveTo(cartX, railY - cartH / 2);
+  context.lineTo(poleTopX, poleTopY);
+  context.stroke();
+
+  // Draw the ground.
+  const groundY = railY + cartH / 2 + wheelRadius * 2;
+  context.beginPath();
+  context.strokeStyle = '#000000';
+  context.lineWidth = 1;
+  context.moveTo(0, groundY);
+  context.lineTo(canvas.width, groundY);
+  context.stroke();
+
+  const nDivisions = 40;
+  for (let i = 0; i < nDivisions; ++i) {
+    const x0 = canvas.width / nDivisions * i;
+    const x1 = x0 + canvas.width / nDivisions / 2;
+    const y0 = groundY + canvas.width / nDivisions / 2;
+    const y1 = groundY;
+    context.beginPath();
+    context.moveTo(x0, y0);
+    context.lineTo(x1, y1);
+    context.stroke();
+  }
+
+  // Draw the left and right limits.
+  const limitTopY = groundY - canvas.height / 2;
+  context.beginPath();
+  context.strokeStyle = '#ff0000';
+  context.lineWidth = 2;
+  context.moveTo(1, groundY);
+  context.lineTo(1, limitTopY);
+  context.stroke();
+  context.beginPath();
+  context.moveTo(canvas.width - 1, groundY);
+  context.lineTo(canvas.width - 1, limitTopY);
+  context.stroke();
+}
+
+async function updateUIControlState() {
+  const modelInfo = await SaveablePolicyNetwork.checkStoredModelStatus();
+  if (modelInfo == null) {
+    storedModelStatusInput.value = 'No stored model.';
+    deleteStoredModelButton.disabled = true;
+
+  } else {
+    storedModelStatusInput.value = `Saved@${modelInfo.dateSaved.toISOString()}`;
+    deleteStoredModelButton.disabled = false;
+    createModelButton.disabled = true;
+  }
+  createModelButton.disabled = policyNet != null;
+  hiddenLayerSizesInput.disabled = policyNet != null;
+  trainButton.disabled = policyNet == null;
+  testButton.disabled = policyNet == null;
+  renderDuringTrainingCheckbox.checked = renderDuringTraining;
+}
+
+async function setUpUI() {
+  const cartPole = new CartPole(true);
+
+  if (await SaveablePolicyNetwork.checkStoredModelStatus() != null) {
+    policyNet = await SaveablePolicyNetwork.loadModel();
+    logStatus('Loaded policy network from IndexedDB.');
+    hiddenLayerSizesInput.value = policyNet.hiddenLayerSizes();
+  }
+  await updateUIControlState();
+
+  renderDuringTrainingCheckbox.addEventListener('change', () => {
+    renderDuringTraining = renderDuringTrainingCheckbox.checked;
+  });
+
+  createModelButton.addEventListener('click', async () => {
+    try {
+      const hiddenLayerSizes =
+          hiddenLayerSizesInput.value.trim().split(',').map(v => {
+            const num = Number.parseInt(v.trim());
+            if (!(num > 0)) {
+              throw new Error(
+                  `Invalid hidden layer sizes string: ` +
+                  `${hiddenLayerSizesInput.value}`);
+            }
+            return num;
+          });
+      policyNet = new SaveablePolicyNetwork(hiddenLayerSizes);
+      console.log('DONE constructing new instance of SaveablePolicyNetwork');
+      await updateUIControlState();
+    } catch (err) {
+      logStatus(`ERROR: ${err.message}`);
+    }
+  });
+
+  deleteStoredModelButton.addEventListener('click', async () => {
+    if (confirm(`Are you sure you want to delete the locally-stored model?`)) {
+      await policyNet.removeModel();
+      policyNet = null;
+      await updateUIControlState();
+    }
+  });
+
+  trainButton.addEventListener('click', async () => {
+    if (trainButton.textContent === 'Stop') {
+      stopRequested = true;
+    } else {
+      disableModelControls();
+
+      try {
+        const trainIterations = Number.parseInt(numIterationsInput.value);
+        if (!(trainIterations > 0)) {
+          throw new Error(`Invalid number of iterations: ${trainIterations}`);
+        }
+        const gamesPerIteration = Number.parseInt(gamesPerIterationInput.value);
+        if (!(gamesPerIteration > 0)) {
+          throw new Error(
+              `Invalid # of games per iterations: ${gamesPerIteration}`);
+        }
+        const maxStepsPerGame = Number.parseInt(maxStepsPerGameInput.value);
+        if (!(maxStepsPerGame > 1)) {
+          throw new Error(`Invalid max. steps per game: ${maxStepsPerGame}`);
+        }
+        const discountRate = Number.parseFloat(discountRateInput.value);
+        if (!(discountRate > 0 && discountRate < 1)) {
+          throw new Error(`Invalid discount rate: ${discountRate}`);
+        }
+        const learningRate = Number.parseFloat(learningRateInput.value);
+
+        logStatus(
+            'Training policy network... Please wait. ' +
+            'Network is saved to IndexedDB at the end of each iteration.');
+        const optimizer = tf.train.adam(learningRate);
+
+        meanStepValues = [];
+        onIterationEnd(0, trainIterations);
+        let t0 = new Date().getTime();
+        stopRequested = false;
+        for (let i = 0; i < trainIterations; ++i) {
+          const gameSteps = await policyNet.train(
+              cartPole, optimizer, discountRate, gamesPerIteration,
+              maxStepsPerGame);
+          const t1 = new Date().getTime();
+          const stepsPerSecond = sum(gameSteps) / ((t1 - t0) / 1e3);
+          t0 = t1;
+          trainSpeed.textContent = `${stepsPerSecond.toFixed(1)} steps/s`
+          meanStepValues.push({x: i + 1, y: mean(gameSteps)});
+          console.log(`# of tensors: ${tf.memory().numTensors}`);
+          plotSteps();
+          onIterationEnd(i + 1, trainIterations);
+          await tf.nextFrame();  // Unblock UI thread.
+          await policyNet.saveModel();
+          await updateUIControlState();
+
+          if (stopRequested) {
+            logStatus('Training stopped by user.');
+            break;
+          }
+        }
+        if (!stopRequested) {
+          logStatus('Training completed.');
+        }
+      } catch (err) {
+        logStatus(`ERROR: ${err.message}`);
+      }
+      enableModelControls();
+    }
+  });
+
+  testButton.addEventListener('click', async () => {
+    disableModelControls();
+    let isDone = false;
+    const cartPole = new CartPole(true);
+    cartPole.setRandomState();
+    let steps = 0;
+    stopRequested = false;
+    let a = 0;
+    while (!isDone) {
+      steps++;
+      tf.tidy(() => {
+        const action = policyNet.getActions(cartPole.getStateTensor())[0];
+        logStatus(
+            `Test in progress. ` +
+            `Action: ${action === 1 ? '<--' : ' -->'} (Step ${steps})`);
+        isDone = cartPole.update(action);
+        if (typeof c !== "undefined"){
+          c.pos.x = b.pos.x = cartPole.x
+          c.rotate({angle:-a, axis:vec(0,0,1)})
+          a = cartPole.theta
+          c.rotate({angle:a, axis:vec(0,0,1)})
+        }
+        renderCartPole(cartPole, cartPoleCanvas);
+      });
+      await tf.nextFrame();  // Unblock UI thread.
+      if (stopRequested) {
+        break;
+      }
+    }
+    if (stopRequested) {
+      logStatus(`Test stopped by user after ${steps} step(s).`);
+    } else {
+      logStatus(`Test finished. Survived ${steps} step(s).`);
+    }
+    console.log(`# of tensors: ${tf.memory().numTensors}`);
+    enableModelControls();
+  });
+}
+//--><!
+</script>
+<script type="text/javascript">
+//--><![CDATA[//><!--
+
+/**
+ * Policy network for controlling the cart-pole system.
+ *
+ * The role of the policy network is to select an action based on the observed
+ * state of the system. In this case, the action is the leftward or rightward
+ * force and the observed system state is a four-dimensional vector, consisting
+ * of cart position, cart velocity, pole angle and pole angular velocity.
+ *
+ */
+class PolicyNetwork {
+  /**
+   * Constructor of PolicyNetwork.
+   *
+   * @param {number | number[] | tf.LayersModel} hiddenLayerSizes
+   *   Can be any of the following
+   *   - Size of the hidden layer, as a single number (for a single hidden
+   *     layer)
+   *   - An Array of numbers (for any number of hidden layers).
+   *   - An instance of tf.LayersModel.
+   */
+  constructor(hiddenLayerSizesOrModel) {
+    if (hiddenLayerSizesOrModel instanceof tf.LayersModel) {
+      this.policyNet = hiddenLayerSizesOrModel;
+    } else {
+      this.createPolicyNetwork(hiddenLayerSizesOrModel);
+    }
+  }
+
+  /**
+   * Create the underlying model of this policy network.
+   *
+   * @param {number | number[]} hiddenLayerSizes Size of the hidden layer, as
+   *   a single number (for a single hidden layer) or an Array of numbers (for
+   *   any number of hidden layers).
+   */
+  createPolicyNetwork(hiddenLayerSizes) {
+    if (!Array.isArray(hiddenLayerSizes)) {
+      hiddenLayerSizes = [hiddenLayerSizes];
+    }
+    this.policyNet = tf.sequential();
+    hiddenLayerSizes.forEach((hiddenLayerSize, i) => {
+      this.policyNet.add(tf.layers.dense({
+        units: hiddenLayerSize,
+        activation: 'elu',
+        // `inputShape` is required only for the first layer.
+        inputShape: i === 0 ? [4] : undefined
+      }));
+    });
+    // The last layer has only one unit. The single output number will be
+    // converted to a probability of selecting the leftward-force action.
+    this.policyNet.add(tf.layers.dense({units: 1}));
+  }
+
+  /**
+   * Train the policy network's model.
+   *
+   * @param {CartPole} cartPoleSystem The cart-pole system object to use during
+   *   training.
+   * @param {tf.train.Optimizer} optimizer An instance of TensorFlow.js
+   *   Optimizer to use for training.
+   * @param {number} discountRate Reward discounting rate: a number between 0
+   *   and 1.
+   * @param {number} numGames Number of game to play for each model parameter
+   *   update.
+   * @param {number} maxStepsPerGame Maximum number of steps to perform during
+   *   a game. If this number is reached, the game will end immediately.
+   * @returns {number[]} The number of steps completed in the `numGames` games
+   *   in this round of training.
+   */
+  async train(
+      cartPoleSystem, optimizer, discountRate, numGames, maxStepsPerGame) {
+    const allGradients = [];
+    const allRewards = [];
+    const gameSteps = [];
+    let a = 0;
+    onGameEnd(0, numGames);
+    for (let i = 0; i < numGames; ++i) {
+      // Randomly initialize the state of the cart-pole system at the beginning
+      // of every game.
+      cartPoleSystem.setRandomState();
+      c.visible = false;
+      c = cylinder({pos:vec( 0, 0, 0), axis:vec(0,0.8,0),  radius: 0.03, color : color.cyan})
+      a = 0
+      const gameRewards = [];
+      const gameGradients = [];
+      for (let j = 0; j < maxStepsPerGame; ++j) {
+        // For every step of the game, remember gradients of the policy
+        // network's weights with respect to the probability of the action
+        // choice that lead to the reward.
+        const gradients = tf.tidy(() => {
+          const inputTensor = cartPoleSystem.getStateTensor();
+          return this.getGradientsAndSaveActions(inputTensor).grads;
+        });
+
+        this.pushGradients(gameGradients, gradients);
+        const action = this.currentActions_[0];
+        const isDone = cartPoleSystem.update(action)
+        if (typeof c !== "undefined"){
+          c.pos.x = b.pos.x = cartPoleSystem.x
+          c.rotate({angle:-a, axis:vec(0,0,1)})
+          a = cartPoleSystem.theta
+          c.rotate({angle:a, axis:vec(0,0,1)})
+        }
+
+        await maybeRenderDuringTraining(cartPoleSystem);
+
+        if (isDone) {
+          // When the game ends before max step count is reached, a reward of
+          // 0 is given.
+          gameRewards.push(0);
+          break;
+        } else {
+          // As long as the game doesn't end, each step leads to a reward of 1.
+          // These reward values will later be "discounted", leading to
+          // higher reward values for longer-lasting games.
+          gameRewards.push(1);
+        }
+      }
+      onGameEnd(i + 1, numGames);
+      gameSteps.push(gameRewards.length);
+      this.pushGradients(allGradients, gameGradients);
+      allRewards.push(gameRewards);
+      await tf.nextFrame();
+    }
+
+    tf.tidy(() => {
+      // The following line does three things:
+      // 1. Performs reward discounting, i.e., make recent rewards count more
+      //    than rewards from the further past. The effect is that the reward
+      //    values from a game with many steps become larger than the values
+      //    from a game with fewer steps.
+      // 2. Normalize the rewards, i.e., subtract the global mean value of the
+      //    rewards and divide the result by the global standard deviation of
+      //    the rewards. Together with step 1, this makes the rewards from
+      //    long-lasting games positive and rewards from short-lasting
+      //    negative.
+      // 3. Scale the gradients with the normalized reward values.
+      const normalizedRewards =
+          discountAndNormalizeRewards(allRewards, discountRate);
+      // Add the scaled gradients to the weights of the policy network. This
+      // step makes the policy network more likely to make choices that lead
+      // to long-lasting games in the future (i.e., the crux of this RL
+      // algorithm.)
+      optimizer.applyGradients(
+          scaleAndAverageGradients(allGradients, normalizedRewards));
+    });
+    tf.dispose(allGradients);
+    return gameSteps;
+  }
+
+  getGradientsAndSaveActions(inputTensor) {
+    const f = () => tf.tidy(() => {
+      const [logits, actions] = this.getLogitsAndActions(inputTensor);
+      this.currentActions_ = actions.dataSync();
+      const labels =
+          tf.sub(1, tf.tensor2d(this.currentActions_, actions.shape));
+      return tf.losses.sigmoidCrossEntropy(labels, logits).asScalar();
+    });
+    return tf.variableGrads(f);
+  }
+
+  getCurrentActions() {
+    return this.currentActions_;
+  }
+
+  /**
+   * Get policy-network logits and the action based on state-tensor inputs.
+   *
+   * @param {tf.Tensor} inputs A tf.Tensor instance of shape `[batchSize, 4]`.
+   * @returns {[tf.Tensor, tf.Tensor]}
+   *   1. The logits tensor, of shape `[batchSize, 1]`.
+   *   2. The actions tensor, of shape `[batchSize, 1]`.
+   */
+  getLogitsAndActions(inputs) {
+    return tf.tidy(() => {
+      const logits = this.policyNet.predict(inputs);
+
+      // Get the probability of the leftward action.
+      const leftProb = tf.sigmoid(logits);
+      // Probabilites of the left and right actions.
+      const leftRightProbs = tf.concat([leftProb, tf.sub(1, leftProb)], 1);
+      const actions = tf.multinomial(leftRightProbs, 1, null, true);
+      return [logits, actions];
+    });
+  }
+
+  /**
+   * Get actions based on a state-tensor input.
+   *
+   * @param {tf.Tensor} inputs A tf.Tensor instance of shape `[batchSize, 4]`.
+   * @param {Float32Array} inputs The actions for the inputs, with length
+   *   `batchSize`.
+   */
+  getActions(inputs) {
+    return this.getLogitsAndActions(inputs)[1].dataSync();
+  }
+
+  /**
+   * Push a new dictionary of gradients into records.
+   *
+   * @param {{[varName: string]: tf.Tensor[]}} record The record of variable
+   *   gradient: a map from variable name to the Array of gradient values for
+   *   the variable.
+   * @param {{[varName: string]: tf.Tensor}} gradients The new gradients to push
+   *   into `record`: a map from variable name to the gradient Tensor.
+   */
+  pushGradients(record, gradients) {
+    for (const key in gradients) {
+      if (key in record) {
+        record[key].push(gradients[key]);
+      } else {
+        record[key] = [gradients[key]];
+      }
+    }
+  }
+}
+
+// The IndexedDB path where the model of the policy network will be saved.
+const MODEL_SAVE_PATH_ = 'indexeddb://cart-pole-v1';
+
+/**
+ * A subclass of PolicyNetwork that supports saving and loading.
+ */
+class SaveablePolicyNetwork extends PolicyNetwork {
+  /**
+   * Constructor of SaveablePolicyNetwork
+   *
+   * @param {number | number[]} hiddenLayerSizesOrModel
+   */
+  constructor(hiddenLayerSizesOrModel) {
+    super(hiddenLayerSizesOrModel);
+  }
+
+  /**
+   * Save the model to IndexedDB.
+   */
+  async saveModel() {
+    return await this.policyNet.save(MODEL_SAVE_PATH_);
+  }
+
+  /**
+   * Load the model fom IndexedDB.
+   *
+   * @returns {SaveablePolicyNetwork} The instance of loaded
+   *   `SaveablePolicyNetwork`.
+   * @throws {Error} If no model can be found in IndexedDB.
+   */
+  static async loadModel() {
+    const modelsInfo = await tf.io.listModels();
+    if (MODEL_SAVE_PATH_ in modelsInfo) {
+      console.log(`Loading existing model...`);
+      const model = await tf.loadLayersModel(MODEL_SAVE_PATH_);
+      console.log(`Loaded model from ${MODEL_SAVE_PATH_}`);
+      return new SaveablePolicyNetwork(model);
+    } else {
+      throw new Error(`Cannot find model at ${MODEL_SAVE_PATH_}.`);
+    }
+  }
+
+  /**
+   * Check the status of locally saved model.
+   *
+   * @returns If the locally saved model exists, the model info as a JSON
+   *   object. Else, `undefined`.
+   */
+  static async checkStoredModelStatus() {
+    const modelsInfo = await tf.io.listModels();
+    return modelsInfo[MODEL_SAVE_PATH_];
+  }
+
+  /**
+   * Remove the locally saved model from IndexedDB.
+   */
+  async removeModel() {
+    return await tf.io.removeModel(MODEL_SAVE_PATH_);
+  }
+
+  /**
+   * Get the sizes of the hidden layers.
+   *
+   * @returns {number | number[]} If the model has only one hidden layer,
+   *   return the size of the layer as a single number. If the model has
+   *   multiple hidden layers, return the sizes as an Array of numbers.
+   */
+  hiddenLayerSizes() {
+    const sizes = [];
+    for (let i = 0; i < this.policyNet.layers.length - 1; ++i) {
+      sizes.push(this.policyNet.layers[i].units);
+    }
+    return sizes.length === 1 ? sizes[0] : sizes;
+  }
+}
+
+/**
+ * Discount the reward values.
+ *
+ * @param {number[]} rewards The reward values to be discounted.
+ * @param {number} discountRate Discount rate: a number between 0 and 1, e.g.,
+ *   0.95.
+ * @returns {tf.Tensor} The discounted reward values as a 1D tf.Tensor.
+ */
+function discountRewards(rewards, discountRate) {
+  const discountedBuffer = tf.buffer([rewards.length]);
+  let prev = 0;
+  for (let i = rewards.length - 1; i >= 0; --i) {
+    const current = discountRate * prev + rewards[i];
+    discountedBuffer.set(current, i);
+    prev = current;
+  }
+  return discountedBuffer.toTensor();
+}
+
+/**
+ * Discount and normalize reward values.
+ *
+ * This function performs two steps:
+ *
+ * 1. Discounts the reward values using `discountRate`.
+ * 2. Normalize the reward values with the global reward mean and standard
+ *    deviation.
+ *
+ * @param {number[][]} rewardSequences Sequences of reward values.
+ * @param {number} discountRate Discount rate: a number between 0 and 1, e.g.,
+ *   0.95.
+ * @returns {tf.Tensor[]} The discounted and normalize reward values as an
+ *   Array of tf.Tensor.
+ */
+function discountAndNormalizeRewards(rewardSequences, discountRate) {
+  return tf.tidy(() => {
+    const discounted = [];
+    for (const sequence of rewardSequences) {
+      discounted.push(discountRewards(sequence, discountRate))
+    }
+    // Compute the overall mean and stddev.
+    const concatenated = tf.concat(discounted);
+    const mean = tf.mean(concatenated);
+    const std = tf.sqrt(tf.mean(tf.square(concatenated.sub(mean))));
+    // Normalize the reward sequences using the mean and std.
+    const normalized = discounted.map(rs => rs.sub(mean).div(std));
+    return normalized;
+  });
+}
+
+/**
+ * Scale the gradient values using normalized reward values and compute average.
+ *
+ * The gradient values are scaled by the normalized reward values. Then they
+ * are averaged across all games and all steps.
+ *
+ * @param {{[varName: string]: tf.Tensor[][]}} allGradients A map from variable
+ *   name to all the gradient values for the variable across all games and all
+ *   steps.
+ * @param {tf.Tensor[]} normalizedRewards An Array of normalized reward values
+ *   for all the games. Each element of the Array is a 1D tf.Tensor of which
+ *   the length equals the number of steps in the game.
+ * @returns {{[varName: string]: tf.Tensor}} Scaled and averaged gradients
+ *   for the variables.
+ */
+function scaleAndAverageGradients(allGradients, normalizedRewards) {
+  return tf.tidy(() => {
+    const gradients = {};
+    for (const varName in allGradients) {
+      gradients[varName] = tf.tidy(() => {
+        // Stack gradients together.
+        const varGradients = allGradients[varName].map(
+            varGameGradients => tf.stack(varGameGradients));
+        // Expand dimensions of reward tensors to prepare for multiplication
+        // with broadcasting.
+        const expandedDims = [];
+        for (let i = 0; i < varGradients[0].rank - 1; ++i) {
+          expandedDims.push(1);
+        }
+        const reshapedNormalizedRewards = normalizedRewards.map(
+            rs => rs.reshape(rs.shape.concat(expandedDims)));
+        for (let g = 0; g < varGradients.length; ++g) {
+          // This mul() call uses broadcasting.
+          varGradients[g] = varGradients[g].mul(reshapedNormalizedRewards[g]);
+        }
+        // Concatenate the scaled gradients together, then average them across
+        // all the steps of all the games.
+        return tf.mean(tf.concat(varGradients, 0), 0);
+      });
+    }
+    return gradients;
+  });
+}
+
+setUpUI();
+</script>
+<div class="glowscript" id="glowscript">
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+<!-- Import tfjs-vis -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.4.0/dist/tfjs-vis.umd.min.js"></script>
+<script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js" type="text/javascript"></script>
+<script src="https://s3.amazonaws.com/glowscript/package/glow.3.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+//--><![CDATA[//><!--
+
+// START JAVASCRIPT
+var b, c
+;(function() {;
+async function __main__() {
+"use strict";
+
+var version = ["3.0", "glowscript"];
+Array.prototype.toString = function() { return __parsearray(this) };
+var scene = canvas();
+var vector = vec;
+
+scene = canvas({range: 1.5})
+b = box({pos:vec( 0, 0.0["-u"](), 0),  color : color.green, size:vec(0.25,0.1,0.2)})
+c = cylinder({pos:vec( 0, 0, 0), axis:vec(0,0.8,0),  radius: 0.03, color : color.cyan})
+var wire = cylinder({pos:vec( 10["-u"](), 0.0["-u"](), 0), axis:vec(20,0,0),  radius: 0.01, color : color.white})
+
+}
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+
+// END JAVASCRIPT
+
+//--><!
+</script>
 </div><h1>Ebooks</h1>
 <p>2010 Feedback and Control for Everyone:</p>
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-642-03446-6">https://link.springer.com/book/10.1007/978-3-642-03446-6</a></p>
