@@ -76,7 +76,44 @@ let x = await f(b) // needs await (inside async __main__) because f() contains a
 __main__()
 </script>
 </div>
-<h2>Atoms</h2>
+<h2>Rapydscript</h2>
+<h4>Test embedded RapydScript</h4>
+<script src="https://sw.kovidgoyal.net/rapydscript/repl/rapydscript.js"></script>
+<script>
+var compiler = RapydScript.create_embedded_compiler();
+var js = compiler.compile(`
+def hello_world():
+    sum=0
+    for i in range(11):
+        sum=sum+i
+    print(sum)
+    alert("from 1 add to 10 is :" + str(sum))`);
+function mySum() {
+    document.body.textContent = js;
+    eval(js);
+    eval('hello_world()');
+};
+</script>
+<p><button onclick="mySum()">Click me</button></p>
+<p>Source Codes:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;h4&gt;Test embedded RapydScript&lt;/h4&gt;
+&lt;script src="https://sw.kovidgoyal.net/rapydscript/repl/rapydscript.js"&gt;&lt;/script&gt;
+&lt;script&gt;// &lt;![CDATA[
+var compiler = RapydScript.create_embedded_compiler();
+var js = compiler.compile(`
+def hello_world():
+    sum=0
+    for i in range(11):
+        sum=sum+i
+    print(sum)
+    alert("from 1 add to 10 is :" + str(sum))`);
+window.onload = function() {
+    document.body.textContent = js;
+    eval(js);
+    eval('hello_world()');
+};
+// ]]&gt;&lt;/script&gt;</pre>
+<p></p><h2>Atoms</h2>
 <div class="glowscript" id="glowscript">
 <script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js" type="text/javascript"></script>
@@ -1332,10 +1369,15 @@ function scaleAndAverageGradients(allGradients, normalizedRewards) {
 setUpUI();
 </script>
 <div class="glowscript" id="glowscript">
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+<!-- Import tfjs-vis -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.4.0/dist/tfjs-vis.umd.min.js"></script>
 <script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js" type="text/javascript"></script>
 <script src="https://s3.amazonaws.com/glowscript/package/glow.3.0.min.js" type="text/javascript"></script>
 <script type="text/javascript">
+//--><![CDATA[//><!--
+
 // START JAVASCRIPT
 var b, c
 ;(function() {;
@@ -1356,9 +1398,9 @@ var wire = cylinder({pos:vec( 10["-u"](), 0.0["-u"](), 0), axis:vec(20,0,0),  ra
 ;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
 
 // END JAVASCRIPT
+
+//--><!
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.4.0/dist/tfjs-vis.umd.min.js"></script>
 </div><h1>Ebooks</h1>
 <p>2010 Feedback and Control for Everyone:</p>
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-642-03446-6">https://link.springer.com/book/10.1007/978-3-642-03446-6</a></p>

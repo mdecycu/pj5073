@@ -134,25 +134,45 @@ if ((location.href.search(/http:/) != -1) && (location.href.search(/login/) != -
           </div>
           
         </header>
-    <div id="tipue_search_content"> <a href='進行步驟.html'>Next</a> >> 進行步驟<br /><h1>About</h1>
-<p><a href="./../downloads/introduction_to_automatic_control_system.pdf">Introduction to Automatic Control System.pdf</a></p>
-<h4>網際機電整合控制系統設計案例研究</h4>
-<h4>A Case Study on the Design of Web-based Mechatronic Automatic Control System</h4>
-<h4>Members:</h4>
-<p style="padding-left: 30px;">50733105</p>
-<p style="padding-left: 30px;">50733144</p>
-<p style="padding-left: 30px;">50733146</p>
-<p style="padding-left: 30px;">50733152</p>
-<h4>Methodology:</h4>
-<ul>
-<li>Use <a href="https://docs.plm.automation.siemens.com/tdoc/nx/12/nx_help/#uid:index">NX12</a>, <a href="https://www.onshape.com/">Onshape</a> and <a href="http://solvespace.com/index.pl">Solvespace</a> to create system part assembly</li>
-<li><a href="https://en.wikipedia.org/wiki/STL_(file_format)">STL</a> to <a href="https://cyberbotics.com/">Webots</a> 或 <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a></li>
-<li>Classic Control to Modern Control system design</li>
-<li>Flask + uwsgi on Ubuntu and Windows 10 2004</li>
-<li>Machine Learning and Optimal Control System Design</li>
-</ul>
-<p>Webots Inverted Pendulum:</p>
-<p style="padding-left: 30px;"><a href="https://robotbenchmark.net/benchmark/inverted_pendulum/">https://robotbenchmark.net/benchmark/inverted_pendulum/</a> </p><br /> <a href='進行步驟.html'>Next</a> >> 進行步驟</div>
+    <div id="tipue_search_content">Glowscript << <a href='Glowscript.html'>Previous</a> <a href='Atoms.html'>Next</a> >> Atoms<br /><h1>Rapydscript</h1>
+<h4>Test embedded RapydScript</h4>
+<script src="https://sw.kovidgoyal.net/rapydscript/repl/rapydscript.js"></script>
+<script>
+var compiler = RapydScript.create_embedded_compiler();
+var js = compiler.compile(`
+def hello_world():
+    sum=0
+    for i in range(11):
+        sum=sum+i
+    print(sum)
+    alert("from 1 add to 10 is :" + str(sum))`);
+function mySum() {
+    document.body.textContent = js;
+    eval(js);
+    eval('hello_world()');
+};
+</script>
+<p><button onclick="mySum()">Add from 1 to 10</button></p>
+<p>Source Codes:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;h4&gt;Test embedded RapydScript&lt;/h4&gt;
+&lt;script src="https://sw.kovidgoyal.net/rapydscript/repl/rapydscript.js"&gt;&lt;/script&gt;
+&lt;script&gt;// &lt;![CDATA[
+var compiler = RapydScript.create_embedded_compiler();
+var js = compiler.compile(`
+def hello_world():
+    sum=0
+    for i in range(11):
+        sum=sum+i
+    print(sum)
+    alert("from 1 add to 10 is :" + str(sum))`);
+function mySum() {
+    document.body.textContent = js;
+    eval(js);
+    eval('hello_world()');
+};
+// ]]&gt;&lt;/script&gt;
+&lt;p&gt;&lt;button onclick="mySum()"&gt;Add from 1 to 10&lt;/button&gt;&lt;/p&gt;</pre>
+<p></p><br />Glowscript << <a href='Glowscript.html'>Previous</a> <a href='Atoms.html'>Next</a> >> Atoms</div>
         
     <!-- footer -->
       <div class="container">
