@@ -1,33 +1,30 @@
 <h1>About</h1>
-<p><a href="/downloads/introduction_to_automatic_control_system.pdf">Introduction to Automatic Control System.pdf</a></p>
-<h4>網際內容管理系統在精密機械教學與研究上的應用<span lang="en"></span><br/><span lang="en"></span></h4>
-<h4 class="tw-data-text tw-text-large XcVN5d tw-ta" data-placeholder="Translation" dir="ltr" id="tw-target-text" style="text-align: left;"><span lang="en">Application of the Web-based Content Management System <br/>On Precision Mechanical Teaching and Research</span></h4>
-<p><span lang="en">討論區: <a href="https://github.com/mdecourse/5073pj1/discussions">https://github.com/mdecourse/5073pj1/discussions</a> </span></p>
-<p><span lang="en">涵蓋內容:</span></p>
-<p style="padding-left: 30px;"><span lang="en">系上網路佈線與使用教學如何納入網際內容系統 (網路相關軟硬體)</span></p>
-<p style="padding-left: 30px;"><span lang="en">專業核心課程內容如何納入網際內容管理系統 (選定專業核心課程內容)</span></p>
-<p style="padding-left: 30px;"><span lang="en">如何透過網路與程式套件延伸課程內容與應用 (課程延伸與應用)</span></p>
-<p style="padding-left: 30px;"><span lang="en"><a href="https://jpme.eng.nfu.edu.tw">https://jpme.eng.nfu.edu.tw</a> 管理如何與專題結合</span></p>
-<p><span lang="en">專題分工:</span></p>
-<p style="padding-left: 30px;"><span lang="en">一人專責用 Flutter 寫手機程式 for 教學與研究使用</span></p>
-<p style="padding-left: 30px;"><span lang="en">一人專責維護 jpme 論壇與網站</span></p>
-<p style="padding-left: 30px;"><span lang="en">一人專責編寫 Oauth2 資料庫程式</span></p>
-<p style="padding-left: 30px;"><span lang="en">一人負責維護系上網路軟硬體 (Proxy 與線路標註管理)</span></p>
-<h4>Members:</h4>
-<p style="padding-left: 30px;">50733105</p>
-<p style="padding-left: 30px;">50733144</p>
-<p style="padding-left: 30px;">50733146</p>
-<p style="padding-left: 30px;">50733152</p>
-<h4>Methodology:</h4>
-<ul>
-<li>Use <a href="https://docs.plm.automation.siemens.com/tdoc/nx/12/nx_help/#uid:index">NX12</a>, <a href="https://www.onshape.com/">Onshape</a> and <a href="http://solvespace.com/index.pl">Solvespace</a> to create system part assembly</li>
-<li><a href="https://en.wikipedia.org/wiki/STL_(file_format)">STL</a> to <a href="https://cyberbotics.com/">Webots</a> 或 <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a></li>
-<li>Classic Control to Modern Control system design</li>
-<li>Flask + uwsgi on Ubuntu and Windows 10 2004</li>
-<li>Machine Learning and Optimal Control System Design</li>
-</ul>
-<p>Webots Inverted Pendulum:</p>
-<p style="padding-left: 30px;"><a href="https://robotbenchmark.net/benchmark/inverted_pendulum/">https://robotbenchmark.net/benchmark/inverted_pendulum/</a> </p><h1>Flutter</h1>
+<h4>五專部專題題目:</h4>
+<h4 style="padding-left: 30px;"><span style="background-color: #ffff99;">網際內容管理系統在精密機械工程教學與研究上的應用</span></h4>
+<h4 style="padding-left: 30px;">Application of Web-based Content Management Systems in Teaching and Research of Precision Mechanical Engineering</h4>
+<h4 style="padding-left: 30px;">專題動機:</h4>
+<p style="padding-left: 60px;">探討如何利用 <a href="https://www.fossil-scm.org">Fossil SCM</a> 虛擬與實體伺服器, 讓五專精密機械工程科相關師生, 得以透過學校配發的 @gm 帳號登入, 並在網際內容管理系統中進行知識管理與互動, 擬藉此提升課程教學與專題研究效益.</p>
+<h4 style="padding-left: 30px;">研究步驟:</h4>
+<p style="padding-left: 60px;">從 Windows 與 Ubuntu 中編譯 <a href="https://www.fossil-scm.org">Fossil SCM</a> 套件開始, 分別取得 client 與 server 端的可執行檔案後, 將 <a href="https://www.fossil-scm.org">Fossil SCM</a> 安裝配置在一台實體或虛擬主機上, 利用 Python + <a href="https://flask.palletsprojects.com/en/2.0.x/">Flask</a> 著手編寫 <a href="https://oauth.net/2/">Oauth2</a> 網際程式介面, 讓所有相關成員得以自建倉儲與網際內容管理系統, 之後再分門別類, 根據精密機械工程科學會的任務編組, 利用網際內容管理系統提供相關服務.</p>
+<h4 style="padding-left: 30px;">預計成果:</h4>
+<ol>
+<li>參與 eng.nfu.edu.tw 網域伺服器 (DNS) 與 G Suite 系統管理.</li>
+<li>在 Ubuntu 虛擬主機上, 完成以 <a href="https://www.fossil-scm.org">Fossil SCM</a> 架設 pj5073.eng.nfu.edu.tw 精密機械工程科學會網站.</li>
+<li>能讓獲得許可之相關人員, 透過 @gm 帳號登入科學會網站, 在各班對應網站上進行 Github 上同步網際內容管理維護或互動討論.</li>
+<li>專題報告 pdf 檔案, 能夠在 github.com/mdecourse/pj5073 倉儲中的 pdf 分支, 以 Github Actions 流程發布.</li>
+<li>專題簡報可直接在 mde.tw/pj5073/reveal/ 中發布.</li>
+</ol>
+<h4 style="padding-left: 30px;">組員:</h4>
+<p style="padding-left: 60px;">50733105</p>
+<p style="padding-left: 60px;">50733144</p>
+<p style="padding-left: 60px;">50733146</p>
+<p style="padding-left: 60px;">50733152</p>
+<h4>教學與研究相關參考內容:</h4>
+<p style="padding-left: 30px;"><a href="/downloads/introduction_to_automatic_control_system.pdf">Introduction to Automatic Control System.pdf</a></p>
+<p style="padding-left: 30px;">Webots Inverted Pendulum:</p>
+<p style="padding-left: 60px;"><a href="https://robotbenchmark.net/benchmark/inverted_pendulum/">https://robotbenchmark.net/benchmark/inverted_pendulum/</a> </p>
+<h1>Reference</h1>
+<h2>Flutter</h2>
 <p><a href="https://flutter.dev/">https://flutter.dev/</a></p>
 <p><a href="https://drive.google.com/file/d/1-VY9wQOEDeu-_KY4EhqqoyUq8xZMtEG9/view?usp=sharing">下載 kmol_project_2021.7z</a> 可攜程式系統</p>
 <p>References:</p>
@@ -39,7 +36,7 @@
 <p style="padding-left: 30px;"><a href="https://dev.to/carminezacc/advanced-flutter-networking-part-1-uploading-a-file-to-a-rest-api-from-flutter-using-a-multi-part-form-data-post-request-2ekm">https://dev.to/carminezacc/advanced-flutter-networking-part-1-uploading-a-file-to-a-rest-api-from-flutter-using-a-multi-part-form-data-post-request-2ekm</a></p>
 <p style="padding-left: 30px;"><a href="https://flutter.dev/docs/cookbook/networking/send-data">https://flutter.dev/docs/cookbook/networking/send-data</a></p>
 <p></p>
-<h2>Flutter ref</h2>
+<h3>Flutter ref</h3>
 <p><a href="/downloads/Flutter完整开发实战详解系列.pdf">Flutter完整开发实战详解系列.pdf</a></p>
 <p><a href="https://github.com/apgapg/flutter_physics_concepts">https://github.com/apgapg/flutter_physics_concepts</a></p>
 <p><a href="https://rodolfohernan20.blogspot.com/2019/12/upload-files-to-server-with-flutter-web.html">https://rodolfohernan20.blogspot.com/2019/12/upload-files-to-server-with-flutter-web.html</a></p>
@@ -121,10 +118,11 @@
 <h4>參考資料:</h4>
 <p style="padding-left: 30px;"><a href="https://github.com/flutter-devs/flutter_camera_demo">https://github.com/flutter-devs/flutter_camera_demo</a></p>
 <p style="padding-left: 30px;"><a href="https://github.com/nirav4273/flutter_hair_saloon">https://github.com/nirav4273/flutter_hair_saloon</a></p>
-<p><br/>Quick Dart &lt;&lt; <a href="/get_page/Flutter/Quick Dart.html">Previous</a> <a href="/get_page/Flutter/Flutter Mobile.html">Next</a> &gt;&gt; Flutter Mobile</p><h1>discourse</h1>
+<p><br/>Quick Dart &lt;&lt; <a href="/get_page/Flutter/Quick Dart.html">Previous</a> <a href="/get_page/Flutter/Flutter Mobile.html">Next</a> &gt;&gt; Flutter Mobile</p>
+<h2>discourse</h2>
 <p><a href="https://github.com/discourse/discourse">https://github.com/discourse/discourse</a></p>
 <p><a href="https://jpme.eng.nfu.edu.tw">https://jpme.eng.nfu.edu.tw</a></p>
-<h2>操作管理</h2>
+<h3>操作管理</h3>
 <h4>jpme.eng.nfu.edu.tw</h4>
 <p>論壇程式碼: /var/www/discourse</p>
 <p>設定檔案: /var/www/discourse/config/site_settings.yml</p>
@@ -139,22 +137,26 @@
 <p style="padding-left: 30px;">dhcp6: no</p>
 <p style="padding-left: 30px;">accetp-ra: no</p>
 <p>accept-ra (bool)<br/><br/>Accept Router Advertisement that would have the kernel configure IPv6 by itself.<br/>When enabled, accept Router Advertisements. When disabled, do not respond to<br/>Router Advertisements. If unset use the host kernel default setting.</p>
-<p></p><h1>cd2020pj1</h1>
+<p></p>
+<h2>cd2020pj1</h2>
 <p><a href="https://github.com/mdecourse/cd2020pj1">https://github.com/mdecourse/cd2020pj1</a></p>
 <p style="padding-left: 30px;">Python 網際框架採用: <a href="https://flask.palletsprojects.com">https://flask.palletsprojects.com</a></p>
 <p style="padding-left: 30px;">Oauth2 認證採用: <a href="https://github.com/authomatic/authomatic">https://github.com/authomatic/authomatic</a></p>
 <p style="padding-left: 30px;">資料庫採用: sqlite3</p>
 <p style="padding-left: 60px;">之後部署至 <a href="https://www.heroku.com/">Heroku</a> 預計使用 <a href="https://elements.heroku.com/addons/heroku-postgresql">https://elements.heroku.com/addons/heroku-postgresql</a></p>
 <p>Flask upload:</p>
-<p style="padding-left: 30px;"><a href="https://github.com/bboe/flask-image-uploader">https://github.com/bboe/flask-image-uploader</a></p><h2>Oauth2</h2>
+<p style="padding-left: 30px;"><a href="https://github.com/bboe/flask-image-uploader">https://github.com/bboe/flask-image-uploader</a></p>
+<h3>Oauth2</h3>
 <p>目前的 cd2020pj1 採用 authomatic:</p>
-<p style="padding-left: 30px;"><a href="https://github.com/authomatic/authomatic">https://github.com/authomatic/authomatic</a> </p>
-<p><a href="https://pypi.org/project/python-oauth2/">https://pypi.org/project/python-oauth2/</a></p><h1>Network</h1>
-<p><a href="https://www.wireshark.org/">https://www.wireshark.org/</a> </p>
-<p><a href="https://github.com/mgriffin/graphviz_network">https://github.com/mgriffin/graphviz_network</a> </p>
-<h1>Ref</h1>
-<h2>LaTeX</h2>
-<p><a href="https://github.com/latextemplates/scientific-thesis-template">https://github.com/latextemplates/scientific-thesis-template</a></p><h2>Automatic Control</h2>
+<p style="padding-left: 30px;"><a href="https://github.com/authomatic/authomatic">https://github.com/authomatic/authomatic</a></p>
+<p><a href="https://pypi.org/project/python-oauth2/">https://pypi.org/project/python-oauth2/</a></p>
+<h2>Network</h2>
+<p><a href="https://www.wireshark.org/">https://www.wireshark.org/</a></p>
+<p><a href="https://github.com/mgriffin/graphviz_network">https://github.com/mgriffin/graphviz_network</a></p>
+<h2>Ref</h2>
+<h3>LaTeX</h3>
+<p><a href="https://github.com/latextemplates/scientific-thesis-template">https://github.com/latextemplates/scientific-thesis-template</a></p>
+<h3>Automatic Control</h3>
 <p><a href="/downloads/BookPythonForControl.pdf">BookPythonForControl.pdf</a></p>
 <p><a href="http://python-control.sourceforge.net/manual/">http://python-control.sourceforge.net/manual/</a></p>
 <p><a href="https://github.com/python-control/python-control">https://github.com/python-control/python-control</a></p>
@@ -183,7 +185,8 @@
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-642-03446-6">https://link.springer.com/book/10.1007/978-3-642-03446-6</a></p>
 <p>Control and Feedback are everywhere.</p>
 <p>Feedback is information obtained from a system used to change its behavior.</p>
-<p>A system is causal (符合因果關係) when for any signal in the behavior the future cannot influence the past of the signal. Because in our discussions signals are functions of time, causality (因果關係) is an all too natural a property. It is indeed not conceivable that the presently experienced shower temperature could possibly depend on future positions of the water taps. Indeed, our shower is a causal system (因果系統).</p><h2>Project</h2>
+<p>A system is causal (符合因果關係) when for any signal in the behavior the future cannot influence the past of the signal. Because in our discussions signals are functions of time, causality (因果關係) is an all too natural a property. It is indeed not conceivable that the presently experienced shower temperature could possibly depend on future positions of the water taps. Indeed, our shower is a causal system (因果系統).</p>
+<h3>Project</h3>
 <p><a href="https://github.com/JuliaGraphics/Winston.jl">https://github.com/JuliaGraphics/Winston.jl</a> (2D plot)</p>
 <p><a href="https://juliagraphics.github.io/Gtk.jl/latest/">https://juliagraphics.github.io/Gtk.jl/latest/</a> (GUI)</p>
 <p><a href="https://github.com/JuliaGraphics/Cairo.jl">https://github.com/JuliaGraphics/Cairo.jl</a> (Graphics Library)</p>
@@ -210,7 +213,8 @@
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/nKRIAbxNSQ8" width="560"></iframe></p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/dmWQtI3DFFo" width="560"></iframe></p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/zJ3R6vOhibA" width="560"></iframe></p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/gPYc77M90Qg" width="560"></iframe></p><h2>Reference</h2>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/gPYc77M90Qg" width="560"></iframe></p>
+<h3>Ref2</h3>
 <p><a href="https://github.com/brettkromkamp/topic-db">https://github.com/brettkromkamp/topic-db</a></p>
 <p style="padding-left: 30px;"><a href="https://en.wikipedia.org/wiki/Topic_map">https://en.wikipedia.org/wiki/Topic_map</a></p>
 <p style="padding-left: 30px;"><a href="https://www.isotopicmaps.org/sam/">https://www.isotopicmaps.org/sam/</a></p>
@@ -227,14 +231,15 @@
 <p style="padding-left: 30px;"><a href="/downloads/A_data-driven_approach_for_understanding_Open_Desi.pdf">A_data-driven_approach_for_understanding_Open_Desi.pdf</a></p>
 <p><a href="https://fastpath2020.github.io/Program">https://fastpath2020.github.io/Program</a></p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/HTu7RokJsxc" width="560"></iframe></p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/8Qa0E1jdkrE" width="560"></iframe></p><h2>Bond Graphs</h2>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/8Qa0E1jdkrE" width="560"></iframe></p>
+<h3>Bond Graphs</h3>
 <p><a href="https://github.com/mdecourse/BondGraphTools">https://github.com/mdecourse/BondGraphTools</a> </p>
 <p><a href="https://www.gawthrop.net/Books/GawSmi96.pdf">https://www.gawthrop.net/Books/GawSmi96.pdf</a> </p>
 <p><a href="/downloads/bond_graph_modeling.pdf">Bond Graph Modeling.pdf</a></p>
 <p><a href="/downloads/Bond Graph Modeling and Simulation of Mechatronic.pdf">Bond Graph Modeling and Simulation of Mechatronic.pdf</a></p>
 <p><a href="/downloads/bond_graph_modeling_postprint.pdf">bond_graph_modeling_postprint.pdf</a></p>
 <p><a href="https://openmodelica.org/doc/OpenModelicaUsersGuide/latest/ompython.html">https://openmodelica.org/doc/OpenModelicaUsersGuide/latest/ompython.html</a> </p>
-<h2>KMOLBrowser</h2>
+<h3>KMOLBrowser</h3>
 <p>利用 <a href="https://www.qt.io/qt-for-python">pyside2</a> 編寫的網際瀏覽器:</p>
 <p>KMOLBrowser 原始碼來自 <a href="https://github.com/ralsina/devicenzo">https://github.com/ralsina/devicenzo</a>, 為了用於 KMOLab 中 cmsimde self-signed certificate 近端或遠端編輯, 特別使用 ignoreCertificateError(), 讓網頁可以直接導入. 執行時可攜系統需要 pip install pyside2</p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">#!/usr/bin/env python3
@@ -574,7 +579,7 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
 </pre>
 <p></p>
-<h2>Glowscript</h2>
+<h3>Glowscript</h3>
 <p><a href="https://www.glowscript.org/">https://www.glowscript.org/</a> </p>
 <p><a href="https://github.com/vpython/glowscript">https://github.com/vpython/glowscript</a> </p>
 <p><a href="https://github.com/atsepkov/RapydScript">https://github.com/atsepkov/RapydScript</a> </p>
@@ -1935,7 +1940,7 @@ var wire = cylinder({pos:vec( 10["-u"](), 0.0["-u"](), 0), axis:vec(20,0,0),  ra
 //--><!
 </script>
 </div>
-<h2>Ebooks</h2>
+<h3>Ebooks</h3>
 <p>2010 Feedback and Control for Everyone:</p>
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-642-03446-6">https://link.springer.com/book/10.1007/978-3-642-03446-6</a></p>
 <p>2012 Mechatronic Systems: </p>
@@ -1948,7 +1953,7 @@ var wire = cylinder({pos:vec( 10["-u"](), 0.0["-u"](), 0), axis:vec(20,0,0),  ra
 <p>2020 Feedback:</p>
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-030-34839-7">https://link.springer.com/book/10.1007/978-3-030-34839-7</a> </p>
 <p></p>
-<h2>Feedback</h2>
+<h3>Feedback</h3>
 <p style="padding-left: 30px;">針對 CoppeliaSim 中 Python Remote API 不提供的功能, 可以透過 Lua 製作, 然後再以 <a href="https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction">https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction</a> 呼叫. 相關討論請參考 <a href="https://forum.coppeliarobotics.com/viewtopic.php?t=7699">https://forum.coppeliarobotics.com/viewtopic.php?t=7699</a></p>
 <h4><span style="background-color: #ffff99;">以下的 Inverted Pedulum 控制模擬可以視為專題 Task 之一:</span></h4>
 <p style="padding-left: 30px;"><a href="https://github.com/mdecourse/vrep_inverted_pendulum">https://github.com/mdecourse/vrep_inverted_pendulum</a> 採用舊版的 Python2 以及舊版的 V-rep 製作, 可以嘗試改為 Python3 以及 CoppeliaSim 4.1.0 rev1 版本相容.</p>
@@ -2011,7 +2016,7 @@ if (sim_call_type==sim.syscb_actuation) then
     sim.setJointTargetVelocity(pjoint,u)
 end</pre>
 <p></p>
-<h2>CMSiMDE</h2>
+<h3>CMSiMDE</h3>
 <p><a href="https://github.com/mdecourse/cmsimde">https://github.com/mdecourse/cmsimde</a> 是一套以 Python + Flask 建構的網際內容管理系統, 以單人管理的模式建立, 其中包含動態網頁系統, 靜態網頁系統, Pelican 網誌與 Reveal.js 網際簡報系統.</p>
 <p><a href="https://github.com/mdecourse/cmsimde">https://github.com/mdecourse/cmsimde</a> 執行需要:</p>
 <p style="padding-left: 30px;">pip install flask flask_cors lxml bs4 markdown pelican leo</p>

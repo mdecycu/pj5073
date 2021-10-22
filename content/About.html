@@ -1,7 +1,8 @@
 <!DOCTYPE html><html>
         <head>
-        <title>JCAD Project</title>
+        <title>pj5073</title>
         <meta charset="utf-8">
+<meta property="head" content="H1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -34,6 +35,9 @@
         <script src="tipuesearch_content.js"></script>
         <link rel="stylesheet" href="./../cmsimde/static/tipuesearch/css/tipuesearch.css">
         <script src="./../cmsimde/static/tipuesearch/tipuesearch.js"></script>
+        <!-- for Wink3 -->
+        <link rel="stylesheet" type="text/css" href="./../cmsimde/static/winkPlayer.css" />
+        <script type="text/javascript" src="./../cmsimde/static/winkPlayer.js"></script>
         <script>
             /* original tipuesearch
             $(document).ready(function() {
@@ -61,11 +65,13 @@
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushHaxe.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushXml.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushPowerShell.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushLua.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCpp.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCss.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCSharp.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushDart.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushRust.js"></script>
 <link type="text/css" rel="stylesheet" href="./../cmsimde/static/syntaxhighlighter/css/shCoreDefault.css"/>
 <script type="text/javascript">SyntaxHighlighter.all();</script>
 <!-- 暫時不用
@@ -86,7 +92,7 @@ img.add_border {
 
 </head>
 <body>
-<div class='container'><nav>
+<div class='container-fluid'><nav>
         
     <div class="site-wrap">
 
@@ -122,7 +128,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='About.html'>About</a><li class='has-children'><a href='Flutter.html'>Flutter</a><ul class='dropdown'><li><a href='Flutter ref.html'>Flutter ref</a></li></ul><li class='has-children'><a href='discourse.html'>discourse</a><ul class='dropdown'><li><a href='操作管理.html'>操作管理</a></li></ul><li class='has-children'><a href='cd2020pj1.html'>cd2020pj1</a><ul class='dropdown'><li><a href='Oauth2.html'>Oauth2</a></li></ul><li><a href='Network.html'>Network</a><li class='has-children'><a href='Ref.html'>Ref</a><ul class='dropdown'><li><a href='LaTeX.html'>LaTeX</a><li class='has-children'><a href='Automatic Control.html'>Automatic Control</a><ul class='dropdown'><li><a href='參考步驟.html'>參考步驟</a><li><a href='ebook1.html'>ebook1</a></li></ul><li><a href='Project.html'>Project</a><li><a href='Reference.html'>Reference</a><li><a href='Bond Graphs.html'>Bond Graphs</a><li><a href='KMOLBrowser.html'>KMOLBrowser</a><li class='has-children'><a href='Glowscript.html'>Glowscript</a><ul class='dropdown'><li><a href='Rapydscript.html'>Rapydscript</a><li><a href='Atoms.html'>Atoms</a><li><a href='Samples.html'>Samples</a><li><a href='RLearning.html'>RLearning</a></li></ul><li><a href='Ebooks.html'>Ebooks</a><li><a href='Feedback.html'>Feedback</a><li class='has-children'><a href='CMSiMDE.html'>CMSiMDE</a><ul class='dropdown'><li><a href='Git.html'>Git</a><li><a href='Windows.html'>Windows</a><li><a href='Ubuntu.html'>Ubuntu</a><li><a href='Heorku.html'>Heorku</a><li><a href='Certbot.html'>Certbot</a></li>
+                     <li><a href='About.html'>About</a><li class='has-children'><a href='Reference.html'>Reference</a><ul class='dropdown'><li class='has-children'><a href='Flutter.html'>Flutter</a><ul class='dropdown'><li><a href='Flutter ref.html'>Flutter ref</a></li></ul><li class='has-children'><a href='discourse.html'>discourse</a><ul class='dropdown'><li><a href='操作管理.html'>操作管理</a></li></ul><li class='has-children'><a href='cd2020pj1.html'>cd2020pj1</a><ul class='dropdown'><li><a href='Oauth2.html'>Oauth2</a></li></ul><li><a href='Network.html'>Network</a><li class='has-children'><a href='Ref.html'>Ref</a><ul class='dropdown'><li><a href='LaTeX.html'>LaTeX</a><li><a href='Automatic Control.html'>Automatic Control</a><li><a href='參考步驟.html'>參考步驟</a><li><a href='ebook1.html'>ebook1</a><li><a href='Project.html'>Project</a><li><a href='Ref2.html'>Ref2</a><li><a href='Bond Graphs.html'>Bond Graphs</a><li><a href='KMOLBrowser.html'>KMOLBrowser</a><li><a href='Glowscript.html'>Glowscript</a><li><a href='Rapydscript.html'>Rapydscript</a><li><a href='Atoms.html'>Atoms</a><li><a href='Samples.html'>Samples</a><li><a href='RLearning.html'>RLearning</a><li><a href='Ebooks.html'>Ebooks</a><li><a href='Feedback.html'>Feedback</a><li><a href='CMSiMDE.html'>CMSiMDE</a><li><a href='Git.html'>Git</a><li><a href='Windows.html'>Windows</a><li><a href='Ubuntu.html'>Ubuntu</a><li><a href='Heorku.html'>Heorku</a><li><a href='Certbot.html'>Certbot</a></li>
                       </ul>
                 </nav>
               </div>
@@ -133,36 +139,32 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content"> <a href='Flutter.html'>Next</a> >> Flutter<br /><h1>About</h1>
-<p><a href="./../downloads/introduction_to_automatic_control_system.pdf">Introduction to Automatic Control System.pdf</a></p>
-<h4>網際內容管理系統在精密機械教學與研究上的應用<span lang="en"></span><br/><span lang="en"></span></h4>
-<h4 class="tw-data-text tw-text-large XcVN5d tw-ta" data-placeholder="Translation" dir="ltr" id="tw-target-text" style="text-align: left;"><span lang="en">Application of the Web-based Content Management System <br/>On Precision Mechanical Teaching and Research</span></h4>
-<p><span lang="en">討論區: <a href="https://github.com/mdecourse/5073pj1/discussions">https://github.com/mdecourse/5073pj1/discussions</a> </span></p>
-<p><span lang="en">涵蓋內容:</span></p>
-<p style="padding-left: 30px;"><span lang="en">系上網路佈線與使用教學如何納入網際內容系統 (網路相關軟硬體)</span></p>
-<p style="padding-left: 30px;"><span lang="en">專業核心課程內容如何納入網際內容管理系統 (選定專業核心課程內容)</span></p>
-<p style="padding-left: 30px;"><span lang="en">如何透過網路與程式套件延伸課程內容與應用 (課程延伸與應用)</span></p>
-<p style="padding-left: 30px;"><span lang="en"><a href="https://jpme.eng.nfu.edu.tw">https://jpme.eng.nfu.edu.tw</a> 管理如何與專題結合</span></p>
-<p><span lang="en">專題分工:</span></p>
-<p style="padding-left: 30px;"><span lang="en">一人專責用 Flutter 寫手機程式 for 教學與研究使用</span></p>
-<p style="padding-left: 30px;"><span lang="en">一人專責維護 jpme 論壇與網站</span></p>
-<p style="padding-left: 30px;"><span lang="en">一人專責編寫 Oauth2 資料庫程式</span></p>
-<p style="padding-left: 30px;"><span lang="en">一人負責維護系上網路軟硬體 (Proxy 與線路標註管理)</span></p>
-<h4>Members:</h4>
-<p style="padding-left: 30px;">50733105</p>
-<p style="padding-left: 30px;">50733144</p>
-<p style="padding-left: 30px;">50733146</p>
-<p style="padding-left: 30px;">50733152</p>
-<h4>Methodology:</h4>
-<ul>
-<li>Use <a href="https://docs.plm.automation.siemens.com/tdoc/nx/12/nx_help/#uid:index">NX12</a>, <a href="https://www.onshape.com/">Onshape</a> and <a href="http://solvespace.com/index.pl">Solvespace</a> to create system part assembly</li>
-<li><a href="https://en.wikipedia.org/wiki/STL_(file_format)">STL</a> to <a href="https://cyberbotics.com/">Webots</a> 或 <a href="https://www.coppeliarobotics.com/">CoppeliaSim</a></li>
-<li>Classic Control to Modern Control system design</li>
-<li>Flask + uwsgi on Ubuntu and Windows 10 2004</li>
-<li>Machine Learning and Optimal Control System Design</li>
-</ul>
-<p>Webots Inverted Pendulum:</p>
-<p style="padding-left: 30px;"><a href="https://robotbenchmark.net/benchmark/inverted_pendulum/">https://robotbenchmark.net/benchmark/inverted_pendulum/</a> </p><br /> <a href='Flutter.html'>Next</a> >> Flutter</div>
+    <div id="tipue_search_content"> <a href='Reference.html'>Next</a> >> Reference<br /><h1>About</h1>
+<h4>五專部專題題目:</h4>
+<h4 style="padding-left: 30px;"><span style="background-color: #ffff99;">網際內容管理系統在精密機械工程教學與研究上的應用</span></h4>
+<h4 style="padding-left: 30px;">Application of Web-based Content Management Systems in Teaching and Research of Precision Mechanical Engineering</h4>
+<h4 style="padding-left: 30px;">專題動機:</h4>
+<p style="padding-left: 60px;">探討如何利用 <a href="https://www.fossil-scm.org">Fossil SCM</a> 虛擬與實體伺服器, 讓五專精密機械工程科相關師生, 得以透過學校配發的 @gm 帳號登入, 並在網際內容管理系統中進行知識管理與互動, 擬藉此提升課程教學與專題研究效益.</p>
+<h4 style="padding-left: 30px;">研究步驟:</h4>
+<p style="padding-left: 60px;">從 Windows 與 Ubuntu 中編譯 <a href="https://www.fossil-scm.org">Fossil SCM</a> 套件開始, 分別取得 client 與 server 端的可執行檔案後, 將 <a href="https://www.fossil-scm.org">Fossil SCM</a> 安裝配置在一台實體或虛擬主機上, 利用 Python + <a href="https://flask.palletsprojects.com/en/2.0.x/">Flask</a> 著手編寫 <a href="https://oauth.net/2/">Oauth2</a> 網際程式介面, 讓所有相關成員得以自建倉儲與網際內容管理系統, 之後再分門別類, 根據精密機械工程科學會的任務編組, 利用網際內容管理系統提供相關服務.</p>
+<h4 style="padding-left: 30px;">預計成果:</h4>
+<ol>
+<li>參與 eng.nfu.edu.tw 網域伺服器 (DNS) 與 G Suite 系統管理.</li>
+<li>在 Ubuntu 虛擬主機上, 完成以 <a href="https://www.fossil-scm.org">Fossil SCM</a> 架設 pj5073.eng.nfu.edu.tw 精密機械工程科學會網站.</li>
+<li>能讓獲得許可之相關人員, 透過 @gm 帳號登入科學會網站, 在各班對應網站上進行 Github 上同步網際內容管理維護或互動討論.</li>
+<li>專題報告 pdf 檔案, 能夠在 github.com/mdecourse/pj5073 倉儲中的 pdf 分支, 以 Github Actions 流程發布.</li>
+<li>專題簡報可直接在 mde.tw/pj5073/reveal/ 中發布.</li>
+</ol>
+<h4 style="padding-left: 30px;">組員:</h4>
+<p style="padding-left: 60px;">50733105</p>
+<p style="padding-left: 60px;">50733144</p>
+<p style="padding-left: 60px;">50733146</p>
+<p style="padding-left: 60px;">50733152</p>
+<h4>教學與研究相關參考內容:</h4>
+<p style="padding-left: 30px;"><a href="./../downloads/introduction_to_automatic_control_system.pdf">Introduction to Automatic Control System.pdf</a></p>
+<p style="padding-left: 30px;">Webots Inverted Pendulum:</p>
+<p style="padding-left: 60px;"><a href="https://robotbenchmark.net/benchmark/inverted_pendulum/">https://robotbenchmark.net/benchmark/inverted_pendulum/</a> </p>
+<br /> <a href='Reference.html'>Next</a> >> Reference</div>
         
     <!-- footer -->
       <div class="container">

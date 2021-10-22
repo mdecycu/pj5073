@@ -1,7 +1,8 @@
 <!DOCTYPE html><html>
         <head>
-        <title>JCAD Project</title>
+        <title>pj5073</title>
         <meta charset="utf-8">
+<meta property="head" content="H2">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -34,6 +35,9 @@
         <script src="tipuesearch_content.js"></script>
         <link rel="stylesheet" href="./../cmsimde/static/tipuesearch/css/tipuesearch.css">
         <script src="./../cmsimde/static/tipuesearch/tipuesearch.js"></script>
+        <!-- for Wink3 -->
+        <link rel="stylesheet" type="text/css" href="./../cmsimde/static/winkPlayer.css" />
+        <script type="text/javascript" src="./../cmsimde/static/winkPlayer.js"></script>
         <script>
             /* original tipuesearch
             $(document).ready(function() {
@@ -61,11 +65,13 @@
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushHaxe.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushXml.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushPowerShell.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushLua.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCpp.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCss.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCSharp.js"></script>
 <script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushDart.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushRust.js"></script>
 <link type="text/css" rel="stylesheet" href="./../cmsimde/static/syntaxhighlighter/css/shCoreDefault.css"/>
 <script type="text/javascript">SyntaxHighlighter.all();</script>
 <!-- 暫時不用
@@ -86,7 +92,7 @@ img.add_border {
 
 </head>
 <body>
-<div class='container'><nav>
+<div class='container-fluid'><nav>
         
     <div class="site-wrap">
 
@@ -122,7 +128,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='About.html'>About</a><li class='has-children'><a href='Flutter.html'>Flutter</a><ul class='dropdown'><li><a href='Flutter ref.html'>Flutter ref</a></li></ul><li class='has-children'><a href='discourse.html'>discourse</a><ul class='dropdown'><li><a href='操作管理.html'>操作管理</a></li></ul><li class='has-children'><a href='cd2020pj1.html'>cd2020pj1</a><ul class='dropdown'><li><a href='Oauth2.html'>Oauth2</a></li></ul><li><a href='Network.html'>Network</a><li class='has-children'><a href='Ref.html'>Ref</a><ul class='dropdown'><li><a href='LaTeX.html'>LaTeX</a><li class='has-children'><a href='Automatic Control.html'>Automatic Control</a><ul class='dropdown'><li><a href='參考步驟.html'>參考步驟</a><li><a href='ebook1.html'>ebook1</a></li></ul><li><a href='Project.html'>Project</a><li><a href='Reference.html'>Reference</a><li><a href='Bond Graphs.html'>Bond Graphs</a><li><a href='KMOLBrowser.html'>KMOLBrowser</a><li class='has-children'><a href='Glowscript.html'>Glowscript</a><ul class='dropdown'><li><a href='Rapydscript.html'>Rapydscript</a><li><a href='Atoms.html'>Atoms</a><li><a href='Samples.html'>Samples</a><li><a href='RLearning.html'>RLearning</a></li></ul><li><a href='Ebooks.html'>Ebooks</a><li><a href='Feedback.html'>Feedback</a><li class='has-children'><a href='CMSiMDE.html'>CMSiMDE</a><ul class='dropdown'><li><a href='Git.html'>Git</a><li><a href='Windows.html'>Windows</a><li><a href='Ubuntu.html'>Ubuntu</a><li><a href='Heorku.html'>Heorku</a><li><a href='Certbot.html'>Certbot</a></li>
+                     <li><a href='About.html'>About</a><li class='has-children'><a href='Reference.html'>Reference</a><ul class='dropdown'><li class='has-children'><a href='Flutter.html'>Flutter</a><ul class='dropdown'><li><a href='Flutter ref.html'>Flutter ref</a></li></ul><li class='has-children'><a href='discourse.html'>discourse</a><ul class='dropdown'><li><a href='操作管理.html'>操作管理</a></li></ul><li class='has-children'><a href='cd2020pj1.html'>cd2020pj1</a><ul class='dropdown'><li><a href='Oauth2.html'>Oauth2</a></li></ul><li><a href='Network.html'>Network</a><li class='has-children'><a href='Ref.html'>Ref</a><ul class='dropdown'><li><a href='LaTeX.html'>LaTeX</a><li><a href='Automatic Control.html'>Automatic Control</a><li><a href='參考步驟.html'>參考步驟</a><li><a href='ebook1.html'>ebook1</a><li><a href='Project.html'>Project</a><li><a href='Ref2.html'>Ref2</a><li><a href='Bond Graphs.html'>Bond Graphs</a><li><a href='KMOLBrowser.html'>KMOLBrowser</a><li><a href='Glowscript.html'>Glowscript</a><li><a href='Rapydscript.html'>Rapydscript</a><li><a href='Atoms.html'>Atoms</a><li><a href='Samples.html'>Samples</a><li><a href='RLearning.html'>RLearning</a><li><a href='Ebooks.html'>Ebooks</a><li><a href='Feedback.html'>Feedback</a><li><a href='CMSiMDE.html'>CMSiMDE</a><li><a href='Git.html'>Git</a><li><a href='Windows.html'>Windows</a><li><a href='Ubuntu.html'>Ubuntu</a><li><a href='Heorku.html'>Heorku</a><li><a href='Certbot.html'>Certbot</a></li>
                       </ul>
                 </nav>
               </div>
@@ -134,8 +140,8 @@ img.add_border {
           
         </header>
     <div id="tipue_search_content">Oauth2 << <a href='Oauth2.html'>Previous</a> <a href='Ref.html'>Next</a> >> Ref<br /><h1>Network</h1>
-<p><a href="https://www.wireshark.org/">https://www.wireshark.org/</a> </p>
-<p><a href="https://github.com/mgriffin/graphviz_network">https://github.com/mgriffin/graphviz_network</a> </p>
+<p><a href="https://www.wireshark.org/">https://www.wireshark.org/</a></p>
+<p><a href="https://github.com/mgriffin/graphviz_network">https://github.com/mgriffin/graphviz_network</a></p>
 <br />Oauth2 << <a href='Oauth2.html'>Previous</a> <a href='Ref.html'>Next</a> >> Ref</div>
         
     <!-- footer -->

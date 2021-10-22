@@ -139,70 +139,25 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">Ebooks << <a href='Ebooks.html'>Previous</a> <a href='CMSiMDE.html'>Next</a> >> CMSiMDE<br /><h1>Feedback</h1>
-<p style="padding-left: 30px;">針對 CoppeliaSim 中 Python Remote API 不提供的功能, 可以透過 Lua 製作, 然後再以 <a href="https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction">https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction</a> 呼叫. 相關討論請參考 <a href="https://forum.coppeliarobotics.com/viewtopic.php?t=7699">https://forum.coppeliarobotics.com/viewtopic.php?t=7699</a></p>
-<h4><span style="background-color: #ffff99;">以下的 Inverted Pedulum 控制模擬可以視為專題 Task 之一:</span></h4>
-<p style="padding-left: 30px;"><a href="https://github.com/mdecourse/vrep_inverted_pendulum">https://github.com/mdecourse/vrep_inverted_pendulum</a> 採用舊版的 Python2 以及舊版的 V-rep 製作, 可以嘗試改為 Python3 以及 CoppeliaSim 4.1.0 rev1 版本相容.</p>
-<p style="padding-left: 30px;">Webots Inverted Pendulum:</p>
-<p style="padding-left: 60px;"><a href="https://robotbenchmark.net/benchmark/inverted_pendulum/">https://robotbenchmark.net/benchmark/inverted_pendulum/</a> </p>
-<p style="padding-left: 30px;"><a href="https://github.com/mdecourse/vrep-stuff">https://github.com/mdecourse/vrep-stuff</a></p>
-<p style="padding-left: 30px;"><a href="http://ctms.engin.umich.edu/CTMS/index.php?example=InvertedPendulum&amp;section=SystemModeling">inverted pendulum system modeling</a></p>
-<p style="padding-left: 30px;"><a href="./../downloads/simulation of the inverted pendulum.pdf">simulation of the inverted pendulum.pdf</a></p>
-<p style="padding-left: 30px;"><a href="https://ieeexplore.ieee.org/document/8833168">solve the inverted pendulum problem using DQN algorithm</a></p>
-<p style="padding-left: 30px;"><a href="https://in.mathworks.com/help/control/ug/control-of-an-inverted-pendulum-on-a-cart.html">https://in.mathworks.com/help/control/ug/control-of-an-inverted-pendulum-on-a-cart.html</a></p>
-<p> 磁浮控制系統:</p>
-<p style="padding-left: 30px;"><a href="./../downloads/Experiment_4_magnetic_levitation_control.pdf">Magnetic levitation control.pdf</a></p>
-<p style="padding-left: 30px;"><a href="./../downloads/Controller Design for a Magnetic Levitation Kit usingOpenModelica’s Integration with the Julia Language.pdf">Controller Design for a Magnetic Levitation Kit usingOpenModelica’s Integration with the Julia Language.pdf</a></p>
-<p>CoppeliaSim Lua feedback PID Control:</p>
-<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">function saturate(x,thr)
-    if x&gt;thr then return thr end
-    if x&lt;-thr then return -thr end
-    return x
-end
-
-function PID_create(Kp,Ki,Kd)
-    pid={}
-    pid.pre_error=0.0
-    pid.integral=0.0
-    pid.Kp=Kp
-    pid.Ki=Ki
-    pid.Kd=Kd
-    return pid
-end
-
-function PID(pid, setpoint, actual_position, dt)
-    error=setpoint-actual_position
-    if pid.Ki&gt;0.0 then
-        pid.integral=pid.integral+error*dt
-    end
-    derivative=(error-pid.pre_error)/dt
-    output=pid.Kp*error+saturate(pid.Ki*pid.integral,1000)+pid.Kd*derivative
-    output=saturate(output,2000)
-    pid.pre_error=error
-    return output
-end
-
-if (sim_call_type==sim.syscb_init) then
-    --graph=sim.getObjectHandle('Graph')
-    pjoint=sim.getObjectHandle('pjoint')
-    rjoint1=sim.getObjectHandle('rjoint1')
-    pad=sim.getObjectHandle('pad')
-    pidRot=PID_create(64.05,34.65,0.709)
-    pidPos=PID_create(54,0,0.629)
-    sim.addStatusbarMessage('angle controller = { P='..pidRot.Kp..'  I='..pidRot.Ki..'  D='..pidRot.Kd..' }   horizontal controller = { P='..pidPos.Kp..'  I='..pidPos.Ki..'  D='..pidPos.Kd..' }')
-end
-
-if (sim_call_type==sim.syscb_actuation) then  
-    dt=sim.getSimulationTimeStep()
-    u_angle=PID(pidRot, 0, sim.getJointPosition(rjoint1), dt)
-    u_pos=PID(pidPos, 0, sim.getJointPosition(pjoint), dt)
-   -- sim.setGraphUserData(graph,'e_ang',pid1.pre_error)
-   -- sim.setGraphUserData(graph,'e_pos',pid2.pre_error)
-    u=u_angle-u_pos
-    sim.setJointTargetVelocity(pjoint,u)
-end</pre>
-<p></p>
-<br />Ebooks << <a href='Ebooks.html'>Previous</a> <a href='CMSiMDE.html'>Next</a> >> CMSiMDE</div>
+    <div id="tipue_search_content">Project << <a href='Project.html'>Previous</a> <a href='Bond Graphs.html'>Next</a> >> Bond Graphs<br /><h1>Ref2</h1>
+<p><a href="https://github.com/brettkromkamp/topic-db">https://github.com/brettkromkamp/topic-db</a></p>
+<p style="padding-left: 30px;"><a href="https://en.wikipedia.org/wiki/Topic_map">https://en.wikipedia.org/wiki/Topic_map</a></p>
+<p style="padding-left: 30px;"><a href="https://www.isotopicmaps.org/sam/">https://www.isotopicmaps.org/sam/</a></p>
+<p><a href="./../downloads/The FAIR GuidingPrinciples for scientific datamanagement and stewardship.pdf">The FAIR GuidingPrinciples for scientific datamanagement and stewardship.pdf</a></p>
+<p><a href="./../downloads/A_Collective_Knowledge_workflow_for_collaborative_.pdf">A_Collective_Knowledge_workflow_for_collaborative_.pdf</a></p>
+<p><a href="https://github.com/ctuning/ck">https://github.com/ctuning/ck</a></p>
+<p style="padding-left: 30px;"><a href="https://github.com/ctuning/ai">https://github.com/ctuning/ai</a></p>
+<p style="padding-left: 30px;"><a href="https://github.com/ctuning/ck-tensorflow">https://github.com/ctuning/ck-tensorflow</a></p>
+<p><a href="./../downloads/2020_Collective Knowledge.pdf">2020_Collective Knowledge.pdf</a></p>
+<p><a href="https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems/?utm_source=share&amp;utm_medium=web2x&amp;context=3">Reproducing 150 research papers: the problems and solutions</a></p>
+<p><a href="https://github.com/thegrumpys/odop">https://github.com/thegrumpys/odop</a></p>
+<p style="padding-left: 30px;"><a href="https://www.topicmaps.org/">https://www.topicmaps.org/</a></p>
+<p style="padding-left: 30px;"><a href="https://www.topicmaps.org/datamodel/">https://www.topicmaps.org/datamodel/</a></p>
+<p style="padding-left: 30px;"><a href="./../downloads/A_data-driven_approach_for_understanding_Open_Desi.pdf">A_data-driven_approach_for_understanding_Open_Desi.pdf</a></p>
+<p><a href="https://fastpath2020.github.io/Program">https://fastpath2020.github.io/Program</a></p>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/HTu7RokJsxc" width="560"></iframe></p>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/8Qa0E1jdkrE" width="560"></iframe></p>
+<br />Project << <a href='Project.html'>Previous</a> <a href='Bond Graphs.html'>Next</a> >> Bond Graphs</div>
         
     <!-- footer -->
       <div class="container">
