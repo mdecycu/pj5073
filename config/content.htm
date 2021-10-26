@@ -23,8 +23,57 @@
 <p style="padding-left: 30px;"><a href="/downloads/introduction_to_automatic_control_system.pdf">Introduction to Automatic Control System.pdf</a></p>
 <p style="padding-left: 30px;">Webots Inverted Pendulum:</p>
 <p style="padding-left: 60px;"><a href="https://robotbenchmark.net/benchmark/inverted_pendulum/">https://robotbenchmark.net/benchmark/inverted_pendulum/</a> </p>
-<h1>Reference</h1>
-<h2>Flutter</h2>
+<h1>主機設定</h1>
+<p>本研究主要利用 Fossil SCM 的網際主機作為主體, 並配置 Python Flask 網際程式管理使用者 Oauth2 登入流程. 目的在建立一個可以為精密機械教學與研究使用的網際內容管理系統.</p>
+<p>主機的設定分為 Windows 10 與 Ubuntu 20.04 等兩個部分.</p>
+<p>Fossil SCM 的網際主機以 fossil server 指令建立, 可以在近端主機的 port 9000 將資料送給 Stunnel 的 https port 443 協定代理. 使用者從外部可以利用瀏覽器直接以 https 協定連接至主機中的任一個 Fossil SCM 倉儲.</p>
+<h4>Windows 10:</h4>
+<p style="padding-left: 30px;">在 Windows 10 操作系統中 Multi-repository Fossil SCM 網際伺服器與 Stunnel HTTPS 協定代理的 service 設定, 可以利用 <a href="https://github.com/kirillkovalenko/nssm">https://github.com/kirillkovalenko/nssm</a> 的設定達成.</p>
+<h4>Ubuntu 20.04:</h4>
+<p style="padding-left: 30px;">在 Ubuntu 操作系統中的 Stunnel 可以利用 exec 與 execargs 設定啟動 Fossil SCM server, 且透過 /etc/default/stunnel4 檔案中的 ENABLED=1 啟動 service (參見 <a href="https://mde.tw/wcmj2021/blog/fossil-scm-on-ubuntu.html">https://mde.tw/wcmj2021/blog/fossil-scm-on-ubuntu.html</a>). 而且在 Ubuntu 中可以利用</p>
+<p style="padding-left: 30px;">sudo systemctl start stunnel4.service</p>
+<p style="padding-left: 30px;">啟動 <a href="https://www.stunnel.org/">stunnel</a>.</p>
+<p style="padding-left: 30px;">sudo systemctl stop stunnel4.service</p>
+<p style="padding-left: 30px;">關閉 <a href="https://www.stunnel.org/">stunnel</a>, 或利用:</p>
+<p style="padding-left: 30px;">sudo systemctl restart stunnel4.service</p>
+<p style="padding-left: 30px;">重新啟動 <a href="https://www.stunnel.org/">stunnel</a>.</p>
+<p></p>
+<p></p>
+<p></p><h2>Windows 10</h2>
+<p>以虛擬主機 pj2022.kmol.info 的設定為例:</p>
+<p>設定過程所需要的檔案: <a href="https://pj2022.kmol.info/pj2022/chat-download/1/pj2022_files.7z">https://pj2022.kmol.info/pj2022/chat-download/1/pj2022_files.7z</a> (登入後下載), 其中包括 nssm.exe, procexp64.exe, fossil.exe, stunnel 目錄等.</p>
+<p>要採 Fossil SCM 與 Stunnel 設定 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 共有兩個 nssm service 必須建立:</p>
+<p style="padding-left: 30px;">nssm install fossil_multi</p>
+<p style="padding-left: 30px;">nssm install stunnel_fossil_flask</p>
+<p>但是在建立這兩個 Windows 10 服務之前必須先使用 command 執行 fossil.exe 與 stunnel.exe, 確定所使用的設定參數正確後, 再將正確的參數用於 nssm 所建立的服務.</p>
+<p>Fossil SCM server 指令說明: <a href="https://fossil-scm.org/home/help/server">https://fossil-scm.org/home/help/server</a></p>
+<p>Stunnel 設定說明: <a href="https://www.stunnel.org/docs.html">https://www.stunnel.org/docs.html</a></p>
+<h4>Fossil SCM server 設定:</h4>
+<p style="padding-left: 30px;">首先在 c:\pj2022 目錄中建立 repo 目錄, 之後的 Fossil SCM 倉儲都將放入此目錄.</p>
+<p style="padding-left: 30px;">cd 到 c:\pj2022\repo, 並執行 <a href="https://www.fossil-scm.org/home/help?cmd=init">fossil.exe init</a> 建立 pj2022.fossil 倉儲</p>
+<p style="padding-left: 60px;">c:\pj2022\repo&gt;c:\pj2022\fossil.exe init pj2022.fossil</p>
+<p style="padding-left: 30px;">利用 <a href="https://www.fossil-scm.org/home/help?cmd=user">fossil.exe user password</a> 更改 pj2022.fossil 的管理者密碼.</p>
+<p style="padding-left: 60px;">c:\pj2022\repo&gt;c:\pj2022\fossil.exe user password username userpassword -R pj2022.fossil</p>
+<p style="padding-left: 30px;">接著以命令列設定 port 9000 的 Fossil SCM 網際主機. 設定的指令為:</p>
+<p style="padding-left: 60px;">c:\pj2022\fossil.exe server c:\pj2022\repo --port 9000 --notfound pj2022.fossil</p>
+<p style="padding-left: 30px;">啟動時 Windows 10 將會帶出防火牆, 因為 fossil server 僅需要在內部網路運作, 可以無需開啟外部防火牆連線許可. 這時應該可以透過瀏覽器以 <a href="http://localhost:9000">http://localhost:9000</a> 連線到 pj2022.fossil 網際倉儲.</p>
+<p style="padding-left: 30px;">接下來因為 fossil.exe 必須採用 https 內容與 stunnel 互動. 因此與 stunnel https 結合的指令必須加上 --https, 也就是:</p>
+<p style="padding-left: 60px;">c:\pj2022\fossil.exe server c:\pj2022\repo --port 9000 --https --notfound pj2022.fossil</p>
+<p style="padding-left: 30px;">但是啟動後因為尚未結合 stunnel https, 因此上列指令執行後, <a href="http://localhost:9000">http://localhost:9000</a> 與 <a href="https://localhost:9000">https://localhost:9000</a> 都無法連線 (因為 fossil 指令納入 --https 的緣故), 必須結合 stunnel config 目錄中的 stunnel.conf 設定:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">; TLS front-end to a web server
+[https]
+accept  = pj2022.kmol.info:443
+connect = 9000
+cert = localhost.crt
+key = localhost.key
+TIMEOUTclose = 0</pre>
+<p>並且以 c:\pj2022\stunnel.exe 指令啟動, 並無需指定參數 config/stunnel.conf, stunnel.exe 執行時會自動以 config/stunnel.conf 作為設定參數, 此時執行 stunnel.exe Windows 10 也會跳出防火牆設定, 必須允許外部網路連線, 使用者才可以透過 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 連接至 Fossil SCM 網際 pj2022.fossil 倉儲.</p>
+<p>一旦上述採指令執行成功後, 就可以分別以 ctrl +c 取消兩則指令執行後, 以 nssm 設定：</p>
+<p>nssm install fossil_multi 與 nssm install stunnel_fossil_flask</p>
+<p>其中 fossil_multi 服務的指令為 c:\pj2022\fossil.exe, 啟動目錄為 c:\pj2022\, 而啟動參數則為 server c:\pj2022\repo --port 9000 --https --notfound pj2022.fossil</p>
+<p>而 stunnel_fossil_flask 服務的指令為 c:\pj2022\stunnel.exe, 啟動目錄為 c:\pj2022\, 啟動參數無需設定, stunnel.exe 會自動取用 config/stunnel.conf 設定.</p>
+<p>之後便可以分別啟動 fossil_multi 與 stunnel_fossil_flask 等兩個服務, 查看是否能夠透過 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 連線.</p>
+<p></p><h2>Ubuntu</h2><h1>Reference</h1><h2>Flutter</h2>
 <p><a href="https://flutter.dev/">https://flutter.dev/</a></p>
 <p><a href="https://drive.google.com/file/d/1-VY9wQOEDeu-_KY4EhqqoyUq8xZMtEG9/view?usp=sharing">下載 kmol_project_2021.7z</a> 可攜程式系統</p>
 <p>References:</p>

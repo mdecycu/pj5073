@@ -22,7 +22,53 @@
 <h4>教學與研究相關參考內容:</h4>
 <p style="padding-left: 30px;"><a href="/downloads/introduction_to_automatic_control_system.pdf">Introduction to Automatic Control System.pdf</a></p>
 <p style="padding-left: 30px;">Webots Inverted Pendulum:</p>
-<p style="padding-left: 60px;"><a href="https://robotbenchmark.net/benchmark/inverted_pendulum/">https://robotbenchmark.net/benchmark/inverted_pendulum/</a> </p><h1>Flutter</h1>
+<p style="padding-left: 60px;"><a href="https://robotbenchmark.net/benchmark/inverted_pendulum/">https://robotbenchmark.net/benchmark/inverted_pendulum/</a> </p>
+<h1>主機設定</h1>
+<p>本研究主要利用 Fossil SCM 的網際主機作為主體, 並配置 Python Flask 網際程式管理使用者 Oauth2 登入流程. 目的在建立一個可以為精密機械教學與研究使用的網際內容管理系統.</p>
+<p>主機的設定分為 Windows 10 與 Ubuntu 20.04 等兩個部分.</p>
+<p>Fossil SCM 的網際主機以 fossil server 指令建立, 可以在近端主機的 port 9000 將資料送給 Stunnel 的 https port 443 協定代理. 使用者從外部可以利用瀏覽器直接以 https 協定連接至主機中的任一個 Fossil SCM 倉儲.</p>
+<h4>Windows 10:</h4>
+<p style="padding-left: 30px;">在 Windows 10 操作系統中 Multi-repository Fossil SCM 網際伺服器與 Stunnel HTTPS 協定代理的 service 設定, 可以利用 <a href="https://github.com/kirillkovalenko/nssm">https://github.com/kirillkovalenko/nssm</a> 的設定達成.</p>
+<h4>Ubuntu 20.04:</h4>
+<p style="padding-left: 30px;">在 Ubuntu 操作系統中的 Stunnel 可以利用 exec 與 execargs 設定啟動 Fossil SCM server, 且透過 /etc/default/stunnel4 檔案中的 ENABLED=1 啟動 service (參見 <a href="https://mde.tw/wcmj2021/blog/fossil-scm-on-ubuntu.html">https://mde.tw/wcmj2021/blog/fossil-scm-on-ubuntu.html</a>). 而且在 Ubuntu 中可以利用</p>
+<p style="padding-left: 30px;">sudo systemctl start stunnel4.service</p>
+<p style="padding-left: 30px;">啟動 <a href="https://www.stunnel.org/">stunnel</a>.</p>
+<p style="padding-left: 30px;">sudo systemctl stop stunnel4.service</p>
+<p style="padding-left: 30px;">關閉 <a href="https://www.stunnel.org/">stunnel</a>, 或利用:</p>
+<p style="padding-left: 30px;">sudo systemctl restart stunnel4.service</p>
+<p style="padding-left: 30px;">重新啟動 <a href="https://www.stunnel.org/">stunnel</a>.</p>
+<p></p>
+<p></p>
+<p></p><h2>Windows 10</h2>
+<p>以虛擬主機 pj2022.kmol.info 的設定為例:</p>
+<p>設定過程所需要的檔案: <a href="https://pj2022.kmol.info/pj2022/chat-download/1/pj2022_files.7z">https://pj2022.kmol.info/pj2022/chat-download/1/pj2022_files.7z</a> (登入後下載), 其中包括 nssm.exe, procexp64.exe, fossil.exe, stunnel 目錄等.</p>
+<p>要採 Fossil SCM 與 Stunnel 設定 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 共有兩個 nssm service 必須建立:</p>
+<p style="padding-left: 30px;">nssm install fossil_multi</p>
+<p style="padding-left: 30px;">nssm install stunnel_fossil_flask</p>
+<p>但是在建立這兩個 Windows 10 服務之前必須先使用 command 執行 fossil.exe 與 stunnel.exe, 確定所使用的設定參數正確後, 再將正確的參數用於 nssm 所建立的服務.</p>
+<p>Fossil SCM server 指令說明: <a href="https://fossil-scm.org/home/help/server">https://fossil-scm.org/home/help/server</a></p>
+<p>Stunnel 設定說明: <a href="https://www.stunnel.org/docs.html">https://www.stunnel.org/docs.html</a></p>
+<h4>Fossil SCM server 設定:</h4>
+<p style="padding-left: 30px;">首先在 c:\pj2022 目錄中建立 repo 目錄, 之後的 Fossil SCM 倉儲都將放入此目錄.</p>
+<p style="padding-left: 30px;">cd 到 c:\pj2022\repo, 並執行 <a href="https://www.fossil-scm.org/home/help?cmd=init">fossil.exe init</a> 建立 pj2022.fossil 倉儲</p>
+<p style="padding-left: 60px;">c:\pj2022\repo&gt;c:\pj2022\fossil.exe init pj2022.fossil</p>
+<p style="padding-left: 30px;">利用 <a href="https://www.fossil-scm.org/home/help?cmd=user">fossil.exe user password</a> 更改 pj2022.fossil 的管理者密碼.</p>
+<p style="padding-left: 60px;">c:\pj2022\repo&gt;c:\pj2022\fossil.exe user password username userpassword -R pj2022.fossil</p>
+<p style="padding-left: 30px;">接著以命令列設定 port 9000 的 Fossil SCM 網際主機. 設定的指令為:</p>
+<p style="padding-left: 60px;">c:\pj2022\fossil.exe server c:\pj2022\repo --port 9000 --notfound pj2022.fossil</p>
+<p style="padding-left: 30px;">啟動時 Windows 10 將會帶出防火牆, 因為 fossil server 僅需要在內部網路運作, 可以無需開啟外部防火牆連線許可. 這時應該可以透過瀏覽器以 <a href="http://localhost:9000">http://localhost:9000</a> 連線到 pj2022.fossil 網際倉儲.</p>
+<p style="padding-left: 30px;">接下來因為 fossil.exe 必須採用 https 內容與 stunnel 互動. 因此與 stunnel https 結合的指令必須加上 --https, 也就是:</p>
+<p style="padding-left: 60px;">c:\pj2022\fossil.exe server c:\pj2022\repo --port 9000 --https --notfound pj2022.fossil</p>
+<p style="padding-left: 30px;">但是啟動後因為尚未結合 stunnel https, 因此上列指令執行後, <a href="http://localhost:9000">http://localhost:9000</a> 與 <a href="https://localhost:9000">https://localhost:9000</a> 都無法連線 (因為 fossil 指令納入 --https 的緣故), 必須結合 stunnel config 目錄中的 stunnel.conf 設定:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">; TLS front-end to a web server
+[https]
+accept  = pj2022.kmol.info:443
+connect = 9000
+cert = localhost.crt
+key = localhost.key
+TIMEOUTclose = 0</pre>
+<p>並且以 c:\pj2022\stunnel.exe 指令啟動, 並無需指定參數 config/stunnel.conf, stunnel.exe 執行時會自動以 config/stunnel.conf 作為設定參數, 此時執行 stunnel.exe Windows 10 也會跳出防火牆設定, 必須允許外部網路連線, 使用者才可以透過 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 連接至 Fossil SCM 網際 pj2022.fossil 倉儲.</p>
+<p></p><h2>Ubuntu</h2><h1>Reference</h1><h2>Flutter</h2>
 <p><a href="https://flutter.dev/">https://flutter.dev/</a></p>
 <p><a href="https://drive.google.com/file/d/1-VY9wQOEDeu-_KY4EhqqoyUq8xZMtEG9/view?usp=sharing">下載 kmol_project_2021.7z</a> 可攜程式系統</p>
 <p>References:</p>
@@ -34,7 +80,7 @@
 <p style="padding-left: 30px;"><a href="https://dev.to/carminezacc/advanced-flutter-networking-part-1-uploading-a-file-to-a-rest-api-from-flutter-using-a-multi-part-form-data-post-request-2ekm">https://dev.to/carminezacc/advanced-flutter-networking-part-1-uploading-a-file-to-a-rest-api-from-flutter-using-a-multi-part-form-data-post-request-2ekm</a></p>
 <p style="padding-left: 30px;"><a href="https://flutter.dev/docs/cookbook/networking/send-data">https://flutter.dev/docs/cookbook/networking/send-data</a></p>
 <p></p>
-<h2>Flutter ref</h2>
+<h3>Flutter ref</h3>
 <p><a href="/downloads/Flutter完整开发实战详解系列.pdf">Flutter完整开发实战详解系列.pdf</a></p>
 <p><a href="https://github.com/apgapg/flutter_physics_concepts">https://github.com/apgapg/flutter_physics_concepts</a></p>
 <p><a href="https://rodolfohernan20.blogspot.com/2019/12/upload-files-to-server-with-flutter-web.html">https://rodolfohernan20.blogspot.com/2019/12/upload-files-to-server-with-flutter-web.html</a></p>
@@ -116,10 +162,11 @@
 <h4>參考資料:</h4>
 <p style="padding-left: 30px;"><a href="https://github.com/flutter-devs/flutter_camera_demo">https://github.com/flutter-devs/flutter_camera_demo</a></p>
 <p style="padding-left: 30px;"><a href="https://github.com/nirav4273/flutter_hair_saloon">https://github.com/nirav4273/flutter_hair_saloon</a></p>
-<p><br/>Quick Dart &lt;&lt; <a href="/get_page/Flutter/Quick Dart.html">Previous</a> <a href="/get_page/Flutter/Flutter Mobile.html">Next</a> &gt;&gt; Flutter Mobile</p><h1>discourse</h1>
+<p><br/>Quick Dart &lt;&lt; <a href="/get_page/Flutter/Quick Dart.html">Previous</a> <a href="/get_page/Flutter/Flutter Mobile.html">Next</a> &gt;&gt; Flutter Mobile</p>
+<h2>discourse</h2>
 <p><a href="https://github.com/discourse/discourse">https://github.com/discourse/discourse</a></p>
 <p><a href="https://jpme.eng.nfu.edu.tw">https://jpme.eng.nfu.edu.tw</a></p>
-<h2>操作管理</h2>
+<h3>操作管理</h3>
 <h4>jpme.eng.nfu.edu.tw</h4>
 <p>論壇程式碼: /var/www/discourse</p>
 <p>設定檔案: /var/www/discourse/config/site_settings.yml</p>
@@ -134,22 +181,26 @@
 <p style="padding-left: 30px;">dhcp6: no</p>
 <p style="padding-left: 30px;">accetp-ra: no</p>
 <p>accept-ra (bool)<br/><br/>Accept Router Advertisement that would have the kernel configure IPv6 by itself.<br/>When enabled, accept Router Advertisements. When disabled, do not respond to<br/>Router Advertisements. If unset use the host kernel default setting.</p>
-<p></p><h1>cd2020pj1</h1>
+<p></p>
+<h2>cd2020pj1</h2>
 <p><a href="https://github.com/mdecourse/cd2020pj1">https://github.com/mdecourse/cd2020pj1</a></p>
 <p style="padding-left: 30px;">Python 網際框架採用: <a href="https://flask.palletsprojects.com">https://flask.palletsprojects.com</a></p>
 <p style="padding-left: 30px;">Oauth2 認證採用: <a href="https://github.com/authomatic/authomatic">https://github.com/authomatic/authomatic</a></p>
 <p style="padding-left: 30px;">資料庫採用: sqlite3</p>
 <p style="padding-left: 60px;">之後部署至 <a href="https://www.heroku.com/">Heroku</a> 預計使用 <a href="https://elements.heroku.com/addons/heroku-postgresql">https://elements.heroku.com/addons/heroku-postgresql</a></p>
 <p>Flask upload:</p>
-<p style="padding-left: 30px;"><a href="https://github.com/bboe/flask-image-uploader">https://github.com/bboe/flask-image-uploader</a></p><h2>Oauth2</h2>
+<p style="padding-left: 30px;"><a href="https://github.com/bboe/flask-image-uploader">https://github.com/bboe/flask-image-uploader</a></p>
+<h3>Oauth2</h3>
 <p>目前的 cd2020pj1 採用 authomatic:</p>
-<p style="padding-left: 30px;"><a href="https://github.com/authomatic/authomatic">https://github.com/authomatic/authomatic</a> </p>
-<p><a href="https://pypi.org/project/python-oauth2/">https://pypi.org/project/python-oauth2/</a></p><h1>Network</h1>
-<p><a href="https://www.wireshark.org/">https://www.wireshark.org/</a> </p>
-<p><a href="https://github.com/mgriffin/graphviz_network">https://github.com/mgriffin/graphviz_network</a> </p>
-<h1>Ref</h1>
-<h2>LaTeX</h2>
-<p><a href="https://github.com/latextemplates/scientific-thesis-template">https://github.com/latextemplates/scientific-thesis-template</a></p><h2>Automatic Control</h2>
+<p style="padding-left: 30px;"><a href="https://github.com/authomatic/authomatic">https://github.com/authomatic/authomatic</a></p>
+<p><a href="https://pypi.org/project/python-oauth2/">https://pypi.org/project/python-oauth2/</a></p>
+<h2>Network</h2>
+<p><a href="https://www.wireshark.org/">https://www.wireshark.org/</a></p>
+<p><a href="https://github.com/mgriffin/graphviz_network">https://github.com/mgriffin/graphviz_network</a></p>
+<h2>Ref</h2>
+<h3>LaTeX</h3>
+<p><a href="https://github.com/latextemplates/scientific-thesis-template">https://github.com/latextemplates/scientific-thesis-template</a></p>
+<h3>Automatic Control</h3>
 <p><a href="/downloads/BookPythonForControl.pdf">BookPythonForControl.pdf</a></p>
 <p><a href="http://python-control.sourceforge.net/manual/">http://python-control.sourceforge.net/manual/</a></p>
 <p><a href="https://github.com/python-control/python-control">https://github.com/python-control/python-control</a></p>
@@ -178,7 +229,8 @@
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-642-03446-6">https://link.springer.com/book/10.1007/978-3-642-03446-6</a></p>
 <p>Control and Feedback are everywhere.</p>
 <p>Feedback is information obtained from a system used to change its behavior.</p>
-<p>A system is causal (符合因果關係) when for any signal in the behavior the future cannot influence the past of the signal. Because in our discussions signals are functions of time, causality (因果關係) is an all too natural a property. It is indeed not conceivable that the presently experienced shower temperature could possibly depend on future positions of the water taps. Indeed, our shower is a causal system (因果系統).</p><h2>Project</h2>
+<p>A system is causal (符合因果關係) when for any signal in the behavior the future cannot influence the past of the signal. Because in our discussions signals are functions of time, causality (因果關係) is an all too natural a property. It is indeed not conceivable that the presently experienced shower temperature could possibly depend on future positions of the water taps. Indeed, our shower is a causal system (因果系統).</p>
+<h3>Project</h3>
 <p><a href="https://github.com/JuliaGraphics/Winston.jl">https://github.com/JuliaGraphics/Winston.jl</a> (2D plot)</p>
 <p><a href="https://juliagraphics.github.io/Gtk.jl/latest/">https://juliagraphics.github.io/Gtk.jl/latest/</a> (GUI)</p>
 <p><a href="https://github.com/JuliaGraphics/Cairo.jl">https://github.com/JuliaGraphics/Cairo.jl</a> (Graphics Library)</p>
@@ -205,7 +257,8 @@
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/nKRIAbxNSQ8" width="560"></iframe></p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/dmWQtI3DFFo" width="560"></iframe></p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/zJ3R6vOhibA" width="560"></iframe></p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/gPYc77M90Qg" width="560"></iframe></p><h2>Reference</h2>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/gPYc77M90Qg" width="560"></iframe></p>
+<h3>Ref2</h3>
 <p><a href="https://github.com/brettkromkamp/topic-db">https://github.com/brettkromkamp/topic-db</a></p>
 <p style="padding-left: 30px;"><a href="https://en.wikipedia.org/wiki/Topic_map">https://en.wikipedia.org/wiki/Topic_map</a></p>
 <p style="padding-left: 30px;"><a href="https://www.isotopicmaps.org/sam/">https://www.isotopicmaps.org/sam/</a></p>
@@ -222,14 +275,15 @@
 <p style="padding-left: 30px;"><a href="/downloads/A_data-driven_approach_for_understanding_Open_Desi.pdf">A_data-driven_approach_for_understanding_Open_Desi.pdf</a></p>
 <p><a href="https://fastpath2020.github.io/Program">https://fastpath2020.github.io/Program</a></p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/HTu7RokJsxc" width="560"></iframe></p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/8Qa0E1jdkrE" width="560"></iframe></p><h2>Bond Graphs</h2>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/8Qa0E1jdkrE" width="560"></iframe></p>
+<h3>Bond Graphs</h3>
 <p><a href="https://github.com/mdecourse/BondGraphTools">https://github.com/mdecourse/BondGraphTools</a> </p>
 <p><a href="https://www.gawthrop.net/Books/GawSmi96.pdf">https://www.gawthrop.net/Books/GawSmi96.pdf</a> </p>
 <p><a href="/downloads/bond_graph_modeling.pdf">Bond Graph Modeling.pdf</a></p>
 <p><a href="/downloads/Bond Graph Modeling and Simulation of Mechatronic.pdf">Bond Graph Modeling and Simulation of Mechatronic.pdf</a></p>
 <p><a href="/downloads/bond_graph_modeling_postprint.pdf">bond_graph_modeling_postprint.pdf</a></p>
 <p><a href="https://openmodelica.org/doc/OpenModelicaUsersGuide/latest/ompython.html">https://openmodelica.org/doc/OpenModelicaUsersGuide/latest/ompython.html</a> </p>
-<h2>KMOLBrowser</h2>
+<h3>KMOLBrowser</h3>
 <p>利用 <a href="https://www.qt.io/qt-for-python">pyside2</a> 編寫的網際瀏覽器:</p>
 <p>KMOLBrowser 原始碼來自 <a href="https://github.com/ralsina/devicenzo">https://github.com/ralsina/devicenzo</a>, 為了用於 KMOLab 中 cmsimde self-signed certificate 近端或遠端編輯, 特別使用 ignoreCertificateError(), 讓網頁可以直接導入. 執行時可攜系統需要 pip install pyside2</p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">#!/usr/bin/env python3
@@ -569,7 +623,7 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
 </pre>
 <p></p>
-<h2>Glowscript</h2>
+<h3>Glowscript</h3>
 <p><a href="https://www.glowscript.org/">https://www.glowscript.org/</a> </p>
 <p><a href="https://github.com/vpython/glowscript">https://github.com/vpython/glowscript</a> </p>
 <p><a href="https://github.com/atsepkov/RapydScript">https://github.com/atsepkov/RapydScript</a> </p>
@@ -1930,7 +1984,7 @@ var wire = cylinder({pos:vec( 10["-u"](), 0.0["-u"](), 0), axis:vec(20,0,0),  ra
 //--><!
 </script>
 </div>
-<h2>Ebooks</h2>
+<h3>Ebooks</h3>
 <p>2010 Feedback and Control for Everyone:</p>
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-642-03446-6">https://link.springer.com/book/10.1007/978-3-642-03446-6</a></p>
 <p>2012 Mechatronic Systems: </p>
@@ -1943,7 +1997,7 @@ var wire = cylinder({pos:vec( 10["-u"](), 0.0["-u"](), 0), axis:vec(20,0,0),  ra
 <p>2020 Feedback:</p>
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-3-030-34839-7">https://link.springer.com/book/10.1007/978-3-030-34839-7</a> </p>
 <p></p>
-<h2>Feedback</h2>
+<h3>Feedback</h3>
 <p style="padding-left: 30px;">針對 CoppeliaSim 中 Python Remote API 不提供的功能, 可以透過 Lua 製作, 然後再以 <a href="https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction">https://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxCallScriptFunction</a> 呼叫. 相關討論請參考 <a href="https://forum.coppeliarobotics.com/viewtopic.php?t=7699">https://forum.coppeliarobotics.com/viewtopic.php?t=7699</a></p>
 <h4><span style="background-color: #ffff99;">以下的 Inverted Pedulum 控制模擬可以視為專題 Task 之一:</span></h4>
 <p style="padding-left: 30px;"><a href="https://github.com/mdecourse/vrep_inverted_pendulum">https://github.com/mdecourse/vrep_inverted_pendulum</a> 採用舊版的 Python2 以及舊版的 V-rep 製作, 可以嘗試改為 Python3 以及 CoppeliaSim 4.1.0 rev1 版本相容.</p>
@@ -2006,7 +2060,7 @@ if (sim_call_type==sim.syscb_actuation) then
     sim.setJointTargetVelocity(pjoint,u)
 end</pre>
 <p></p>
-<h2>CMSiMDE</h2>
+<h3>CMSiMDE</h3>
 <p><a href="https://github.com/mdecourse/cmsimde">https://github.com/mdecourse/cmsimde</a> 是一套以 Python + Flask 建構的網際內容管理系統, 以單人管理的模式建立, 其中包含動態網頁系統, 靜態網頁系統, Pelican 網誌與 Reveal.js 網際簡報系統.</p>
 <p><a href="https://github.com/mdecourse/cmsimde">https://github.com/mdecourse/cmsimde</a> 執行需要:</p>
 <p style="padding-left: 30px;">pip install flask flask_cors lxml bs4 markdown pelican leo</p>
