@@ -139,13 +139,37 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">CMSiMDE << <a href='CMSiMDE.html'>Previous</a> <a href='Windows.html'>Next</a> >> Windows<br /><h1>Git</h1>
-<h4>常用 Git 指令:</h4>
-<p style="padding-left: 30px;">git clone --recurse-submodules <a href="https://github.com/mdecourse/cp2020.git">https://github.com/mdecourse/cp2020.git</a></p>
-<p style="padding-left: 30px;">git submodule add <a href="https://github.com/mdecourse/cmsimde.git">https://github.com/mdecourse/cmsimde.git</a> cmsimde</p>
-<p style="padding-left: 30px;">git remote add origin https://github.com/mdecourse/wcm1kmolinfo.git<br/>git add .<br/>git commit -m "message"<br/>git push -u --allow-unrelated-histories origin master</p>
-<p style="padding-left: 30px;">git push --set-upstream origin master</p>
-<br />CMSiMDE << <a href='CMSiMDE.html'>Previous</a> <a href='Windows.html'>Next</a> >> Windows</div>
+    <div id="tipue_search_content">Win Oauth2 << <a href='Win Oauth2.html'>Previous</a> <a href='Ubuntu設定.html'>Next</a> >> Ubuntu設定<br /><h1>Oauth2 原理</h1>
+<p>使用 Oauth2 協定讓使用者以 Gmail 帳號登入系統的目的, 在於無需管理使用者的帳號, 便能登入 Fossi SCM 網際系統, 具備使用 chat 與 forum 模組的權限.</p>
+<p>實務上使用者登入後, 系統便會自動登出使用者的 Gmail 帳號, 並以 session 儲存使用者的帳號.</p>
+<p>若使用者首次從 Oauth2 介面登入 Fossil SCM 網際系統, fossiloauth 網際程式會利用登入時所儲存的帳號資料, 在 Fossil SCM 網際系統 (即內定 repository) 中, 以隨機字串作為密碼, 建立能夠在 chat 與 forum 新增資料權限的帳號. 但該用戶因為無從得知與登入帳號對應的密碼, 因此無法利用該隨機密碼從 Fossill SCM 網際系統登入.</p>
+<p>若使用者並非首次從 Oauth2 介面登入 Fossil SCM 網際系統, fossioauth 網際程式則會產生一組隨機字串修改該用戶登入時的對應密碼, 以便讓該用戶能夠利用新的隨機密碼登入, 進而編輯或新增 chat 與 forum 模組中的資料.</p>
+<p>至於 fossiloauth 取得使用者登入帳號後, 配合隨機產生的字串作為密碼, 能夠在執行 /forum 函式後, 被 Fossil SCM 網際系統視為已經採特定身份 (可在程式中進行設定) 登入的設計, 則是利用 AJAX 將登入帳號與對應密碼以 post 送至 Fossil SCM 網際主機所建立的 session, 以 redirect 的方式轉址至 Fossil SCM 網際 forum 連結, 讓使用者被系統視為已經登入.</p>
+<p>而此一 /forum 的程式設計如下:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">@app.route('/forum')
+@login_required
+def forum():
+    """Create forum routine"""
+    # 從倉儲中取出該帳號對應的密碼
+    username, userpass = repo()
+    with requests.Session() as s:
+        url = 'https://c1.kmol.info/pj2022/login'
+        # "u" is the username input name for Fossil login form
+        # 'p' is the password input name for Fossil login form
+        post_var = {'u': username, 'p': userpass}
+        headers = {'X-Requested-With': 'XMLHttpRequest'}
+        result = s.post(url, data = post_var, headers = headers)
+        cookie = s.cookies.get_dict()
+        key = list(cookie.keys())[0]
+        value = cookie[key]
+
+        forum = "https://c1.kmol.info/pj2022/forum"
+        response = make_response(redirect(forum))
+        response.set_cookie(key, value, domain="c1.kmol.info", expires=None, path="C:/tmp")
+        # logout from 8443
+        logout()
+        return response  </pre>
+<p></p><br />Win Oauth2 << <a href='Win Oauth2.html'>Previous</a> <a href='Ubuntu設定.html'>Next</a> >> Ubuntu設定</div>
         
     <!-- footer -->
       <div class="container">

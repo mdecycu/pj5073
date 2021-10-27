@@ -119,9 +119,40 @@ serve(fossiloauth.app, host='0.0.0.0', port=5000, url_scheme='https')</pre>
 <p>建立 credential 流程如下:</p>
 <p>至 <a href="https://console.cloud.google.com/apis/credentials">https://console.cloud.google.com/apis/credentials</a> 建立一個專案.</p>
 <p>在專案項下建立一組 web credential, 其中的 Authorised JavaScript origins 允許連線的 URIs 選擇設為:</p>
-<p><a href="https://pj2022.kmol.info:8443,">https://pj2022.kmol.info:8443,</a> 而 Authorised redirect URIs 則可設為 <a href="https://pj2022.kmo.info:8443/login/google/">https://pj2022.kmo.info:8443/login/google/</a> 表示要使用 port 8443 作為讓使用者登入 Gmail 帳號認證的埠號. </p>
-<p></p>
-<p></p><h2>Ubuntu設定</h2><h1>Reference</h1><h2>Flutter</h2>
+<p><a href="https://pj2022.kmol.info:8443,">https://pj2022.kmol.info:8443,</a> 而 Authorised redirect URIs 則可設為 <a href="https://pj2022.kmo.info:8443/login/google/">https://pj2022.kmo.info:8443/login/google/</a> 表示要使用 port 8443 作為讓使用者登入 Gmail 帳號認證的埠號.</p>
+<p>Credential 設定完成後, 可以 downlad 對應的 json 檔案, 以便將此 credential 的 client id 與 client secret 字串檔案, 存在 fossiloauth 目錄之外 (不可以將 credential json 檔案直接放入倉儲, 因為所推送的倉儲都是完全對外公開), 讓採 <a href="https://github.com/authomatic/authomatic">https://github.com/authomatic/authomatic</a> 的 flaskoauth 能夠正常透過 waitress 啟動執行.</p>
+<p>執行 flaskoauth 之前必須透過 pip install authomatic 安裝所需的模組套件.</p>
+<p>一旦確認 python waitress_server.py 執行正確後, 就可以再利用 Nssm 以 python.exe 執行參數為 waitress_server.py 的系統服務, 例如:</p>
+<p style="padding-left: 30px;">c:\pj2022\nssm install fossiloauth</p>
+<p>由於上述 fossiloauth 是在內部網路以 port 5000 透過 waitress 執行, 因此仍必須利用 Stunnel 將內部 port 5000 的資料轉給外部 8443 的 https 協定連線, 在 config/stunnel.conf 中加入:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[https]
+accept = 8443
+connect = 5000
+cert = fullchain.pem
+key = privkey.pem
+TIMEOUTclose = 0</pre>
+<p>意即在加入 flaskoauth 程式執行後的 stunnel.conf 將成為:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">; TLS front-end to a web server
+[https]
+accept  = pj2022.kmol.info:443
+connect = 9000
+cert = fullchain.pem
+key = privkey.pem
+TIMEOUTclose = 0
+
+[https]
+accept = 8443
+connect = 5000
+cert = fullchain.pem
+key = privkey.pem
+TIMEOUTclose = 0</pre>
+<p>也就是內部的 fossil server 在 port 9000 啟動, 但透過 stunnel 接受外部的 port 443 https 連線, 而 flaskoauth 則在內部的 port 5000 以 waitress 啟動, 也是透過 stunnel 接受外部的 port 8443 https 連線.</p>
+<h3>Oauth2 原理</h3>
+<p>使用 Oauth2 協定讓使用者以 Gmail 帳號登入系統的目的, 在於無需管理使用者的帳號, 便能登入 Fossi SCM 網際系統, 具備使用 chat 與 forum 模組的權限.</p>
+<p>實務上使用者登入後, 系統便會自動登出使用者的 Gmail 帳號, 並以 session 儲存使用者的帳號.</p>
+<p>若使用者首次從 Oauth2 介面登入 Fossil SCM 網際系統, fossiloauth 網際程式會利用登入時所儲存的帳號資料, 在 Fossil SCM 網際系統 (即內定 repository) 中, 以隨機字串作為密碼, 建立能夠在 chat 與 forum 新增資料權限的帳號. 但該用戶因為無從得知與登入帳號對應的密碼, 因此無法利用該隨機密碼從 Fossill SCM 網際系統登入.</p>
+<p>若使用者並非首次從 Oauth2 介面登入 Fossil SCM 網際系統, fossioauth 網際程式則會產生一組隨機字串修改該用戶登入時的對應密碼, 以便讓該用戶能夠利用新的隨機密碼登入, 進而編輯或新增 chat 與 forum 模組中的資料.</p>
+<p>至於 fossiloauth 取得使用者登入帳號後, 配合隨機產生的字串作為密碼, 能夠在執行 /forum 函式後, 被 Fossil SCM 網際系統視為已經採特定身份 (可在程式中進行設定) 登入的設計, 則是利用 AJAX 將登入帳號與對應密碼以 post 送至 Fossil SCM 網際主機所建立的 session, 以 redirect 的方式轉址至 Fossil SCM 網際 forum 連結, 讓使用者被系統視為已經登入.</p><h2>Ubuntu設定</h2><h1>Reference</h1><h2>Flutter</h2>
 <p><a href="https://flutter.dev/">https://flutter.dev/</a></p>
 <p><a href="https://drive.google.com/file/d/1-VY9wQOEDeu-_KY4EhqqoyUq8xZMtEG9/view?usp=sharing">下載 kmol_project_2021.7z</a> 可攜程式系統</p>
 <p>References:</p>
