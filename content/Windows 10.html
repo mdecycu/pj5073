@@ -128,7 +128,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='About.html'>About</a><li class='has-children'><a href='主機設定.html'>主機設定</a><ul class='dropdown'><li><a href='Windows 10.html'>Windows 10</a><li><a href='Ubuntu-1.html'>Ubuntu-1</a></li></ul><li class='has-children'><a href='Reference.html'>Reference</a><ul class='dropdown'><li class='has-children'><a href='Flutter.html'>Flutter</a><ul class='dropdown'><li><a href='Flutter ref.html'>Flutter ref</a></li></ul><li class='has-children'><a href='discourse.html'>discourse</a><ul class='dropdown'><li><a href='操作管理.html'>操作管理</a></li></ul><li class='has-children'><a href='cd2020pj1.html'>cd2020pj1</a><ul class='dropdown'><li><a href='Oauth2.html'>Oauth2</a></li></ul><li><a href='Network.html'>Network</a><li class='has-children'><a href='Ref.html'>Ref</a><ul class='dropdown'><li><a href='LaTeX.html'>LaTeX</a><li><a href='Automatic Control.html'>Automatic Control</a><li><a href='參考步驟.html'>參考步驟</a><li><a href='ebook1.html'>ebook1</a><li><a href='Project.html'>Project</a><li><a href='Ref2.html'>Ref2</a><li><a href='Bond Graphs.html'>Bond Graphs</a><li><a href='KMOLBrowser.html'>KMOLBrowser</a><li><a href='Glowscript.html'>Glowscript</a><li><a href='Rapydscript.html'>Rapydscript</a><li><a href='Atoms.html'>Atoms</a><li><a href='Samples.html'>Samples</a><li><a href='RLearning.html'>RLearning</a><li><a href='Ebooks.html'>Ebooks</a><li><a href='Feedback.html'>Feedback</a><li><a href='CMSiMDE.html'>CMSiMDE</a><li><a href='Git.html'>Git</a><li><a href='Windows.html'>Windows</a><li><a href='Ubuntu-2.html'>Ubuntu-2</a><li><a href='Heorku.html'>Heorku</a><li><a href='Certbot.html'>Certbot</a></li>
+                     <li><a href='About.html'>About</a><li class='has-children'><a href='主機設定.html'>主機設定</a><ul class='dropdown'><li class='has-children'><a href='Windows 10.html'>Windows 10</a><ul class='dropdown'><li><a href='Win 網站簽章.html'>Win 網站簽章</a></li></ul><li><a href='Ubuntu設定.html'>Ubuntu設定</a></li></ul><li class='has-children'><a href='Reference.html'>Reference</a><ul class='dropdown'><li class='has-children'><a href='Flutter.html'>Flutter</a><ul class='dropdown'><li><a href='Flutter ref.html'>Flutter ref</a></li></ul><li class='has-children'><a href='discourse.html'>discourse</a><ul class='dropdown'><li><a href='操作管理.html'>操作管理</a></li></ul><li class='has-children'><a href='cd2020pj1.html'>cd2020pj1</a><ul class='dropdown'><li><a href='Oauth2.html'>Oauth2</a></li></ul><li><a href='Network.html'>Network</a><li class='has-children'><a href='Ref.html'>Ref</a><ul class='dropdown'><li><a href='LaTeX.html'>LaTeX</a><li><a href='Automatic Control.html'>Automatic Control</a><li><a href='參考步驟.html'>參考步驟</a><li><a href='ebook1.html'>ebook1</a><li><a href='Project.html'>Project</a><li><a href='Ref2.html'>Ref2</a><li><a href='Bond Graphs.html'>Bond Graphs</a><li><a href='KMOLBrowser.html'>KMOLBrowser</a><li><a href='Glowscript.html'>Glowscript</a><li><a href='Rapydscript.html'>Rapydscript</a><li><a href='Atoms.html'>Atoms</a><li><a href='Samples.html'>Samples</a><li><a href='RLearning.html'>RLearning</a><li><a href='Ebooks.html'>Ebooks</a><li><a href='Feedback.html'>Feedback</a><li><a href='CMSiMDE.html'>CMSiMDE</a><li><a href='Git.html'>Git</a><li><a href='Windows.html'>Windows</a><li><a href='Ubuntu.html'>Ubuntu</a><li><a href='Heorku.html'>Heorku</a><li><a href='Certbot.html'>Certbot</a></li>
                       </ul>
                 </nav>
               </div>
@@ -139,7 +139,7 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">主機設定 << <a href='主機設定.html'>Previous</a> <a href='Ubuntu-1.html'>Next</a> >> Ubuntu-1<br /><h1>Windows 10</h1>
+    <div id="tipue_search_content">主機設定 << <a href='主機設定.html'>Previous</a> <a href='Win 網站簽章.html'>Next</a> >> Win 網站簽章<br /><h1>Windows 10</h1>
 <p>以虛擬主機 pj2022.kmol.info 的設定為例:</p>
 <p>設定過程所需要的檔案: <a href="https://pj2022.kmol.info/pj2022/chat-download/1/pj2022_files.7z">https://pj2022.kmol.info/pj2022/chat-download/1/pj2022_files.7z</a> (登入後下載), 其中包括 nssm.exe, procexp64.exe, fossil.exe, stunnel 目錄等.</p>
 <p>要採 Fossil SCM 與 Stunnel 設定 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 共有兩個 nssm service 必須建立:</p>
@@ -168,12 +168,11 @@ cert = localhost.crt
 key = localhost.key
 TIMEOUTclose = 0</pre>
 <p>並且以 c:\pj2022\stunnel.exe 指令啟動, 並無需指定參數 config/stunnel.conf, stunnel.exe 執行時會自動以 config/stunnel.conf 作為設定參數, 此時執行 stunnel.exe Windows 10 也會跳出防火牆設定, 必須允許外部網路連線, 使用者才可以透過 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 連接至 Fossil SCM 網際 pj2022.fossil 倉儲.</p>
-<p>一旦上述採指令執行成功後, 就可以分別以 ctrl +c 取消兩則指令執行後, 以 nssm 設定：</p>
-<p>nssm install fossil_multi 與 nssm install stunnel_fossil_flask</p>
+<p>一旦上述採指令執行成功後, 就可以分別以 ctrl +c 取消 fossi 指令執行後, 並且利用 Process Explorer kill stunnel 執行後, 以 nssm 設定：</p>
+<p>nssm install fossil_multi 與 nssm install stunnel_fossil_flask 新增所需 Windows 服務.</p>
 <p>其中 fossil_multi 服務的指令為 c:\pj2022\fossil.exe, 啟動目錄為 c:\pj2022\, 而啟動參數則為 server c:\pj2022\repo --port 9000 --https --notfound pj2022.fossil</p>
 <p>而 stunnel_fossil_flask 服務的指令為 c:\pj2022\stunnel.exe, 啟動目錄為 c:\pj2022\, 啟動參數無需設定, stunnel.exe 會自動取用 config/stunnel.conf 設定.</p>
-<p>之後便可以分別啟動 fossil_multi 與 stunnel_fossil_flask 等兩個服務, 查看是否能夠透過 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 連線.</p>
-<p></p><br />主機設定 << <a href='主機設定.html'>Previous</a> <a href='Ubuntu-1.html'>Next</a> >> Ubuntu-1</div>
+<p>之後便可以分別啟動 fossil_multi 與 stunnel_fossil_flask 等兩個服務, 查看是否能夠透過 self-signed 數位簽章進行 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 連線.</p><br />主機設定 << <a href='主機設定.html'>Previous</a> <a href='Win 網站簽章.html'>Next</a> >> Win 網站簽章</div>
         
     <!-- footer -->
       <div class="container">

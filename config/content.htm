@@ -68,12 +68,38 @@ cert = localhost.crt
 key = localhost.key
 TIMEOUTclose = 0</pre>
 <p>並且以 c:\pj2022\stunnel.exe 指令啟動, 並無需指定參數 config/stunnel.conf, stunnel.exe 執行時會自動以 config/stunnel.conf 作為設定參數, 此時執行 stunnel.exe Windows 10 也會跳出防火牆設定, 必須允許外部網路連線, 使用者才可以透過 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 連接至 Fossil SCM 網際 pj2022.fossil 倉儲.</p>
-<p>一旦上述採指令執行成功後, 就可以分別以 ctrl +c 取消兩則指令執行後, 以 nssm 設定：</p>
-<p>nssm install fossil_multi 與 nssm install stunnel_fossil_flask</p>
+<p>一旦上述採指令執行成功後, 就可以分別以 ctrl +c 取消 fossi 指令執行後, 並且利用 Process Explorer kill stunnel 執行後, 以 nssm 設定：</p>
+<p>nssm install fossil_multi 與 nssm install stunnel_fossil_flask 新增所需 Windows 服務.</p>
 <p>其中 fossil_multi 服務的指令為 c:\pj2022\fossil.exe, 啟動目錄為 c:\pj2022\, 而啟動參數則為 server c:\pj2022\repo --port 9000 --https --notfound pj2022.fossil</p>
 <p>而 stunnel_fossil_flask 服務的指令為 c:\pj2022\stunnel.exe, 啟動目錄為 c:\pj2022\, 啟動參數無需設定, stunnel.exe 會自動取用 config/stunnel.conf 設定.</p>
-<p>之後便可以分別啟動 fossil_multi 與 stunnel_fossil_flask 等兩個服務, 查看是否能夠透過 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 連線.</p>
-<p></p><h2>Ubuntu</h2><h1>Reference</h1><h2>Flutter</h2>
+<p>之後便可以分別啟動 fossil_multi 與 stunnel_fossil_flask 等兩個服務, 查看是否能夠透過 self-signed 數位簽章進行 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 連線.</p><h3>Win 網站簽章</h3>
+<h4>Letsencrypt</h4>
+<p>由於先前利用 Stunnel 啟動的 https 所使用的 localhost.crt 與 localhost.key 為 self-signed, 使用者在連線至 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 時必須接受此一數位簽章的 public key, 瀏覽器與伺服器之間才能進行資料編碼傳送.</p>
+<p>若能透過 Let's Encrypt 網站所提供的第三方公證數位簽章, 將經過對網站符號名稱公開認證的數位簽章檔案提供給 Stunnel, 此簽章的 public key 就會存在公開的 key server 上, 使用者瀏覽 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 時就可以直接從 public key server 取得 domain name 編碼用的資料, 進而直接以 https 協定連線.</p>
+<p>以下即要說明如何透過 <a href="https://certbot.eff.org/">https://certbot.eff.org/</a> 申請網站符號名稱的正式 https 數位簽章.</p>
+<h4>在 Windows 10 安裝 Nginx: </h4>
+<p style="padding-left: 30px;"><a href="https://nginx.org/en/docs/windows.html">https://nginx.org/en/docs/windows.html</a></p>
+<p>透過 <a href="https://certbot.eff.org/lets-encrypt/windows-nginx">https://certbot.eff.org/lets-encrypt/windows-nginx</a> 所提供的流程申請數位簽章.</p>
+<p>由於先安裝 Nginx 全球資訊網伺服器之後, 再安裝 certbot 套件後, 就可以直接透過 www 伺服器驗證網站的符號名稱, 因此取得公證數位簽章的第一步是安裝 Nginx, 而安裝 Nginx 的另外一個用處是, 之後可以利用 html redirect 的方式, 將 http 連線跳轉到 https.</p>
+<p>由於 pj2022.kmol.info 伺服器只有設定 IPv6 網址, 因此在設定 Nginx 的時候, 必須注意是否啟動 listen IPv6 網路協定封包. 其中 listen [::]:80 指的就是接受 IPv6 封包, 而 listen :80 就只能接受 IPv4 封包. 另外就是 server_name 設定為 pj2022.kmo.info, 應該就可以啟動 Nginx, 之後則可以再利用 Nssm 將 Nginx 設為服務啟動.</p>
+<p>至於 html redirect 的語法:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="refresh" content="0; URL=https://pj2022.kmol.info" /&gt;
+&lt;/head&gt;
+&lt;/html&gt;</pre>
+<p>確定利用 Nginx 所設定的 <a href="http://pj2022.kmol.info">http://pj2022.kmol.info</a> 運作正常後, 就可以安裝 <a href="https://dl.eff.org/certbot-beta-installer-win32.exe">https://dl.eff.org/certbot-beta-installer-win32.exe</a>, 然後在具管理者身份的命令列中執行:</p>
+<p style="padding-left: 30px;">certbot certonly --webroot</p>
+<p>提供必要資訊後就可以在 c:\certbot 目錄中取得對應的 private key (privkey.pem) 與 public key (fullchain.pem). 之後再將 stunnel.conf 中的 localhost.key 與 localhost.crt 換成公證的數位簽章 keys 如下:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">; TLS front-end to a web server
+[https]
+accept  = pj2022.kmol.info:443
+connect = 9000
+cert = fullchain.pem
+key = privkey.pem
+TIMEOUTclose = 0</pre>
+<p>然後再重新啟動 stunnel_fossil_flask 服務即可正式完成 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 的設定.</p>
+<p></p><h2>Ubuntu設定</h2><h1>Reference</h1><h2>Flutter</h2>
 <p><a href="https://flutter.dev/">https://flutter.dev/</a></p>
 <p><a href="https://drive.google.com/file/d/1-VY9wQOEDeu-_KY4EhqqoyUq8xZMtEG9/view?usp=sharing">下載 kmol_project_2021.7z</a> 可攜程式系統</p>
 <p>References:</p>
