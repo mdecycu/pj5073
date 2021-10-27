@@ -139,35 +139,55 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">ebook1 << <a href='ebook1.html'>Previous</a> <a href='Ref2.html'>Next</a> >> Ref2<br /><h1>Project</h1>
-<p><a href="https://github.com/JuliaGraphics/Winston.jl">https://github.com/JuliaGraphics/Winston.jl</a> (2D plot)</p>
-<p><a href="https://juliagraphics.github.io/Gtk.jl/latest/">https://juliagraphics.github.io/Gtk.jl/latest/</a> (GUI)</p>
-<p><a href="https://github.com/JuliaGraphics/Cairo.jl">https://github.com/JuliaGraphics/Cairo.jl</a> (Graphics Library)</p>
-<p>Pango - Layout engine library</p>
-<p><a href="https://discourse.julialang.org/t/julia-for-gui-app/416/20">https://discourse.julialang.org/t/julia-for-gui-app/416/20</a> </p>
-<p><a href="https://forum.gtkd.org/groups/GtkD/thread/57/">https://forum.gtkd.org/groups/GtkD/thread/57/</a> </p>
-<hr/>
-<p><a href="./../downloads/julia_lang_in_machine_learning.pdf">Julia lang in machine learning.pdf</a></p>
-<p><a href="https://diffeq.sciml.ai/dev/tutorials/ode_example/">https://diffeq.sciml.ai/dev/tutorials/ode_example/</a></p>
-<p><a href="./../downloads/2019_Julia for robotics simulation and real-time control in a high-level programming language.pdf">2019_Julia for robotics simulation and real-time control in a high-level programming language.pdf</a></p>
-<p><a href="https://github.com/jdlangs/RobotOS.jl">https://github.com/jdlangs/RobotOS.jl</a></p>
-<p><a href="https://github.com/JuliaRobotics">https://github.com/JuliaRobotics</a> </p>
-<p><a href="https://juliarobotics.org/">https://juliarobotics.org/</a></p>
-<p><a href="https://juliahub.com/ui/Packages/PyCall/GkzkC/1.92.1">https://juliahub.com/ui/Packages/PyCall/GkzkC/1.92.1</a></p>
-<p><a href="https://www.robinly.info/post/keno-fisher-co-founder-julia-computing-developing-the-programming-language-of-the-future">https://www.robinly.info/post/keno-fisher-co-founder-julia-computing-developing-the-programming-language-of-the-future</a></p>
-<p><a href="./../downloads/First Semester in Numerical Analysis with Julia.pdf">First Semester Numerical Analysis course with Julia.pdf</a></p>
-<p><a href="./../downloads/Julia - A fresh approach to numerical computing.pdf">Julia - A fresh approach to numerical computing.pdf</a></p>
-<p><a href="http://homepages.math.uic.edu/~jan/mcs471/index.html">http://homepages.math.uic.edu/~jan/mcs471/index.html</a> </p>
-<p><a href="https://github.com/mitmath/18330">https://github.com/mitmath/18330</a> </p>
-<p><a href="https://github.com/Djruhnke/numerical-analysis-julia">https://github.com/Djruhnke/numerical-analysis-julia</a> </p>
-<h4>Julia language documentation:</h4>
-<p style="padding-left: 30px;"><a href="https://docs.julialang.org/en/v1/">https://docs.julialang.org/en/v1/</a></p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/Bk4PJnjuPps" width="560"></iframe></p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/nKRIAbxNSQ8" width="560"></iframe></p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/dmWQtI3DFFo" width="560"></iframe></p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/zJ3R6vOhibA" width="560"></iframe></p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/gPYc77M90Qg" width="560"></iframe></p>
-<br />ebook1 << <a href='ebook1.html'>Previous</a> <a href='Ref2.html'>Next</a> >> Ref2</div>
+    <div id="tipue_search_content">Win 網站簽章 << <a href='Win 網站簽章.html'>Previous</a> <a href='Ubuntu設定.html'>Next</a> >> Ubuntu設定<br /><h1>Win Oauth2</h1>
+<p>這裡將要說明如何在 Windows 10 環境下配置 <a href="https://github.com/mdecourse/fossiloauth">https://github.com/mdecourse/fossiloauth</a>. 其中將牽涉如何透過 <a href="https://docs.pylonsproject.org/projects/waitress/en/latest/">waitress</a> 啟動 Flask, 此設定就如同在 Ubuntu 環境中以 <a href="https://uwsgi-docs.readthedocs.io/en/latest/">uwsgi</a> 啟動 Flask 網際程式流程, 目的都是希望能以最大效率執行 Flask 網際程式.</p>
+<p>首先必須先將 <a href="https://github.com/mdecourse/fossiloauth">fossiloauth</a> clone 到 c:\pj2022 目錄下.</p>
+<p style="padding-left: 30px;">c:\pj2022&gt;git clone <a href="https://github.com/mdecourse/fossiloauth.git">https://github.com/mdecourse/fossiloauth.git</a></p>
+<p>然後在 fossiloauth 目錄中建立一個 waitress_server.py 伺服器啟動程式:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false"># 執行前, 必須要先利用 pip install waitress 安裝 wairess 模組
+# 接著從 waitress 導入 serve
+from waitress import serve
+
+# 導入 fossiloauth
+import fossiloauth
+
+# run fossiloauth.app with production waitress
+serve(fossiloauth.app, host='0.0.0.0', port=5000, url_scheme='https')</pre>
+<p>接下來的設定必須先登入一個 Gmail 帳號, 然後連結到 <a href="https://console.cloud.google.com">https://console.cloud.google.com</a> 中建立 Oauth2 連線時所需的 credential: <a href="https://console.cloud.google.com/apis/credentials">https://console.cloud.google.com/apis/credentials</a>.</p>
+<p>由於目前所需的 Oauth2 認證採用全球資訊網 (Web) 介面, 因此還必須根據網站中的程式架構設定認證用的 uri 連結.</p>
+<p>至於 Oauth2 認證希望採 Gmail 帳號, 因此還需至 <a href="https://console.cloud.google.com/apis/library">https://console.cloud.google.com/apis/library</a> 中 enabled Gmail API 的使用權限.</p>
+<p>建立 credential 流程如下:</p>
+<p>至 <a href="https://console.cloud.google.com/apis/credentials">https://console.cloud.google.com/apis/credentials</a> 建立一個專案.</p>
+<p>在專案項下建立一組 web credential, 其中的 Authorised JavaScript origins 允許連線的 URIs 選擇設為:</p>
+<p><a href="https://pj2022.kmol.info:8443,">https://pj2022.kmol.info:8443,</a> 而 Authorised redirect URIs 則可設為 <a href="https://pj2022.kmo.info:8443/login/google/">https://pj2022.kmo.info:8443/login/google/</a> 表示要使用 port 8443 作為讓使用者登入 Gmail 帳號認證的埠號. </p>
+<p>Credential 設定完成後, 可以 downlad 對應的 json 檔案, 以便將此 credential 的 client id 與 client secret 字串檔案, 存在 fossiloauth 目錄之外 (不可以將 credential json 檔案直接放入倉儲, 因為所推送的倉儲都是完全對外公開), 讓採 <a href="https://github.com/authomatic/authomatic">https://github.com/authomatic/authomatic</a> 的 flaskoauth 能夠正常透過 waitress 啟動執行.</p>
+<p>執行 flaskoauth 之前必須透過 pip install authomatic 安裝所需的模組套件.</p>
+<p>一旦確認 python waitress_server.py 執行正確後, 就可以再利用 Nssm 以 python.exe 執行參數為 waitress_server.py 的系統服務, 例如:</p>
+<p style="padding-left: 30px;">c:\pj2022\nssm install fossiloauth</p>
+<p>由於上述 fossiloauth 是在內部網路以 port 5000 透過 waitress 執行, 因此仍必須利用 Stunnel 將內部 port 5000 的資料轉給外部 8443 的 https 協定連線, 在 config/stunnel.conf 中加入:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[https]
+accept = 8443
+connect = 5000
+cert = fullchain.pem
+key = privkey.pem
+TIMEOUTclose = 0</pre>
+<p>意即在加入 flaskoauth 程式執行後的 stunnel.conf 將成為:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">; TLS front-end to a web server
+[https]
+accept  = pj2022.kmol.info:443
+connect = 9000
+cert = fullchain.pem
+key = privkey.pem
+TIMEOUTclose = 0
+
+[https]
+accept = 8443
+connect = 5000
+cert = fullchain.pem
+key = privkey.pem
+TIMEOUTclose = 0</pre>
+<p>也就是內部的 fossil server 在 port 9000 啟動, 但透過 stunnel 接受外部的 port 443 https 連線, 而 flaskoauth 則在內部的 port 5000 以 waitress 啟動, 也是透過 stunnel 接受外部的 port 8443 https 連線.</p>
+<p></p><br />Win 網站簽章 << <a href='Win 網站簽章.html'>Previous</a> <a href='Ubuntu設定.html'>Next</a> >> Ubuntu設定</div>
         
     <!-- footer -->
       <div class="container">

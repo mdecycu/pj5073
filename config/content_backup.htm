@@ -72,7 +72,7 @@ TIMEOUTclose = 0</pre>
 <p>nssm install fossil_multi 與 nssm install stunnel_fossil_flask 新增所需 Windows 服務.</p>
 <p>其中 fossil_multi 服務的指令為 c:\pj2022\fossil.exe, 啟動目錄為 c:\pj2022\, 而啟動參數則為 server c:\pj2022\repo --port 9000 --https --notfound pj2022.fossil</p>
 <p>而 stunnel_fossil_flask 服務的指令為 c:\pj2022\stunnel.exe, 啟動目錄為 c:\pj2022\, 啟動參數無需設定, stunnel.exe 會自動取用 config/stunnel.conf 設定.</p>
-<p>之後便可以分別啟動 fossil_multi 與 stunnel_fossil_flask 等兩個服務, 查看是否能夠透過 self-signed 數位簽章進行 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 連線.</p><h2>Win 網站簽章</h2>
+<p>之後便可以分別啟動 fossil_multi 與 stunnel_fossil_flask 等兩個服務, 查看是否能夠透過 self-signed 數位簽章進行 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 連線.</p><h3>Win 網站簽章</h3>
 <h4>Letsencrypt</h4>
 <p>由於先前利用 Stunnel 啟動的 https 所使用的 localhost.crt 與 localhost.key 為 self-signed, 使用者在連線至 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 時必須接受此一數位簽章的 public key, 瀏覽器與伺服器之間才能進行資料編碼傳送.</p>
 <p>若能透過 Let's Encrypt 網站所提供的第三方公證數位簽章, 將經過對網站符號名稱公開認證的數位簽章檔案提供給 Stunnel, 此簽章的 public key 就會存在公開的 key server 上, 使用者瀏覽 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 時就可以直接從 public key server 取得 domain name 編碼用的資料, 進而直接以 https 協定連線.</p>
@@ -99,6 +99,28 @@ cert = fullchain.pem
 key = privkey.pem
 TIMEOUTclose = 0</pre>
 <p>然後再重新啟動 stunnel_fossil_flask 服務即可正式完成 <a href="https://pj2022.kmol.info">https://pj2022.kmol.info</a> 的設定.</p>
+<h3>Win Oauth2</h3>
+<p>這裡將要說明如何在 Windows 10 環境下配置 <a href="https://github.com/mdecourse/fossiloauth">https://github.com/mdecourse/fossiloauth</a>. 其中將牽涉如何透過 <a href="https://docs.pylonsproject.org/projects/waitress/en/latest/">waitress</a> 啟動 Flask, 此設定就如同在 Ubuntu 環境中以 <a href="https://uwsgi-docs.readthedocs.io/en/latest/">uwsgi</a> 啟動 Flask 網際程式流程, 目的都是希望能以最大效率執行 Flask 網際程式.</p>
+<p>首先必須先將 <a href="https://github.com/mdecourse/fossiloauth">fossiloauth</a> clone 到 c:\pj2022 目錄下.</p>
+<p style="padding-left: 30px;">c:\pj2022&gt;git clone <a href="https://github.com/mdecourse/fossiloauth.git">https://github.com/mdecourse/fossiloauth.git</a></p>
+<p>然後在 fossiloauth 目錄中建立一個 waitress_server.py 伺服器啟動程式:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false"># 執行前, 必須要先利用 pip install waitress 安裝 wairess 模組
+# 接著從 waitress 導入 serve
+from waitress import serve
+
+# 導入 fossiloauth
+import fossiloauth
+
+# run fossiloauth.app with production waitress
+serve(fossiloauth.app, host='0.0.0.0', port=5000, url_scheme='https')</pre>
+<p>接下來的設定必須先登入一個 Gmail 帳號, 然後連結到 <a href="https://console.cloud.google.com">https://console.cloud.google.com</a> 中建立 Oauth2 連線時所需的 credential: <a href="https://console.cloud.google.com/apis/credentials">https://console.cloud.google.com/apis/credentials</a>.</p>
+<p>由於目前所需的 Oauth2 認證採用全球資訊網 (Web) 介面, 因此還必須根據網站中的程式架構設定認證用的 uri 連結.</p>
+<p>至於 Oauth2 認證希望採 Gmail 帳號, 因此還需至 <a href="https://console.cloud.google.com/apis/library">https://console.cloud.google.com/apis/library</a> 中 enabled Gmail API 的使用權限.</p>
+<p>建立 credential 流程如下:</p>
+<p>至 <a href="https://console.cloud.google.com/apis/credentials">https://console.cloud.google.com/apis/credentials</a> 建立一個專案.</p>
+<p>在專案項下建立一組 web credential, 其中的 Authorised JavaScript origins 允許連線的 URIs 選擇設為:</p>
+<p><a href="https://pj2022.kmol.info:8443,">https://pj2022.kmol.info:8443,</a> 而 Authorised redirect URIs 則可設為 <a href="https://pj2022.kmo.info:8443/login/google/">https://pj2022.kmo.info:8443/login/google/</a> 表示要使用 port 8443 作為讓使用者登入 Gmail 帳號認證的埠號. </p>
+<p></p>
 <p></p><h2>Ubuntu設定</h2><h1>Reference</h1><h2>Flutter</h2>
 <p><a href="https://flutter.dev/">https://flutter.dev/</a></p>
 <p><a href="https://drive.google.com/file/d/1-VY9wQOEDeu-_KY4EhqqoyUq8xZMtEG9/view?usp=sharing">下載 kmol_project_2021.7z</a> 可攜程式系統</p>
