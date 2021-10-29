@@ -139,11 +139,201 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">cd2020pj1 << <a href='cd2020pj1.html'>Previous</a> <a href='Network.html'>Next</a> >> Network<br /><h1>Oauth2</h1>
-<p>目前的 cd2020pj1 採用 authomatic:</p>
-<p style="padding-left: 30px;"><a href="https://github.com/authomatic/authomatic">https://github.com/authomatic/authomatic</a></p>
-<p><a href="https://pypi.org/project/python-oauth2/">https://pypi.org/project/python-oauth2/</a></p>
-<br />cd2020pj1 << <a href='cd2020pj1.html'>Previous</a> <a href='Network.html'>Next</a> >> Network</div>
+    <div id="tipue_search_content">Ubuntu設定 << <a href='Ubuntu設定.html'>Previous</a> <a href='Reference.html'>Next</a> >> Reference<br /><h1>配置 uwsgi</h1>
+<h4>在 Ubuntu 環境中可透過 uwsgi 執行 Flask 網際程式. 並且利用 Nginx 配置 Let's Encrypt 數位簽章.</h4>
+<h4>安裝 Nginx WWW 伺服器:</h4>
+<p style="padding-left: 30px;">在 Ubuntu 安裝 nginx 伺服器:</p>
+<p style="padding-left: 60px;">sudo apt install nginx</p>
+<p style="padding-left: 30px;">其中必須注意的是, apt 將使用 /etc/apt.conf 中所設定的 proxy 進行網路連線.</p>
+<p style="padding-left: 30px;">apt.conf 設定格式為:</p>
+<p style="padding-left: 60px;">Acquire::http::Proxy "http://[2001:288:6004:17::proxy_ip]:3128";</p>
+<p style="padding-left: 60px;">Acquire::https::Proxy "http://[2001:288:6004:17::proxy_ip]:3128";</p>
+<h4>/etc/nginx/sites-available/default 參考檔案:</h4>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">server {
+    listen 80;
+    listen [::]:80;
+    root /home/kmol2019/newcms;
+    index index.html;
+  
+    location /static {
+        alias /home/kmol2019/newcms/cmsimde/static/;
+    }
+  
+    location /downloads {
+        alias /home/kmol2019/newcms/downloads/;
+    }
+  
+    location /images {
+        alias /home/kmol2019/newcms/images/;
+    }
+  
+    location / {
+            try_files $uri $uri/ =404;
+    } 
+      
+    location /blog {
+        alias /home/kmol2019/cmsimfly/blog/;
+    }
+  
+    location /reveal {
+        alias /home/kmol2019/cmsimfly/reveal/;
+    }
+}
+  
+server {
+    listen 443 ssl;
+    #listen [::]:443 ssl ipv6only=on;
+   
+    location /static {
+        alias /home/kmol2019/cmsimfly/static/;
+    }
+   
+    location / {
+        include uwsgi_params;
+        uwsgi_pass  127.0.0.1:8080;
+    }
+   
+    #server_name ipv4_ip; 
+    #ssl on;
+    ssl_certificate /etc/stunnel/localhost.crt;
+    ssl_certificate_key /etc/stunnel/localhost.key;
+    ssl_session_timeout 5m;
+    ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers "HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES";
+    ssl_prefer_server_ciphers on;
+    try_files $uri $uri/ =404;
+}
+   
+server {
+    #listen 89 default_server;
+    #listen [::]:89 default_server ipv6only=on;
+   
+    listen 8943 ssl;
+    #listen [::]:8943 ssl ipv6only=on;
+   
+    location /static {
+        alias /home/kmol2019/cmsimfly2/static/;
+    }
+   
+    location / {
+        include uwsgi_params;
+        uwsgi_pass  127.0.0.1:8082;
+    }
+   
+    #server_name ipv4_ip;
+    #ssl on;
+    ssl_certificate /etc/stunnel/localhost.crt;
+    ssl_certificate_key /etc/stunnel/localhost.key;
+    ssl_session_timeout 5m;
+    ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers "HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES";
+    ssl_prefer_server_ciphers on;
+    try_files $uri $uri/ =404;
+}
+  
+server {
+    #listen 88 default_server;
+    #listen [::]:88 default_server ipv6only=on;
+   
+    listen 8843 ssl;
+    #listen [::]:8843 ssl ipv6only=on;
+   
+    location /static {
+        alias /home/kmol2019/newcms/cmsimde/static/;
+    }
+   
+    location / {
+        include uwsgi_params;
+        uwsgi_pass  127.0.0.1:8081;
+    }
+   
+    #server_name ipv4_ip;
+    #ssl on;
+    ssl_certificate /etc/stunnel/localhost.crt;
+    ssl_certificate_key /etc/stunnel/localhost.key;
+    ssl_session_timeout 5m;
+    ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers "HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES";
+    ssl_prefer_server_ciphers on;
+    try_files $uri $uri/ =404;
+}</pre>
+<h4>uwsgi 環境準備:</h4>
+<p style="padding-left: 30px;">sudo apt install uwsgi uwsgi-plugin-python3</p>
+<p style="padding-left: 30px;">sudo pip3 install uwsgi</p>
+<p style="padding-left: 30px;">編輯的設定檔案為 uwsgi_ini 目錄中的各個 .ini 設定檔案.</p>
+<h4>uwsgi.ini 參考檔案:</h4>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[uwsgi]
+socket = 127.0.0.1:8080
+uid = kmol2019
+gid = kmol2019
+plugins-dir = /usr/lib/uwsgi/plugins/
+plugin = python3
+master = true
+logto = /var/log/uwsgi/emperor.log
+logfile-chown = kmol2019:kmol2019
+processes = 4
+threads = 2
+chdir = /home/kmol2019/cmsimfly
+wsgi-file = /home/kmol2019/cmsimfly/wsgi.py</pre>
+<h4>python3 環境準備:</h4>
+<p style="padding-left: 30px;">安裝 pip3:</p>
+<p style="padding-left: 30px;">sudo apt install python3-pip</p>
+<h4>安裝 CMSiMDE 所需模組:</h4>
+<p style="padding-left: 30px;">sudo pip3 install flask bs4 lxml flask_cors pelican markdown leo pyopenssl</p>
+<h4>CMSiMDE 的設定:</h4>
+<p style="padding-left: 30px;">init.py 中必須將 uwsgi = False 改為 True, 因為準備採用 uwsgi 模式啟動 CMSiMDE</p>
+<h4>apt proxy 設定檔案:</h4>
+<p style="padding-left: 30px;">啟動 uwsgi 指令, 將會逐一啟動 wsgi_ini 目錄中個別 .ini 檔案:</p>
+<p style="padding-left: 30px;">sudo /usr/bin/uwsgi --emperor /home/kmol2019/wsgi_ini</p>
+<p>最後則設定 Ubuntu 系統服務, 用來啟動 uwsgi:</p>
+<p>/etc/systemd/system 的 cmsimde.service 服務啟動檔案內容:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[Unit]
+Description=uWSGI to serve CMSiMDE
+After=network.target
+  
+[Service]
+User=kmol2019
+Group=kmol2019
+WorkingDirectory=/home/kmol2019/uwsgi_ini
+ExecStart=/usr/local/bin/uwsgi --emperor /home/kmol2019/uwsgi_ini
+  
+[Install]
+WantedBy=multi-user.target</pre>
+<p>接著將 cmsimde 服務設為隨系統開機啟動:</p>
+<p style="padding-left: 30px;">sudo systemctl enable cmsimde</p>
+<p>若要取消 cmsimde 服務隨系統開機啟動:</p>
+<p style="padding-left: 30px;">sudo systemctl disable cmsimde</p>
+<p>手動啟動 cmsimde.service 服務</p>
+<p style="padding-left: 30px;">sudo systemctl start cmsimde</p>
+<p>手動停止 cmsimde.service 服務</p>
+<p style="padding-left: 30px;">sudo systemctl stop cmsimde</p>
+<p>最後, 在 Ubuntu 虛擬主機中設定 Fossil SCM:</p>
+<p>安裝 fossil:</p>
+<p style="padding-left: 30px;">sudo apt install fossil</p>
+<p>查 fossil 版本:</p>
+<p style="padding-left: 30px;">fossil version</p>
+<p>接下來為了要在 https 的模式下使用 Fossil SCM 伺服器, 因此必須安裝配置 stunnel:</p>
+<p style="padding-left: 30px;">sudo apt install stunnel</p>
+<p>修改 /etc/environment, 加入:</p>
+<p style="padding-left: 30px;">HTTPS=on</p>
+<p>修改 /etc/default/stunnel4, 修改 ENABLED=1</p>
+<p>假如此時 /etc/stunnel 目錄下尚無 localhost.crt 與 localhost.key, 可以利用下列指令建立:</p>
+<p>建立 localhost.key 與 localhost.crt:</p>
+<p style="padding-left: 30px;">sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt</p>
+<p>接著設定 /etc/stunnel/stunnel.conf 如下:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[https]
+accept = kmol2019:5443
+# 只先啟用 ipv4
+#accept = :::443
+cert = /etc/stunnel/localhost.crt
+key = /etc/stunnel/localhost.key
+exec = /usr/bin/fossil
+execargs = /usr/bin/fossil http /home/kmol2019/repository/ --https --nojail --notfound kmol2019</pre>
+<p>表示利用 stunnel 執行 fossil 指令, 並且透過 http 協定啟動 位於 /home/kmol2019/repository 目錄下的倉儲壓縮檔案, 且附加採用 https 與 nojail 模式啟動.</p>
+<p>其中 --nojail 目的在 drop the root privilege but do not enter the chroot jail, 其後的 --notfound 表示若沒有特別在 URL 中列出所要擷取的 .fossil 檔案 (指位於 /home/kmol2019/repository/ 目錄下), 則採用 kmol2019.fossil</p>
+<p>重新啟用 stunnel:</p>
+<p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p>
+<br />Ubuntu設定 << <a href='Ubuntu設定.html'>Previous</a> <a href='Reference.html'>Next</a> >> Reference</div>
         
     <!-- footer -->
       <div class="container">

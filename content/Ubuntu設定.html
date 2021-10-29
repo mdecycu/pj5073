@@ -128,7 +128,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='About.html'>About</a><li class='has-children'><a href='主機設定.html'>主機設定</a><ul class='dropdown'><li class='has-children'><a href='Windows 10.html'>Windows 10</a><ul class='dropdown'><li><a href='Win 網站簽章.html'>Win 網站簽章</a><li><a href='Win Oauth2.html'>Win Oauth2</a><li><a href='Oauth2 原理.html'>Oauth2 原理</a></li></ul><li><a href='Ubuntu設定.html'>Ubuntu設定</a></li></ul><li class='has-children'><a href='Reference.html'>Reference</a><ul class='dropdown'><li class='has-children'><a href='Flutter.html'>Flutter</a><ul class='dropdown'><li><a href='Flutter ref.html'>Flutter ref</a></li></ul><li class='has-children'><a href='discourse.html'>discourse</a><ul class='dropdown'><li><a href='操作管理.html'>操作管理</a></li></ul><li class='has-children'><a href='cd2020pj1.html'>cd2020pj1</a><ul class='dropdown'><li><a href='Oauth2.html'>Oauth2</a></li></ul><li><a href='Network.html'>Network</a><li class='has-children'><a href='Ref.html'>Ref</a><ul class='dropdown'><li><a href='LaTeX.html'>LaTeX</a><li><a href='Automatic Control.html'>Automatic Control</a><li><a href='參考步驟.html'>參考步驟</a><li><a href='ebook1.html'>ebook1</a><li><a href='Project.html'>Project</a><li><a href='Ref2.html'>Ref2</a><li><a href='Bond Graphs.html'>Bond Graphs</a><li><a href='KMOLBrowser.html'>KMOLBrowser</a><li><a href='Glowscript.html'>Glowscript</a><li><a href='Rapydscript.html'>Rapydscript</a><li><a href='Atoms.html'>Atoms</a><li><a href='Samples.html'>Samples</a><li><a href='RLearning.html'>RLearning</a><li><a href='Ebooks.html'>Ebooks</a><li><a href='Feedback.html'>Feedback</a><li><a href='CMSiMDE.html'>CMSiMDE</a><li><a href='Git.html'>Git</a><li><a href='Windows.html'>Windows</a><li><a href='Ubuntu.html'>Ubuntu</a><li><a href='Heorku.html'>Heorku</a><li><a href='Certbot.html'>Certbot</a></li>
+                     <li><a href='About.html'>About</a><li class='has-children'><a href='主機設定.html'>主機設定</a><ul class='dropdown'><li class='has-children'><a href='Windows 10.html'>Windows 10</a><ul class='dropdown'><li><a href='Win 網站簽章.html'>Win 網站簽章</a><li><a href='Win Oauth2.html'>Win Oauth2</a><li><a href='Oauth2 原理.html'>Oauth2 原理</a></li></ul><li class='has-children'><a href='Ubuntu設定.html'>Ubuntu設定</a><ul class='dropdown'><li><a href='配置 uwsgi.html'>配置 uwsgi</a></li></li></ul></ul><li class='has-children'><a href='Reference.html'>Reference</a><ul class='dropdown'><li class='has-children'><a href='Flutter.html'>Flutter</a><ul class='dropdown'><li><a href='Flutter ref.html'>Flutter ref</a></li></ul><li class='has-children'><a href='discourse.html'>discourse</a><ul class='dropdown'><li><a href='操作管理.html'>操作管理</a></li></ul><li class='has-children'><a href='cd2020pj1.html'>cd2020pj1</a><ul class='dropdown'><li><a href='Oauth2.html'>Oauth2</a></li></ul><li><a href='Network.html'>Network</a><li class='has-children'><a href='Ref.html'>Ref</a><ul class='dropdown'><li><a href='LaTeX.html'>LaTeX</a><li><a href='Automatic Control.html'>Automatic Control</a><li><a href='參考步驟.html'>參考步驟</a><li><a href='ebook1.html'>ebook1</a><li><a href='Project.html'>Project</a><li><a href='Ref2.html'>Ref2</a><li><a href='Bond Graphs.html'>Bond Graphs</a><li><a href='KMOLBrowser.html'>KMOLBrowser</a><li><a href='Glowscript.html'>Glowscript</a><li><a href='Rapydscript.html'>Rapydscript</a><li><a href='Atoms.html'>Atoms</a><li><a href='Samples.html'>Samples</a><li><a href='RLearning.html'>RLearning</a><li><a href='Ebooks.html'>Ebooks</a><li><a href='Feedback.html'>Feedback</a><li><a href='CMSiMDE.html'>CMSiMDE</a><li><a href='Git.html'>Git</a><li><a href='Windows.html'>Windows</a><li><a href='Ubuntu.html'>Ubuntu</a><li><a href='Heorku.html'>Heorku</a><li><a href='Certbot.html'>Certbot</a></li>
                       </ul>
                 </nav>
               </div>
@@ -139,7 +139,59 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">Oauth2 原理 << <a href='Oauth2 原理.html'>Previous</a> <a href='Reference.html'>Next</a> >> Reference<br /><h1>Ubuntu設定</h1><br />Oauth2 原理 << <a href='Oauth2 原理.html'>Previous</a> <a href='Reference.html'>Next</a> >> Reference</div>
+    <div id="tipue_search_content">Oauth2 原理 << <a href='Oauth2 原理.html'>Previous</a> <a href='配置 uwsgi.html'>Next</a> >> 配置 uwsgi<br /><h1>Ubuntu設定</h1>
+<h4>fcitx 中文輸入法安裝:</h4>
+<p style="padding-left: 30px;">sudo apt install fcitx fcitx-chewing</p>
+<p>表示將採用 fcitx 中文輸入法中的酷音輸入套件.</p>
+<p>酷音輸入法的使用牽涉3個步驟, 第1步驟就是上方的套件安裝, 而第2步驟就是進入系統設定中的 language support, 將原先內建的 ibus 改為 fcitx, 而第3步驟則是在輸入 configure 時, 加入 chewing 中文輸入法, 並且將原先的切換鍵 space 改為 ctrl+space.</p>
+<h4>網路設定:</h4>
+<p>Ubuntu 21.10 的網路設定取決於 /etc/netplan/net.yaml 檔案設定, 可先將原先的 .yaml 改名為 net.yaml:</p>
+<p style="padding-left: 30px;">sudo mv /etc/netplan/*.yaml /etc/netplan/net.yaml</p>
+<h4>Network configuration file:</h4>
+<p style="padding-left: 30px;">/etc/netplan/net.yaml</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false"># Let NetworkManager manage all devices on this system
+network:
+  ethernets:
+    enp0s3:
+      dhcp4: false 
+      addresses:
+        #- ipv4_address/24
+        - ipv6_address/64 
+      #gateway4:  ipv4_gateway.254
+      gateway6: ipv6_gateway::254
+      nameservers:
+        addresses:
+          - 2001:b000:168::1
+  version: 2
+  #renderer: NetworkManager</pre>
+<h4>每次修改為 /etc/netlan/net.yaml 後必須重新載入設定內容:</h4>
+<p style="padding-left: 30px;">sudo netplan apply</p>
+<p>在 Ubuntu 操作系統安裝 Fossil SCM server 只需先確認 fossil 的執行位置並且安裝設定 stunnel 即可.</p>
+<h4>安裝 stunnel:</h4>
+<p style="padding-left: 30px;">sudo apt update</p>
+<p style="padding-left: 30px;">sudo apt install stunnel4 -y</p>
+<h4>安裝 fossil:</h4>
+<p style="padding-left: 30px;">sudo apt install fossil</p>
+<h4>環境變數與開機啟動設定:</h4>
+<h4 style="padding-left: 30px;">/etc/environment 設定:</h4>
+<p style="padding-left: 60px;">HTTPS=on</p>
+<h4 style="padding-left: 30px;">/etc/default/stunnel4 檔案設定:</h4>
+<p style="padding-left: 60px;">ENABLED=1</p>
+<h4>建立 localhost.key 與 localhost.crt:</h4>
+<p style="padding-left: 30px;">sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt</p>
+<h4>利用 Stunnel 的 exec 與 execargs 執行 fossil command:</h4>
+<p>設定檔案 /etc/stunnel/stunnel.conf:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[https]
+accept = :5443
+accept = :::5443
+cert = /etc/stunnel/localhost.crt
+key = /etc/stunnel/localhost.key
+exec = /usr/bin/fossil
+execargs = /usr/bin/fossil http /home/wcm2021/repository/ --https --nojail --notfound cmstemplate</pre>
+<p>表示利用 stunnel 執行 fossil 指令, 並且透過 http 協定啟動 位於 /home/wcm2021/repository 目錄下的倉儲壓縮檔案, 且附加採用 https 與 nojail 模式啟動.</p>
+<p>其中 --nojail 目的在 drop the root privilege but do not enter the chroot jail, 其後的 --notfound 表示若沒有特別在 URL 中列出所要擷取的 .fossil 檔案 (指位於 /home/wcm2021/repository/ 目錄下), 則採用 cmstemplate.fossil</p>
+<p>重新啟用 stunnel:</p>
+<p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p><br />Oauth2 原理 << <a href='Oauth2 原理.html'>Previous</a> <a href='配置 uwsgi.html'>Next</a> >> 配置 uwsgi</div>
         
     <!-- footer -->
       <div class="container">
