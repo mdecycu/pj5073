@@ -232,8 +232,32 @@ execargs = /usr/bin/fossil http /home/wcm2021/repository/ --https --nojail --not
 <p>表示利用 stunnel 執行 fossil 指令, 並且透過 http 協定啟動 位於 /home/wcm2021/repository 目錄下的倉儲壓縮檔案, 且附加採用 https 與 nojail 模式啟動.</p>
 <p>其中 --nojail 目的在 drop the root privilege but do not enter the chroot jail, 其後的 --notfound 表示若沒有特別在 URL 中列出所要擷取的 .fossil 檔案 (指位於 /home/wcm2021/repository/ 目錄下), 則採用 cmstemplate.fossil</p>
 <p>重新啟用 stunnel:</p>
-<p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p><h3>配置 uwsgi</h3>
-<h4>在 Ubuntu 環境中可透過 uwsgi 執行 Flask 網際程式. 並且利用 Nginx 配置 Let's Encrypt 數位簽章.</h4>
+<p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p><h3>Ubuntu 簽章</h3>
+<p>連線至 <a href="https://certbot.eff.org/lets-encrypt/ubuntufocal-nginx">https://certbot.eff.org/lets-encrypt/ubuntufocal-nginx</a></p>
+<p>snap 上網之前, 必須檢查 /etc/environment 中的代理主機設定.</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+HTTPS=on
+http_proxy=http://[2001:288:6004:17::Proxy_ip]:3128
+https_proxy=http://[2001:288:6004:17::Proxy_ip]:3128</pre>
+<p>其中的 HTTPS=on 是針對 Stunnel, 而 http_proxy 與 https_proxy 則可為 snap 安裝套件時採用.</p>
+<p>首先確定 snapd 使用最新版本:</p>
+<p style="padding-left: 30px;">sudo snap install core; sudo snap refresh core</p>
+<p>接著安裝 certbot:</p>
+<p style="padding-left: 30px;">sudo snap install --classic certbot</p>
+<p style="padding-left: 30px;">sudo ln -s /snap/bin/certbot /usr/bin/certbot</p>
+<p>只取 certificate:</p>
+<p style="padding-left: 30px;">sudo certbot certonly --nginx</p>
+<p>一旦執行完成, 即可取得與 domain name 對應的 certificates:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/domain_name/fullchain.pem
+Key is saved at:         /etc/letsencrypt/live/domain_name/privkey.pem</pre>
+<p>之後利用 sudo cp -r /etc/letsencrypt/archive /home/wcm2021/, 然後利用 sudo chown -R wcm2021:wcm2021 /home/wcm2021/archive, 接著將 archive 目錄中的 fullchain.pem 與 privkey.pem 複製至 /etc/stunnel/, 然後編輯 stunnel.conf, 利用 fullchain.pem 取代 localhost.crt, 利用 privkey.pem 取代 localhost.key, 重新啟動 stunnel:</p>
+<p>sudo /etc/init.d/stunnel4 restart</p>
+<p>之後 Stunnel (也就是 Fossil SCM server) 應該就可以正確使用 https 協定.</p>
+<p>接著編輯 /etc/nginx/sites-available/default, 將 localhost.crt 換為 fullchain.pem, localhost.key 換為 privkey.pem, 然後以 /etc/init.d/nginx restart 重新啟動 nginx, 之後的 Flask 網際程式應該就能以正式的 https 連線.</p>
+<p>測試自動 renew certificate:</p>
+<p style="padding-left: 30px;">sudo certbot renew --dry-run</p><h3>配置 uwsgi</h3>
+<p>在 Ubuntu 環境中可透過 uwsgi 執行 Flask 網際程式. 並且利用 Nginx 配置 Let's Encrypt 數位簽章.</p>
 <h4>安裝 Nginx WWW 伺服器:</h4>
 <p style="padding-left: 30px;">在 Ubuntu 安裝 nginx 伺服器:</p>
 <p style="padding-left: 60px;">sudo apt install nginx</p>
@@ -245,19 +269,19 @@ execargs = /usr/bin/fossil http /home/wcm2021/repository/ --https --nojail --not
 <pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">server {
     listen 80;
     listen [::]:80;
-    root /home/kmol2019/newcms;
+    root /home/wcm2021/newcms;
     index index.html;
   
     location /static {
-        alias /home/kmol2019/newcms/cmsimde/static/;
+        alias /home/wcm2021/newcms/cmsimde/static/;
     }
   
     location /downloads {
-        alias /home/kmol2019/newcms/downloads/;
+        alias /home/wcm2021/newcms/downloads/;
     }
   
     location /images {
-        alias /home/kmol2019/newcms/images/;
+        alias /home/wcm2021/newcms/images/;
     }
   
     location / {
@@ -265,11 +289,11 @@ execargs = /usr/bin/fossil http /home/wcm2021/repository/ --https --nojail --not
     } 
       
     location /blog {
-        alias /home/kmol2019/cmsimfly/blog/;
+        alias /home/wcm2021/cmsimfly/blog/;
     }
   
     location /reveal {
-        alias /home/kmol2019/cmsimfly/reveal/;
+        alias /home/wcm2021/cmsimfly/reveal/;
     }
 }
   
@@ -278,7 +302,7 @@ server {
     #listen [::]:443 ssl ipv6only=on;
    
     location /static {
-        alias /home/kmol2019/cmsimfly/static/;
+        alias /home/wcm2021/cmsimfly/static/;
     }
    
     location / {
@@ -305,7 +329,7 @@ server {
     #listen [::]:8943 ssl ipv6only=on;
    
     location /static {
-        alias /home/kmol2019/cmsimfly2/static/;
+        alias /home/wcm2021/cmsimfly2/static/;
     }
    
     location / {
@@ -332,7 +356,7 @@ server {
     #listen [::]:8843 ssl ipv6only=on;
    
     location /static {
-        alias /home/kmol2019/newcms/cmsimde/static/;
+        alias /home/wcm2021/newcms/cmsimde/static/;
     }
    
     location / {
@@ -426,8 +450,24 @@ execargs = /usr/bin/fossil http /home/kmol2019/repository/ --https --nojail --no
 <p>其中 --nojail 目的在 drop the root privilege but do not enter the chroot jail, 其後的 --notfound 表示若沒有特別在 URL 中列出所要擷取的 .fossil 檔案 (指位於 /home/kmol2019/repository/ 目錄下), 則採用 kmol2019.fossil</p>
 <p>重新啟用 stunnel:</p>
 <p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p>
-<h1>Reference</h1>
-<h2>Flutter</h2>
+<p>兩名用戶同時存檔</p><h1>fossiloauth</h1>
+<p>以下在整理 fossiloauth 相關設定參數, 擬改寫時將所有設定存入 config.py, 然後導入主要程式中運用.</p>
+<p>當配置 fossiloauth 網際程式時, 需要:</p>
+<p>Google oauth2 client key and secret 檔案 (必須放在倉儲以外的目錄):</p>
+<p>例如:</p>
+<p style="padding-left: 30px;">第一列: 214-this_is_key.apps.googleusercontent.com</p>
+<p style="padding-left: 30px;">第二例: this_is_secret-pktheSAqSunfu</p>
+<p>Fossil SCM server domain name: 例如: c1.kmol.info</p>
+<p>Fossil SCM server repository name: 例如: pj2022</p>
+<p>從 domain name 與 repository name 得知:</p>
+<p>Login 連結: <a href="https://c1.kmol.info/pj2022/login">https://c1.kmol.info/pj2022/login</a></p>
+<p>Forum 連結: <a href="https://c1.kmol.info/pj2022/forum">https://c1.kmol.info/pj2022/forum</a></p>
+<p>自建 Fossil SCM 帳號權限: 例如: 'bfjk234C'</p>
+<p>自建 Fossil SCM 倉儲存放位置: 例如: path = "c:\pj2022\repo"</p>
+<p>fossiloauth 網際程式執行 URL: 例如: <a href="https://c1.kmol.info:8443">https://c1.kmol.info:8443</a>, 以及執行 forum 連結 <a href="https://c1.kmol.info:8443/forum">https://c1.kmol.info:8443/forum</a> (目的在透過 AJAX 將登入帳號與密碼送至 Server, 以便取得登入 Fossil SCM server 的 session).</p>
+<p>以上這些設定應該要寫入 config.py</p>
+<p></p>
+<p></p><h1>Reference</h1><h2>Flutter</h2>
 <p><a href="https://flutter.dev/">https://flutter.dev/</a></p>
 <p><a href="https://drive.google.com/file/d/1-VY9wQOEDeu-_KY4EhqqoyUq8xZMtEG9/view?usp=sharing">下載 kmol_project_2021.7z</a> 可攜程式系統</p>
 <p>References:</p>

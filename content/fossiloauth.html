@@ -2,7 +2,7 @@
         <head>
         <title>pj5073</title>
         <meta charset="utf-8">
-<meta property="head" content="H3">
+<meta property="head" content="H1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -139,13 +139,24 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">Heorku << <a href='Heorku.html'>Previous</a> <br /><h1>Certbot</h1>
-<p><a href="https://letsencrypt.org/">https://letsencrypt.org/</a> </p>
-<h4>以下為實體主機配置 Certbot 時傳回資料:</h4>
-<p style="padding-left: 30px;">IMPORTANT NOTES:<br/> - Congratulations! Your certificate and chain have been saved at:<br/>   /etc/letsencrypt/live/jcad.kmol.info/fullchain.pem<br/>   Your key file has been saved at:<br/>   /etc/letsencrypt/live/jcad.kmol.info/privkey.pem<br/>   Your cert will expire on 2020-12-18. To obtain a new or tweaked<br/>   version of this certificate in the future, simply run certbot<br/>   again. To non-interactively renew *all* of your certificates, run<br/>   "certbot renew"<br/> - Your account credentials have been saved in your Certbot<br/>   configuration directory at /etc/letsencrypt. You should make a<br/>   secure backup of this folder now. This configuration directory will<br/>   also contain certificates and private keys obtained by Certbot so<br/>   making regular backups of this folder is ideal.</p>
-<p style="padding-left: 30px;">Test automatic renewal<br/><br/>The Certbot packages on your system come with a cron job or systemd timer that will renew your certificates automatically before they expire. You will not need to run Certbot again, unless you change your configuration. You can test automatic renewal for your certificates by running this command:<br/><br/>sudo certbot renew --dry-run<br/><br/>The command to renew certbot is installed in one of the following locations:<br/><br/>    /etc/crontab/<br/>    /etc/cron.*/*<br/>    systemctl list-timers</p>
-<p style="padding-left: 30px;"></p>
-<p></p><br />Heorku << <a href='Heorku.html'>Previous</a> </div>
+    <div id="tipue_search_content">配置 uwsgi << <a href='配置 uwsgi.html'>Previous</a> <a href='Reference.html'>Next</a> >> Reference<br /><h1>fossiloauth</h1>
+<p>以下在整理 fossiloauth 相關設定參數, 擬改寫時將所有設定存入 config.py, 然後導入主要程式中運用.</p>
+<p>當配置 fossiloauth 網際程式時, 需要:</p>
+<p>Google oauth2 client key and secret 檔案 (必須放在倉儲以外的目錄):</p>
+<p>例如:</p>
+<p style="padding-left: 30px;">第一列: 214-this_is_key.apps.googleusercontent.com</p>
+<p style="padding-left: 30px;">第二例: this_is_secret-pktheSAqSunfu</p>
+<p>Fossil SCM server domain name: 例如: c1.kmol.info</p>
+<p>Fossil SCM server repository name: 例如: pj2022</p>
+<p>從 domain name 與 repository name 得知:</p>
+<p>Login 連結: <a href="https://c1.kmol.info/pj2022/login">https://c1.kmol.info/pj2022/login</a></p>
+<p>Forum 連結: <a href="https://c1.kmol.info/pj2022/forum">https://c1.kmol.info/pj2022/forum</a></p>
+<p>自建 Fossil SCM 帳號權限: 例如: 'bfjk234C'</p>
+<p>自建 Fossil SCM 倉儲存放位置: 例如: path = "c:\pj2022\repo"</p>
+<p>fossiloauth 網際程式執行 URL: 例如: <a href="https://c1.kmol.info:8443">https://c1.kmol.info:8443</a>, 以及執行 forum 連結 <a href="https://c1.kmol.info:8443/forum">https://c1.kmol.info:8443/forum</a> (目的在透過 AJAX 將登入帳號與密碼送至 Server, 以便取得登入 Fossil SCM server 的 session).</p>
+<p>以上這些設定應該要寫入 config.py</p>
+<p></p>
+<p></p><br />配置 uwsgi << <a href='配置 uwsgi.html'>Previous</a> <a href='Reference.html'>Next</a> >> Reference</div>
         
     <!-- footer -->
       <div class="container">
