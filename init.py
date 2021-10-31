@@ -12,7 +12,7 @@ class Init(object):
     uwsgi = False
     site_title = "pj5073"
     #ip = "127.0.0.1"
-    ip = "2001:b011:d005:31cf:7a:8438:67ca:7d16"
+    ip = "59.127.237.33"
     dynamic_port = 9443
     static_port = 8443
     def __init__(self):

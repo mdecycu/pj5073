@@ -449,8 +449,8 @@ execargs = /usr/bin/fossil http /home/kmol2019/repository/ --https --nojail --no
 <p>表示利用 stunnel 執行 fossil 指令, 並且透過 http 協定啟動 位於 /home/kmol2019/repository 目錄下的倉儲壓縮檔案, 且附加採用 https 與 nojail 模式啟動.</p>
 <p>其中 --nojail 目的在 drop the root privilege but do not enter the chroot jail, 其後的 --notfound 表示若沒有特別在 URL 中列出所要擷取的 .fossil 檔案 (指位於 /home/kmol2019/repository/ 目錄下), 則採用 kmol2019.fossil</p>
 <p>重新啟用 stunnel:</p>
-<p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p>
-<p>兩名用戶同時存檔</p><h1>fossiloauth</h1>
+<p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p><h1>fossiloauth</h1>
+<p>以下在整理 fossiloauth 相關設定參數, 擬改寫時將所有設定存入 config.py, 然後導入主要程式中運用.</p>
 <p>當配置 fossiloauth 網際程式時, 需要:</p>
 <p>Google oauth2 client key and secret 檔案 (必須放在倉儲以外的目錄):</p>
 <p>例如:</p>
@@ -465,7 +465,199 @@ execargs = /usr/bin/fossil http /home/kmol2019/repository/ --https --nojail --no
 <p>自建 Fossil SCM 倉儲存放位置: 例如: path = "c:\pj2022\repo"</p>
 <p>fossiloauth 網際程式執行 URL: 例如: <a href="https://c1.kmol.info:8443">https://c1.kmol.info:8443</a>, 以及執行 forum 連結 <a href="https://c1.kmol.info:8443/forum">https://c1.kmol.info:8443/forum</a> (目的在透過 AJAX 將登入帳號與密碼送至 Server, 以便取得登入 Fossil SCM server 的 session).</p>
 <p>以上這些設定應該要寫入 config.py</p>
-<p></p>
+<p>因為要改寫 fossiloauth, 因此在 Ubuntu 安裝 Leo:</p>
+<p style="padding-left: 30px;">sudo pip3 install leo</p>
+<p>安裝結束後, 以 leo&amp; 啟動.</p>
+<h2>foauth_config</h2>
+<h4>config.py content:</h4>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import authomatic
+from authomatic.providers import oauth2
+
+# read client_id and client_secret from safe place other than put into script
+# use scrum4 At mde to get credential data
+# credential url: https://console.cloud.google.com
+keyFile = open('./../scrum2_client_secret.txt', 'r')
+with open('./../scrum2_client_secret.txt', 'r') as f:
+    key = f.read().splitlines()
+
+CONFIG = {
+        'google': {
+            'class_': oauth2.Google,
+            'consumer_key': key[0],
+            'consumer_secret': key[1],
+            'scope': oauth2.Google.user_info_scope
+        }
+    }
+
+domain_name = "c2.kmol.info"
+default_repo = "pj2022"
+repo_caps = "bfjk234C"
+# for Windows 
+#repo_path = "c:/pj2022/repo/"
+# for Ubuntu
+repo_path = "/home/wcm2021/repository/"
+fossil_port = "5443"
+flask_port = "8443"
+uwsgi = True
+
+# derived
+default_repo_path = repo_path+default_repo+".fossil"
+flask_url = "https://"+domain_name+":"+flask_port
+flask_forum = "https://"+domain_name+":"+flask_port+"/forum"
+login_url = "https://"+domain_name+":"+fossil_port+"/"+default_repo+"/login"
+forum_url = "https://"+domain_name+":"+fossil_port+"/"+default_repo+"/forum"
+CALLBACK_URL = flask_forum</pre>
+<h4>wsgi.py</h4>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import fossiloauth
+import config
+
+uwsgi = config.uwsgi
+
+domain_name = config.domain_name
+port = config.flask_port
+
+application = fossiloauth.app
+
+if __name__ == "__main__":
+    
+    if uwsgi:
+        application = fossiloauth.app
+    else:
+        domain_name = "127.0.0.1"
+        fossiloauth.app.run(host=domain_name, port=port, ssl_context='adhoc')
+        </pre>
+<h4>templates/login.html:</h4>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">## index.html
+&lt;%inherit file="base.html"/&gt;
+
+&lt;%block name="header"&gt;
+    &lt;!-- this is some header content --&gt;
+&lt;/%block&gt;
+
+&lt;!-- this is the body content. --&gt;
+
+    &lt;a href="/index"&gt;Home&lt;/a&gt;
+    
+    ## Check for errors.
+    % if result.error:
+        &lt;h2&gt;Damn that error: ${ result.error.message }&lt;/h2&gt;
+    % endif
+    
+    ## Welcome the user.
+    % if result.user:
+        &lt;h1&gt;Hi ${result.user.name}&lt;/h1&gt;
+        &lt;h2&gt;Your id is: ${ result.user.id }&lt;/h2&gt;
+        &lt;h2&gt;Your email is: ${ result.user.email }&lt;/h2&gt;
+    % endif
+
+&lt;!-- after GMail login process, use javascript to logout GMail account, and redirect to callbackurl  --&gt;
+&lt;!-- use jinia2 template format --&gt;
+&lt;script type="text/javascript"&gt;
+window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=${CALLBACK_URL}";
+&lt;/script&gt;</pre>
+<h4>/etc/nginx/sites-available/default</h4>
+<p>start nginx: sudo /etc/init.d/nginx start</p>
+<p>stop nginx: sudo /etc/init.d/nginx stop</p>
+<p>restart nginx: sudo /etc/init.d/nginx restart</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+        root /home/wcm2021/github/cmstemplate/;
+
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name _;
+
+	location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		try_files $uri $uri/ =404;
+	}
+
+}
+
+# 443 with uwsgi 
+server {
+    listen 443 ssl default_server;
+    listen [::]:443 ssl default_server;
+   
+    location / {
+        include uwsgi_params;
+        uwsgi_pass  127.0.0.1:8080;
+    }
+   
+    ssl_certificate /etc/stunnel/fullchain.pem;
+    ssl_certificate_key /etc/stunnel/privkey.pem;
+    ssl_session_timeout 5m;
+    ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers "HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES";
+    ssl_prefer_server_ciphers on;
+    try_files $uri $uri/ =404;
+}
+
+# 8443 with uwsgi for fossiloauth
+server {
+    listen 8443 ssl default_server;
+    listen [::]:8443 ssl default_server;
+   
+    location / {
+        include uwsgi_params;
+        uwsgi_pass  127.0.0.1:8081;
+    }
+   
+    ssl_certificate /etc/stunnel/fullchain.pem;
+    ssl_certificate_key /etc/stunnel/privkey.pem;
+    ssl_session_timeout 5m;
+    ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers "HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES";
+    ssl_prefer_server_ciphers on;
+    try_files $uri $uri/ =404;
+}</pre>
+<h4>/home/wcm2021/uwsgi_ini/flask_oauth.ini</h4>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[uwsgi]
+socket = :8081
+uid = wcm2021
+gid = wcm2021
+plugins-dir = /usr/lib/uwsgi/plugins/
+plugin = python3
+master = true
+process = 4
+threads = 2
+chdir = /home/wcm2021/fossiloauth
+wsgi-file = /home/wcm2021/fossiloauth/wsgi.py</pre>
+<h4>/home/wcm2021/uwsgi_ini/uwsgi.ini</h4>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[uwsgi]
+socket = :8080
+uid = wcm2021
+gid = wcm2021
+plugins-dir = /usr/lib/uwsgi/plugins/
+plugin = python3
+master = true
+process = 4
+threads = 2
+chdir = /home/wcm2021/github/cmstemplate
+wsgi-file = /home/wcm2021/github/cmstemplate/cmsimde/wsgi.py</pre>
+<h4>/etc/systemd/system/cmsimde.service</h4>
+<p>列出 Ubuntu 中目前已經啟動的系統服務, 可以在終端機視窗中輸入:</p>
+<p style="padding-left: 30px;">service --status-all</p>
+<p>enable cmsimde.service: sudo systemctl enable cmsimde</p>
+<p>disable cmsimde.service: sudo systemctl disable cmsimde</p>
+<p>start cmsimde.service: sudo systemctl start cmsimde</p>
+<p>stop cmsimde.service: sudo systemctl stop cmsimde</p>
+<p>restart cmsimde.service: sudo systemctl restart cmsimde</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[Unit]
+Description=uWSGI to serve CMSiMDE
+After=network.target
+   
+[Service]
+User=wcm2021
+Group=wcm2021
+WorkingDirectory=/home/wcm2021/uwsgi_ini
+ExecStart=/usr/bin/uwsgi --emperor /home/wcm2021/uwsgi_ini
+   
+[Install]
+WantedBy=multi-user.target</pre>
 <p></p><h1>Reference</h1><h2>Flutter</h2>
 <p><a href="https://flutter.dev/">https://flutter.dev/</a></p>
 <p><a href="https://drive.google.com/file/d/1-VY9wQOEDeu-_KY4EhqqoyUq8xZMtEG9/view?usp=sharing">下載 kmol_project_2021.7z</a> 可攜程式系統</p>
