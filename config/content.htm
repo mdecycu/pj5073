@@ -180,7 +180,24 @@ def forum():
         logout()
         return response  </pre>
 <p></p>
-<h2>Ubuntu設定</h2>
+<h3>Nginx</h3>
+<p>利用簡單的帳號密碼, 保護 autoindex 目錄:</p>
+<p>使用 htpasswd.exe 建立 .htpassword</p>
+<p>而 htpasswd.exe 來自 Apache, 可以從 <a href="https://archive.apache.org/dist/httpd/binaries/win32/">https://archive.apache.org/dist/httpd/binaries/win32/</a> 下載 .msi 後, 以 <a href="https://www.legroom.net/software/uniextract">https://www.legroom.net/software/uniextract</a> 轉出安裝後的目錄內容, 其中的 bin 目錄中包含 htpasswd.exe</p>
+<p>htpasswd.exe 用法 htpasswd -c .htpasswd account</p>
+<p>系統會詢問對應密碼, 然後完成 .htpasswd 檔案的建立.</p>
+<p>Nginx 中 nginx.conf 則加入 port 88 網站的設定:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">        server {
+        listen       [::]:88 default ipv6only=on;
+        server_name  pj5073.cycu.org;
+        root C:/pj5073_data;
+        auth_basic "KMOLab Login";
+        auth_basic_user_file C:/pj2022/nginx-1.20.1/conf/.htpasswd;
+        
+        location / {
+            autoindex on;
+        }</pre>
+<p><br/><br/></p><h2>Ubuntu設定</h2>
 <h4>fcitx 中文輸入法安裝:</h4>
 <p style="padding-left: 30px;">sudo apt install fcitx fcitx-chewing</p>
 <p>表示將採用 fcitx 中文輸入法中的酷音輸入套件.</p>

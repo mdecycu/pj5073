@@ -180,7 +180,7 @@ def forum():
         logout()
         return response  </pre>
 <p></p>
-<h2>Ubuntu設定</h2>
+<h3>Nginx</h3><h2>Ubuntu設定</h2>
 <h4>fcitx 中文輸入法安裝:</h4>
 <p style="padding-left: 30px;">sudo apt install fcitx fcitx-chewing</p>
 <p>表示將採用 fcitx 中文輸入法中的酷音輸入套件.</p>
@@ -658,7 +658,11 @@ ExecStart=/usr/bin/uwsgi --emperor /home/wcm2021/uwsgi_ini
    
 [Install]
 WantedBy=multi-user.target</pre>
-<p></p><h1>Reference</h1><h2>Flutter</h2>
+<h4>/etc/stunnel to start with system:</h4>
+<p>修改 /etc/default/stunnel4, 修改 ENABLED=1</p>
+<p>然後以:</p>
+<p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p>
+<p>to restart</p><h1>Reference</h1><h2>Flutter</h2>
 <p><a href="https://flutter.dev/">https://flutter.dev/</a></p>
 <p><a href="https://drive.google.com/file/d/1-VY9wQOEDeu-_KY4EhqqoyUq8xZMtEG9/view?usp=sharing">下載 kmol_project_2021.7z</a> 可攜程式系統</p>
 <p>References:</p>
