@@ -712,17 +712,70 @@ WantedBy=multi-user.target</pre>
 <p>修改 /etc/default/stunnel4, 修改 ENABLED=1</p>
 <p>然後以:</p>
 <p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p>
-<p>to restart</p><h1>專題報告</h1>
+<p>to restart</p><h1>fossilapp</h1>
+<p><a href="https://github.com/mdecourse/fossilapp">https://github.com/mdecourse/fossilapp</a></p>
+<p>config.py 設定:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">@language python
+import authomatic
+from authomatic.providers import oauth2
+
+CALLBACK_URL = "https://pj5073.cycu.org:9443/menu"
+
+# read client_id and client_secret from safe place other than put into script
+# current setting only allow @gm user login
+keyFile = open('./../cycu_org_secret.txt', 'r')
+with open('./../cycu_org_secret.txt', 'r') as f:
+    key = f.read().splitlines()
+
+CONFIG = {
+        'google': {
+            'class_': oauth2.Google,
+            'consumer_key': key[0],
+            'consumer_secret': key[1],
+            'scope': oauth2.Google.user_info_scope
+        }
+    }
+    
+domain_name = "pj5073.cycu.org"
+default_repo = "default"
+template_repo = "template"
+template_account = "pj2022"
+# for Windows 
+repo_path = "c:\\pj2022\\multi_repo\\"
+# for Ubuntu
+#repo_path = "/home/wcm2021/multi_repository/"
+fossil_command = "c:\\pj2022\\fossil.exe"
+fossil_port = "5443"
+flask_port = "9443"
+uwsgi = True
+
+# derived
+default_repo_path = repo_path+default_repo+".fossil"
+template_repo_path = repo_path+template_repo+".fossil"
+flask_url = "https://"+domain_name+":"+flask_port
+flask_menu = "https://"+domain_name+":"+flask_port+"/menu"
+login_url = "https://"+domain_name+":"+fossil_port+"/"+default_repo+"/login"
+menu_url = "https://"+domain_name+":"+flask_port+"/menu"
+CALLBACK_URL = flask_menu</pre>
+<p></p><h1>Fossil</h1>
+<p>這裡的 Fossil 指的是 Fossil SCM, 也就是 <a href="https://fossil-scm.org">https://fossil-scm.org</a></p>
+<p>有關在 Windows 與 Ubuntu 編譯 Fossil SCM, 請參考: <a href="https://mde.tw/cad2021/content/Compile%20Fossil.html">https://mde.tw/cad2021/content/Compile%20Fossil.html</a> 中的說明.</p>
+<p>起始 Fossil SCM 倉儲:</p>
+<p></p>
+<p>以下 將要探討如何在 Github 與 Fossil SCM 倉儲間進行轉換.</p>
+<p><a href="https://pj5073.cycu.org/help/import">https://pj5073.cycu.org/help/import</a></p>
+<p><a href="https://pj5073.cycu.org/help/git">https://pj5073.cycu.org/help/git</a></p><h1>專題報告</h1>
 <p>參考 4072pj1 採用 LaTeX 格式編寫專題報告, 並以 Github Actions 按鈕 release pdf 檔案.</p>
 <p style="padding-left: 30px;"><a href="https://github.com/mdecourse/4072pj1">https://github.com/mdecourse/4072pj1</a></p>
 <p>或其他參考資料:</p>
-<p style="padding-left: 30px;"><a href="https://davidegerosa.com/githubforlatex/">https://davidegerosa.com/githubforlatex/</a> </p>
-<p style="padding-left: 30px;"><a href="https://winsphinx.github.io/blog/post/automatically-creating-pdf-from-latex-with-github-actions/">https://winsphinx.github.io/blog/post/automatically-creating-pdf-from-latex-with-github-actions/</a> </p>
-<p style="padding-left: 30px;"><a href="http://project.mde.tw/blog/pandoc-markdown-zhuan-pdf-ge-shi.html">http://project.mde.tw/blog/pandoc-markdown-zhuan-pdf-ge-shi.html</a> </p>
+<p style="padding-left: 30px;"><a href="https://davidegerosa.com/githubforlatex/">https://davidegerosa.com/githubforlatex/</a></p>
+<p style="padding-left: 30px;"><a href="https://winsphinx.github.io/blog/post/automatically-creating-pdf-from-latex-with-github-actions/">https://winsphinx.github.io/blog/post/automatically-creating-pdf-from-latex-with-github-actions/</a></p>
+<p style="padding-left: 30px;"><a href="http://project.mde.tw/blog/pandoc-markdown-zhuan-pdf-ge-shi.html">http://project.mde.tw/blog/pandoc-markdown-zhuan-pdf-ge-shi.html</a></p>
 <p>假如要改用 Markdown 編寫可以參考:</p>
-<p style="padding-left: 30px;"><a href="https://github.com/jaantollander/pandoc-markdown-latex-pdf">https://github.com/jaantollander/pandoc-markdown-latex-pdf</a> </p>
-<p style="padding-left: 30px;"><a href="https://github.com/BaileyJM02/markdown-to-pdf">https://github.com/BaileyJM02/markdown-to-pdf</a> </p>
-<p style="padding-left: 30px;"><a href="https://github.com/marketplace/actions/publish-markdown-as-pdf">https://github.com/marketplace/actions/publish-markdown-as-pdf</a> </p><h1>Reference</h1><h2>Flutter</h2>
+<p style="padding-left: 30px;"><a href="https://github.com/KmolYuan/latex-paper">https://github.com/KmolYuan/latex-paper</a></p>
+<p style="padding-left: 30px;"><a href="https://github.com/jaantollander/pandoc-markdown-latex-pdf">https://github.com/jaantollander/pandoc-markdown-latex-pdf</a></p>
+<p style="padding-left: 30px;"><a href="https://github.com/BaileyJM02/markdown-to-pdf">https://github.com/BaileyJM02/markdown-to-pdf</a></p>
+<p style="padding-left: 30px;"><a href="https://github.com/marketplace/actions/publish-markdown-as-pdf">https://github.com/marketplace/actions/publish-markdown-as-pdf</a></p><h1>Reference</h1><h2>Flutter</h2>
 <p><a href="https://flutter.dev/">https://flutter.dev/</a></p>
 <p><a href="https://drive.google.com/file/d/1-VY9wQOEDeu-_KY4EhqqoyUq8xZMtEG9/view?usp=sharing">下載 kmol_project_2021.7z</a> 可攜程式系統</p>
 <p>References:</p>
