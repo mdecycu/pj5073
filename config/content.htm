@@ -466,7 +466,26 @@ execargs = /usr/bin/fossil http /home/kmol2019/repository/ --https --nojail --no
 <p>表示利用 stunnel 執行 fossil 指令, 並且透過 http 協定啟動 位於 /home/kmol2019/repository 目錄下的倉儲壓縮檔案, 且附加採用 https 與 nojail 模式啟動.</p>
 <p>其中 --nojail 目的在 drop the root privilege but do not enter the chroot jail, 其後的 --notfound 表示若沒有特別在 URL 中列出所要擷取的 .fossil 檔案 (指位於 /home/kmol2019/repository/ 目錄下), 則採用 kmol2019.fossil</p>
 <p>重新啟用 stunnel:</p>
-<p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p><h1>fossiloauth</h1>
+<p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p>
+<h3>xrdp</h3>
+<p>在 Ubuntu 操作系統上安裝 xrdp (X-windows remote desktop) 伺服器的目的是讓使用者可以透過遠端桌面 client, 以圖型介面的方式連驗到 Ubuntu 伺服器. 這裡選擇在 Ubuntu server 系統上安裝主要的 ubuntu-desktop 套件, 指令為:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">sudo apt-get install --no-install-recommends ubuntu-desktop</pre>
+<p>安裝容量大約 1GB.</p>
+<p>安裝後, 重新開機就可以透過圖形界面登入操作.</p>
+<p>接著安裝 xrdp 伺服器程式:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">sudo apt install xrdp</pre>
+<p>接著必須將 xrdp 帳號納入 ssl-cert 群組, 才能夠擁有讀取內定 /etc/ssl/private/ssl-cert-snakeoil.key 認證簽章檔案.</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">sudo adduser xrdp ssl-cert</pre>
+<p>xrdp 伺服器環境設定完成後必須重新啟動服務:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">sudo systemctl restart xrdp</pre>
+<p>完成後還必須設法讓特定網段電腦能夠通過 ufw 防火牆, 連線到 port 3389.</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">ufw allow from 2001:xxx:xxxx:17::/32 to any port 3389</pre>
+<p>表示只允許 2001:xxx:xxxx:17:: 網段的電腦可以透過 rdp client 連線到此一伺服器.</p>
+<h4 class="brush:bash;">參考資料:</h4>
+<ol>
+<li><a href="https://snippetinfo.net/mobile/media/800">https://snippetinfo.net/mobile/media/800</a></li>
+<li><a href="https://linuxize.com/post/how-to-install-xrdp-on-ubuntu-20-04/">https://linuxize.com/post/how-to-install-xrdp-on-ubuntu-20-04/</a> <br/><br/></li>
+</ol><h1>fossiloauth</h1>
 <p>以下在整理 fossiloauth 相關設定參數, 擬改寫時將所有設定存入 config.py, 然後導入主要程式中運用.</p>
 <p>當配置 fossiloauth 網際程式時, 需要:</p>
 <p>Google oauth2 client key and secret 檔案 (必須放在倉儲以外的目錄):</p>
