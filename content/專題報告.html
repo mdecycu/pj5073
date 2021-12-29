@@ -2,7 +2,7 @@
         <head>
         <title>pj5073</title>
         <meta charset="utf-8">
-<meta property="head" content="H2">
+<meta property="head" content="H1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -139,201 +139,18 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">fossiloauth << <a href='fossiloauth.html'>Previous</a> <a href='專題報告.html'>Next</a> >> 專題報告<br /><h1>foauth_config</h1>
-<h4>config.py content:</h4>
-<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import authomatic
-from authomatic.providers import oauth2
-
-# read client_id and client_secret from safe place other than put into script
-# use scrum4 At mde to get credential data
-# credential url: https://console.cloud.google.com
-keyFile = open('./../scrum2_client_secret.txt', 'r')
-with open('./../scrum2_client_secret.txt', 'r') as f:
-    key = f.read().splitlines()
-
-CONFIG = {
-        'google': {
-            'class_': oauth2.Google,
-            'consumer_key': key[0],
-            'consumer_secret': key[1],
-            'scope': oauth2.Google.user_info_scope
-        }
-    }
-
-domain_name = "c2.kmol.info"
-default_repo = "pj2022"
-repo_caps = "bfjk234C"
-# for Windows 
-#repo_path = "c:/pj2022/repo/"
-# for Ubuntu
-repo_path = "/home/wcm2021/repository/"
-fossil_port = "5443"
-flask_port = "8443"
-uwsgi = True
-
-# derived
-default_repo_path = repo_path+default_repo+".fossil"
-flask_url = "https://"+domain_name+":"+flask_port
-flask_forum = "https://"+domain_name+":"+flask_port+"/forum"
-login_url = "https://"+domain_name+":"+fossil_port+"/"+default_repo+"/login"
-forum_url = "https://"+domain_name+":"+fossil_port+"/"+default_repo+"/forum"
-CALLBACK_URL = flask_forum</pre>
-<h4>wsgi.py</h4>
-<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import fossiloauth
-import config
-
-uwsgi = config.uwsgi
-
-domain_name = config.domain_name
-port = config.flask_port
-
-application = fossiloauth.app
-
-if __name__ == "__main__":
-    
-    if uwsgi:
-        application = fossiloauth.app
-    else:
-        domain_name = "127.0.0.1"
-        fossiloauth.app.run(host=domain_name, port=port, ssl_context='adhoc')
-        </pre>
-<h4>templates/login.html:</h4>
-<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">## index.html
-&lt;%inherit file="base.html"/&gt;
-
-&lt;%block name="header"&gt;
-    &lt;!-- this is some header content --&gt;
-&lt;/%block&gt;
-
-&lt;!-- this is the body content. --&gt;
-
-    &lt;a href="/index"&gt;Home&lt;/a&gt;
-    
-    ## Check for errors.
-    % if result.error:
-        &lt;h2&gt;Damn that error: ${ result.error.message }&lt;/h2&gt;
-    % endif
-    
-    ## Welcome the user.
-    % if result.user:
-        &lt;h1&gt;Hi ${result.user.name}&lt;/h1&gt;
-        &lt;h2&gt;Your id is: ${ result.user.id }&lt;/h2&gt;
-        &lt;h2&gt;Your email is: ${ result.user.email }&lt;/h2&gt;
-    % endif
-
-&lt;!-- after GMail login process, use javascript to logout GMail account, and redirect to callbackurl  --&gt;
-&lt;!-- use jinia2 template format --&gt;
-&lt;script type="text/javascript"&gt;
-window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=${CALLBACK_URL}";
-&lt;/script&gt;</pre>
-<h4>/etc/nginx/sites-available/default</h4>
-<p>start nginx: sudo /etc/init.d/nginx start</p>
-<p>stop nginx: sudo /etc/init.d/nginx stop</p>
-<p>restart nginx: sudo /etc/init.d/nginx restart</p>
-<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-
-        root /home/wcm2021/github/cmstemplate/;
-
-	index index.html index.htm index.nginx-debian.html;
-
-	server_name _;
-
-	location / {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to displaying a 404.
-		try_files $uri $uri/ =404;
-	}
-
-}
-
-# 443 with uwsgi 
-server {
-    listen 443 ssl default_server;
-    listen [::]:443 ssl default_server;
-   
-    location / {
-        include uwsgi_params;
-        uwsgi_pass  127.0.0.1:8080;
-    }
-   
-    ssl_certificate /etc/stunnel/fullchain.pem;
-    ssl_certificate_key /etc/stunnel/privkey.pem;
-    ssl_session_timeout 5m;
-    ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers "HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES";
-    ssl_prefer_server_ciphers on;
-    try_files $uri $uri/ =404;
-}
-
-# 8443 with uwsgi for fossiloauth
-server {
-    listen 8443 ssl default_server;
-    listen [::]:8443 ssl default_server;
-   
-    location / {
-        include uwsgi_params;
-        uwsgi_pass  127.0.0.1:8081;
-    }
-   
-    ssl_certificate /etc/stunnel/fullchain.pem;
-    ssl_certificate_key /etc/stunnel/privkey.pem;
-    ssl_session_timeout 5m;
-    ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers "HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES";
-    ssl_prefer_server_ciphers on;
-    try_files $uri $uri/ =404;
-}</pre>
-<h4>/home/wcm2021/uwsgi_ini/flask_oauth.ini</h4>
-<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[uwsgi]
-socket = :8081
-uid = wcm2021
-gid = wcm2021
-plugins-dir = /usr/lib/uwsgi/plugins/
-plugin = python3
-master = true
-process = 4
-threads = 2
-chdir = /home/wcm2021/fossiloauth
-wsgi-file = /home/wcm2021/fossiloauth/wsgi.py</pre>
-<h4>/home/wcm2021/uwsgi_ini/uwsgi.ini</h4>
-<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[uwsgi]
-socket = :8080
-uid = wcm2021
-gid = wcm2021
-plugins-dir = /usr/lib/uwsgi/plugins/
-plugin = python3
-master = true
-process = 4
-threads = 2
-chdir = /home/wcm2021/github/cmstemplate
-wsgi-file = /home/wcm2021/github/cmstemplate/cmsimde/wsgi.py</pre>
-<h4>/etc/systemd/system/cmsimde.service</h4>
-<p>列出 Ubuntu 中目前已經啟動的系統服務, 可以在終端機視窗中輸入:</p>
-<p style="padding-left: 30px;">service --status-all</p>
-<p>enable cmsimde.service: sudo systemctl enable cmsimde</p>
-<p>disable cmsimde.service: sudo systemctl disable cmsimde</p>
-<p>start cmsimde.service: sudo systemctl start cmsimde</p>
-<p>stop cmsimde.service: sudo systemctl stop cmsimde</p>
-<p>restart cmsimde.service: sudo systemctl restart cmsimde</p>
-<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[Unit]
-Description=uWSGI to serve CMSiMDE
-After=network.target
-   
-[Service]
-User=wcm2021
-Group=wcm2021
-WorkingDirectory=/home/wcm2021/uwsgi_ini
-ExecStart=/usr/bin/uwsgi --emperor /home/wcm2021/uwsgi_ini
-   
-[Install]
-WantedBy=multi-user.target</pre>
-<h4>/etc/stunnel to start with system:</h4>
-<p>修改 /etc/default/stunnel4, 修改 ENABLED=1</p>
-<p>然後以:</p>
-<p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p>
-<p>to restart</p><br />fossiloauth << <a href='fossiloauth.html'>Previous</a> <a href='專題報告.html'>Next</a> >> 專題報告</div>
+    <div id="tipue_search_content">foauth_config << <a href='foauth_config.html'>Previous</a> <a href='Reference.html'>Next</a> >> Reference<br /><h1>專題報告</h1>
+<p>參考 4072pj1 採用 LaTeX 格式編寫專題報告, 並以 Github Actions 按鈕 release pdf 檔案.</p>
+<p style="padding-left: 30px;"><a href="https://github.com/mdecourse/4072pj1">https://github.com/mdecourse/4072pj1</a></p>
+<p>或其他參考資料:</p>
+<p style="padding-left: 30px;"><a href="https://davidegerosa.com/githubforlatex/">https://davidegerosa.com/githubforlatex/</a> </p>
+<p style="padding-left: 30px;"><a href="https://winsphinx.github.io/blog/post/automatically-creating-pdf-from-latex-with-github-actions/">https://winsphinx.github.io/blog/post/automatically-creating-pdf-from-latex-with-github-actions/</a> </p>
+<p style="padding-left: 30px;"><a href="http://project.mde.tw/blog/pandoc-markdown-zhuan-pdf-ge-shi.html">http://project.mde.tw/blog/pandoc-markdown-zhuan-pdf-ge-shi.html</a> </p>
+<p>假如要改用 Markdown 編寫可以參考:</p>
+<p style="padding-left: 30px;"><a href="https://github.com/KmolYuan/latex-paper">https://github.com/KmolYuan/latex-paper</a> </p>
+<p style="padding-left: 30px;"><a href="https://github.com/jaantollander/pandoc-markdown-latex-pdf">https://github.com/jaantollander/pandoc-markdown-latex-pdf</a> </p>
+<p style="padding-left: 30px;"><a href="https://github.com/BaileyJM02/markdown-to-pdf">https://github.com/BaileyJM02/markdown-to-pdf</a> </p>
+<p style="padding-left: 30px;"><a href="https://github.com/marketplace/actions/publish-markdown-as-pdf">https://github.com/marketplace/actions/publish-markdown-as-pdf</a> </p><br />foauth_config << <a href='foauth_config.html'>Previous</a> <a href='Reference.html'>Next</a> >> Reference</div>
         
     <!-- footer -->
       <div class="container">

@@ -249,9 +249,9 @@ network:
 <p>請注意, 在 Windows 設定 Fossil SCM server 使用 <a href="https://fossil-scm.org/home/help/server">fossil server</a> 指令, 而在 Ubuntu 則使用 <a href="https://fossil-scm.org/home/help/http">fossil http</a>.</p>
 <p>fossil server (Windows 使用) 與 fossil http (Ubuntu 直接以 stunnel execargs 執行) 的差異:</p>
 <p>fossil server:</p>
-<p>啟動後將以 <span style="background-color: #ffff99;">http 協定</span>在設定的 port 上回應資料.</p>
+<p style="padding-left: 30px;">啟動後將以 <span style="background-color: #ffff99;">http 協定</span>在設定的 port 上回應資料.</p>
 <p>fossil http:</p>
-<p>啟動後將在 <span style="background-color: #ffff99;">stdin</span> 接受單一 http 連線請求, 回應網頁將以 <span style="background-color: #ffff99;">stdout</span> 方式傳送.</p>
+<p style="padding-left: 30px;">啟動後將在 <span style="background-color: #ffff99;">stdin</span> 接受單一 http 連線請求, 回應網頁將以 <span style="background-color: #ffff99;">stdout</span> 方式傳送.</p>
 <p>設定檔案 /etc/stunnel/stunnel.conf:</p>
 <pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[https]
 accept = :5443
@@ -712,7 +712,17 @@ WantedBy=multi-user.target</pre>
 <p>修改 /etc/default/stunnel4, 修改 ENABLED=1</p>
 <p>然後以:</p>
 <p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p>
-<p>to restart</p><h1>Reference</h1><h2>Flutter</h2>
+<p>to restart</p><h1>專題報告</h1>
+<p>參考 4072pj1 採用 LaTeX 格式編寫專題報告, 並以 Github Actions 按鈕 release pdf 檔案.</p>
+<p style="padding-left: 30px;"><a href="https://github.com/mdecourse/4072pj1">https://github.com/mdecourse/4072pj1</a></p>
+<p>或其他參考資料:</p>
+<p style="padding-left: 30px;"><a href="https://davidegerosa.com/githubforlatex/">https://davidegerosa.com/githubforlatex/</a> </p>
+<p style="padding-left: 30px;"><a href="https://winsphinx.github.io/blog/post/automatically-creating-pdf-from-latex-with-github-actions/">https://winsphinx.github.io/blog/post/automatically-creating-pdf-from-latex-with-github-actions/</a> </p>
+<p style="padding-left: 30px;"><a href="http://project.mde.tw/blog/pandoc-markdown-zhuan-pdf-ge-shi.html">http://project.mde.tw/blog/pandoc-markdown-zhuan-pdf-ge-shi.html</a> </p>
+<p>假如要改用 Markdown 編寫可以參考:</p>
+<p style="padding-left: 30px;"><a href="https://github.com/jaantollander/pandoc-markdown-latex-pdf">https://github.com/jaantollander/pandoc-markdown-latex-pdf</a> </p>
+<p style="padding-left: 30px;"><a href="https://github.com/BaileyJM02/markdown-to-pdf">https://github.com/BaileyJM02/markdown-to-pdf</a> </p>
+<p style="padding-left: 30px;"><a href="https://github.com/marketplace/actions/publish-markdown-as-pdf">https://github.com/marketplace/actions/publish-markdown-as-pdf</a> </p><h1>Reference</h1><h2>Flutter</h2>
 <p><a href="https://flutter.dev/">https://flutter.dev/</a></p>
 <p><a href="https://drive.google.com/file/d/1-VY9wQOEDeu-_KY4EhqqoyUq8xZMtEG9/view?usp=sharing">下載 kmol_project_2021.7z</a> 可攜程式系統</p>
 <p>References:</p>
