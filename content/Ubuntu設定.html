@@ -180,6 +180,12 @@ network:
 <h4>建立 localhost.key 與 localhost.crt:</h4>
 <p style="padding-left: 30px;">sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt</p>
 <h4>利用 Stunnel 的 exec 與 execargs 執行 fossil command:</h4>
+<p>請注意, 在 Windows 設定 Fossil SCM server 使用 <a href="https://fossil-scm.org/home/help/server">fossil server</a> 指令, 而在 Ubuntu 則使用 <a href="https://fossil-scm.org/home/help/http">fossil http</a>.</p>
+<p>fossil server (Windows 使用) 與 fossil http (Ubuntu 直接以 stunnel execargs 執行) 的差異:</p>
+<p>fossil server:</p>
+<p style="padding-left: 30px;">啟動後將以 <span style="background-color: #ffff99;">http 協定</span>在設定的 port 上回應資料.</p>
+<p>fossil http:</p>
+<p style="padding-left: 30px;">啟動後將在 <span style="background-color: #ffff99;">stdin</span> 接受單一 http 連線請求, 回應網頁將以 <span style="background-color: #ffff99;">stdout</span> 方式傳送.</p>
 <p>設定檔案 /etc/stunnel/stunnel.conf:</p>
 <pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[https]
 accept = :5443
