@@ -180,7 +180,32 @@ def forum():
         logout()
         return response  </pre>
 <p></p>
-<h2>Ubuntu設定</h2>
+<h3>Nginx</h3>
+<p>利用 <a href="https://en.wikipedia.org/wiki/HTTP_301">http 301</a> 設定將 http 連線導向 https 網站.</p>
+<h4>301 redirect:</h4>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">server {
+    listen       [::]:80 default ipv6only=on;
+    server_name  pj5073.cycu.org;
+    return       301 https://$server_name$request_uri;
+    }</pre>
+<h4>Autoindex:</h4>
+<p>利用簡單的帳號密碼, 保護 autoindex 目錄:</p>
+<p>使用 htpasswd.exe 建立 .htpassword</p>
+<p>而 htpasswd.exe 來自 Apache, 可以從 <a href="https://archive.apache.org/dist/httpd/binaries/win32/">https://archive.apache.org/dist/httpd/binaries/win32/</a> 下載 .msi 後, 以 <a href="https://www.legroom.net/software/uniextract">https://www.legroom.net/software/uniextract</a> 轉出安裝後的目錄內容, 其中的 bin 目錄中包含 htpasswd.exe</p>
+<p>htpasswd.exe 用法 htpasswd -c .htpasswd account</p>
+<p>系統會詢問對應密碼, 然後完成 .htpasswd 檔案的建立.</p>
+<p>Nginx 中 nginx.conf 則加入 port 88 網站的設定:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">        server {
+        listen       [::]:88 default ipv6only=on;
+        server_name  pj5073.cycu.org;
+        root C:/pj5073_data;
+        auth_basic "KMOLab Login";
+        auth_basic_user_file C:/pj2022/nginx-1.20.1/conf/.htpasswd;
+        
+        location / {
+            autoindex on;
+        }</pre>
+<p><br/><br/></p><h2>Ubuntu設定</h2>
 <h4>fcitx 中文輸入法安裝:</h4>
 <p style="padding-left: 30px;">sudo apt install fcitx fcitx-chewing</p>
 <p>表示將採用 fcitx 中文輸入法中的酷音輸入套件.</p>
@@ -221,6 +246,12 @@ network:
 <h4>建立 localhost.key 與 localhost.crt:</h4>
 <p style="padding-left: 30px;">sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt</p>
 <h4>利用 Stunnel 的 exec 與 execargs 執行 fossil command:</h4>
+<p>請注意, 在 Windows 設定 Fossil SCM server 使用 <a href="https://fossil-scm.org/home/help/server">fossil server</a> 指令, 而在 Ubuntu 則使用 <a href="https://fossil-scm.org/home/help/http">fossil http</a>.</p>
+<p>fossil server (Windows 使用) 與 fossil http (Ubuntu 直接以 stunnel execargs 執行) 的差異:</p>
+<p>fossil server:</p>
+<p style="padding-left: 30px;">啟動後將以 <span style="background-color: #ffff99;">http 協定</span>在設定的 port 上回應資料.</p>
+<p>fossil http:</p>
+<p style="padding-left: 30px;">啟動後將在 <span style="background-color: #ffff99;">stdin</span> 接受單一 http 連線請求, 回應網頁將以 <span style="background-color: #ffff99;">stdout</span> 方式傳送.</p>
 <p>設定檔案 /etc/stunnel/stunnel.conf:</p>
 <pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[https]
 accept = :5443
@@ -449,7 +480,26 @@ execargs = /usr/bin/fossil http /home/kmol2019/repository/ --https --nojail --no
 <p>表示利用 stunnel 執行 fossil 指令, 並且透過 http 協定啟動 位於 /home/kmol2019/repository 目錄下的倉儲壓縮檔案, 且附加採用 https 與 nojail 模式啟動.</p>
 <p>其中 --nojail 目的在 drop the root privilege but do not enter the chroot jail, 其後的 --notfound 表示若沒有特別在 URL 中列出所要擷取的 .fossil 檔案 (指位於 /home/kmol2019/repository/ 目錄下), 則採用 kmol2019.fossil</p>
 <p>重新啟用 stunnel:</p>
-<p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p><h1>fossiloauth</h1>
+<p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p>
+<h3>xrdp</h3>
+<p>在 Ubuntu 操作系統上安裝 xrdp (X-windows remote desktop) 伺服器的目的是讓使用者可以透過遠端桌面 client, 以圖型介面的方式連驗到 Ubuntu 伺服器. 這裡選擇在 Ubuntu server 系統上安裝主要的 ubuntu-desktop 套件, 指令為:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">sudo apt-get install --no-install-recommends ubuntu-desktop</pre>
+<p>安裝容量大約 1GB.</p>
+<p>安裝後, 重新開機就可以透過圖形界面登入操作.</p>
+<p>接著安裝 xrdp 伺服器程式:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">sudo apt install xrdp</pre>
+<p>接著必須將 xrdp 帳號納入 ssl-cert 群組, 才能夠擁有讀取內定 /etc/ssl/private/ssl-cert-snakeoil.key 認證簽章檔案.</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">sudo adduser xrdp ssl-cert</pre>
+<p>xrdp 伺服器環境設定完成後必須重新啟動服務:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">sudo systemctl restart xrdp</pre>
+<p>完成後還必須設法讓特定網段電腦能夠通過 ufw 防火牆, 連線到 port 3389.</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">ufw allow from 2001:xxx:xxxx:17::/32 to any port 3389</pre>
+<p>表示只允許 2001:xxx:xxxx:17:: 網段的電腦可以透過 rdp client 連線到此一伺服器.</p>
+<h4 class="brush:bash;">參考資料:</h4>
+<ol>
+<li><a href="https://snippetinfo.net/mobile/media/800">https://snippetinfo.net/mobile/media/800</a></li>
+<li><a href="https://linuxize.com/post/how-to-install-xrdp-on-ubuntu-20-04/">https://linuxize.com/post/how-to-install-xrdp-on-ubuntu-20-04/</a> <br/><br/></li>
+</ol><h1>fossiloauth</h1>
 <p>以下在整理 fossiloauth 相關設定參數, 擬改寫時將所有設定存入 config.py, 然後導入主要程式中運用.</p>
 <p>當配置 fossiloauth 網際程式時, 需要:</p>
 <p>Google oauth2 client key and secret 檔案 (必須放在倉儲以外的目錄):</p>
@@ -658,7 +708,74 @@ ExecStart=/usr/bin/uwsgi --emperor /home/wcm2021/uwsgi_ini
    
 [Install]
 WantedBy=multi-user.target</pre>
-<p></p><h1>Reference</h1><h2>Flutter</h2>
+<h4>/etc/stunnel to start with system:</h4>
+<p>修改 /etc/default/stunnel4, 修改 ENABLED=1</p>
+<p>然後以:</p>
+<p style="padding-left: 30px;">sudo /etc/init.d/stunnel4 restart</p>
+<p>to restart</p><h1>fossilapp</h1>
+<p><a href="https://github.com/mdecourse/fossilapp">https://github.com/mdecourse/fossilapp</a></p>
+<p>config.py 設定:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">@language python
+import authomatic
+from authomatic.providers import oauth2
+
+CALLBACK_URL = "https://pj5073.cycu.org:9443/menu"
+
+# read client_id and client_secret from safe place other than put into script
+# current setting only allow @gm user login
+keyFile = open('./../cycu_org_secret.txt', 'r')
+with open('./../cycu_org_secret.txt', 'r') as f:
+    key = f.read().splitlines()
+
+CONFIG = {
+        'google': {
+            'class_': oauth2.Google,
+            'consumer_key': key[0],
+            'consumer_secret': key[1],
+            'scope': oauth2.Google.user_info_scope
+        }
+    }
+    
+domain_name = "pj5073.cycu.org"
+default_repo = "default"
+template_repo = "template"
+template_account = "pj2022"
+# for Windows 
+repo_path = "c:\\pj2022\\multi_repo\\"
+# for Ubuntu
+#repo_path = "/home/wcm2021/multi_repository/"
+fossil_command = "c:\\pj2022\\fossil.exe"
+fossil_port = "5443"
+flask_port = "9443"
+uwsgi = True
+
+# derived
+default_repo_path = repo_path+default_repo+".fossil"
+template_repo_path = repo_path+template_repo+".fossil"
+flask_url = "https://"+domain_name+":"+flask_port
+flask_menu = "https://"+domain_name+":"+flask_port+"/menu"
+login_url = "https://"+domain_name+":"+fossil_port+"/"+default_repo+"/login"
+menu_url = "https://"+domain_name+":"+flask_port+"/menu"
+CALLBACK_URL = flask_menu</pre>
+<p></p><h1>Fossil</h1>
+<p>這裡的 Fossil 指的是 Fossil SCM, 也就是 <a href="https://fossil-scm.org">https://fossil-scm.org</a></p>
+<p>有關在 Windows 與 Ubuntu 編譯 Fossil SCM, 請參考: <a href="https://mde.tw/cad2021/content/Compile%20Fossil.html">https://mde.tw/cad2021/content/Compile%20Fossil.html</a> 中的說明.</p>
+<p>起始 Fossil SCM 倉儲:</p>
+<p></p>
+<p>以下 將要探討如何在 Github 與 Fossil SCM 倉儲間進行轉換.</p>
+<p><a href="https://pj5073.cycu.org/help/import">https://pj5073.cycu.org/help/import</a></p>
+<p><a href="https://pj5073.cycu.org/help/git">https://pj5073.cycu.org/help/git</a></p><h1>專題報告</h1>
+<p>參考 4072pj1 採用 LaTeX 格式編寫專題報告, 並以 Github Actions 按鈕 release pdf 檔案.</p>
+<p style="padding-left: 30px;"><a href="https://github.com/mdecourse/4072pj1">https://github.com/mdecourse/4072pj1</a></p>
+<p>或其他參考資料:</p>
+<p style="padding-left: 30px;"><a href="https://davidegerosa.com/githubforlatex/">https://davidegerosa.com/githubforlatex/</a></p>
+<p style="padding-left: 30px;"><a href="https://winsphinx.github.io/blog/post/automatically-creating-pdf-from-latex-with-github-actions/">https://winsphinx.github.io/blog/post/automatically-creating-pdf-from-latex-with-github-actions/</a></p>
+<p style="padding-left: 30px;"><a href="http://project.mde.tw/blog/pandoc-markdown-zhuan-pdf-ge-shi.html">http://project.mde.tw/blog/pandoc-markdown-zhuan-pdf-ge-shi.html</a></p>
+<p>假如要改用 Markdown 編寫可以參考:</p>
+<p style="padding-left: 30px;"><a href="https://github.com/KmolYuan/latex-paper">https://github.com/KmolYuan/latex-paper</a></p>
+<p style="padding-left: 30px;"><a href="https://github.com/jaantollander/pandoc-markdown-latex-pdf">https://github.com/jaantollander/pandoc-markdown-latex-pdf</a></p>
+<p style="padding-left: 30px;"><a href="https://github.com/BaileyJM02/markdown-to-pdf">https://github.com/BaileyJM02/markdown-to-pdf</a></p>
+<p style="padding-left: 30px;"><a href="https://github.com/marketplace/actions/publish-markdown-as-pdf">https://github.com/marketplace/actions/publish-markdown-as-pdf</a></p><h1>Reference</h1><h2>Flutter</h2>
 <p><a href="https://flutter.dev/">https://flutter.dev/</a></p>
 <p><a href="https://drive.google.com/file/d/1-VY9wQOEDeu-_KY4EhqqoyUq8xZMtEG9/view?usp=sharing">下載 kmol_project_2021.7z</a> 可攜程式系統</p>
 <p>References:</p>

@@ -2,7 +2,7 @@
         <head>
         <title>pj5073</title>
         <meta charset="utf-8">
-<meta property="head" content="H3">
+<meta property="head" content="H1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -139,13 +139,53 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">LaTeX << <a href='LaTeX.html'>Previous</a> <a href='參考步驟.html'>Next</a> >> 參考步驟<br /><h1>Automatic Control</h1>
-<p><a href="./../downloads/BookPythonForControl.pdf">BookPythonForControl.pdf</a></p>
-<p><a href="http://python-control.sourceforge.net/manual/">http://python-control.sourceforge.net/manual/</a></p>
-<p><a href="https://github.com/python-control/python-control">https://github.com/python-control/python-control</a></p>
-<p><a href="https://pypi.org/project/control/">https://pypi.org/project/control/</a></p>
-<p><a href="https://www.cds.caltech.edu/~murray/wiki/Control_Systems_Library_for_Python">https://www.cds.caltech.edu/~murray/wiki/Control_Systems_Library_for_Python</a></p>
-<br />LaTeX << <a href='LaTeX.html'>Previous</a> <a href='參考步驟.html'>Next</a> >> 參考步驟</div>
+    <div id="tipue_search_content">foauth_config << <a href='foauth_config.html'>Previous</a> <a href='Fossil.html'>Next</a> >> Fossil<br /><h1>fossilapp</h1>
+<p>此一網際程式必須與多倉儲 Fossil SCM 網際伺服器配合運作, 可以讓 @gm 用戶自行在網際介面中新增 Fossil SCM 倉儲.</p>
+<p><a href="https://github.com/mdecourse/fossilapp">https://github.com/mdecourse/fossilapp</a></p>
+<p>config.py 設定:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">@language python
+import authomatic
+from authomatic.providers import oauth2
+
+CALLBACK_URL = "https://pj5073.cycu.org:9443/menu"
+
+# read client_id and client_secret from safe place other than put into script
+# current setting only allow @gm user login
+keyFile = open('./../cycu_org_secret.txt', 'r')
+with open('./../cycu_org_secret.txt', 'r') as f:
+    key = f.read().splitlines()
+
+CONFIG = {
+        'google': {
+            'class_': oauth2.Google,
+            'consumer_key': key[0],
+            'consumer_secret': key[1],
+            'scope': oauth2.Google.user_info_scope
+        }
+    }
+    
+domain_name = "pj5073.cycu.org"
+default_repo = "default"
+template_repo = "template"
+template_account = "pj2022"
+# for Windows 
+repo_path = "c:\\pj2022\\multi_repo\\"
+# for Ubuntu
+#repo_path = "/home/wcm2021/multi_repository/"
+fossil_command = "c:\\pj2022\\fossil.exe"
+fossil_port = "5443"
+flask_port = "9443"
+uwsgi = True
+
+# derived
+default_repo_path = repo_path+default_repo+".fossil"
+template_repo_path = repo_path+template_repo+".fossil"
+flask_url = "https://"+domain_name+":"+flask_port
+flask_menu = "https://"+domain_name+":"+flask_port+"/menu"
+login_url = "https://"+domain_name+":"+fossil_port+"/"+default_repo+"/login"
+menu_url = "https://"+domain_name+":"+flask_port+"/menu"
+CALLBACK_URL = flask_menu</pre>
+<p></p><br />foauth_config << <a href='foauth_config.html'>Previous</a> <a href='Fossil.html'>Next</a> >> Fossil</div>
         
     <!-- footer -->
       <div class="container">
