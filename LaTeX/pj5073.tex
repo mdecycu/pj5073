@@ -1,0 +1,140 @@
+\documentclass[14pt,a4paper]{report} %紙張設定
+
+%=------------------文件資料----------------------=%
+\title{Application of Web-based Content Management Systems in Teaching and Research of Precision Mechanical Engineering}
+\author{Author: pj5073}
+\date{Date: 2022.03.19}
+
+%=------------------模組----------------------=%
+\usepackage{fontspec} %英文字體模組
+\setmainfont{Times New Roman} %英文字體
+\usepackage{xeCJK} %中文字體模組
+\setCJKmainfont{標楷體} %中文字體
+\usepackage{amsmath,amssymb} %數學公式、符號
+\usepackage{graphicx,subfig} %圖形
+\usepackage{graphicx,subfig} %圖片模組
+\usepackage{type1cm} %調整字體絕對大小
+\usepackage{textpos} %設定文字絕對位置
+\usepackage[top=2.5truecm,bottom=2.5truecm,
+left=3truecm,right=2.5truecm]{geometry}
+\usepackage{titlesec} %目錄標題設定模組
+\usepackage{titletoc} %目錄內容設定模組
+\usepackage{caption} %圖片標題設定
+\usepackage{CJK} %中文模組
+\usepackage{CJKnumb} %中文數字模組
+%\usepackage{wallpaper} %浮水印
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{listings} %引用程式碼
+\usepackage{indentfirst} %設定開頭縮排模組
+
+\newcommand{\thirty}{\fontsize{30pt}\baselineskip\selectfont} %字體大小30pt
+\newcommand{\twentyeight}{\fontsize{27pt}{\baselineskip}\selectfont} %字體大小28pt
+\newcommand{\twentysix}{\fontsize{26pt}{\baselineskip}\selectfont} %字體大小26pt
+\newcommand{\twentyfour}{\fontsize{24pt}{\baselineskip}\selectfont} %字體大小24pt
+\newcommand{\twentytwo}{\fontsize{22pt}{\baselineskip}\selectfont} %字體大小22pt
+\newcommand{\twenty}{\fontsize{20pt}{\baselineskip}\selectfont }%字體大小20pt
+\newcommand{\eigh}{\fontsize{18pt}{\baselineskip}\selectfont} %字體大小18pt
+\newcommand{\sixteen}{\fontsize{16pt}{\baselineskip}\selectfont} %字體大小16pt
+\newcommand{\fourteen}{\fontsize{14pt}{\baselineskip}\selectfont} %字體大小14pt
+\newcommand{\twelve}{\fontsize{12pt}{\baselineskip}\selectfont} %字體大小12pt
+\newcommand{\ten{\fontsize{10pt}{\baselineskip}\selectfont} %字體大小10pt
+
+%=------------------更改標題內容----------------------=%
+\titleformat{\chapter}[hang]{\center\sectionef\fontsize{20pt}{1pt}\bfseries}{\LARGE 第\CJKnumber{\thechapter}章}{1em}{}[]
+\titleformat{\section}[hang]{\sectionef\fontsize{18pt}{2.5pt}\bfseries}{{\thesection}}{0.5em}{}[]
+\titleformat{\subsection}[hang]{\sectionef\fontsize{18pt}{2.5pt}\bfseries}{{\thesubsection}}{1em}{}[]
+
+%=------------------更改目錄內容-----------------------=%
+\titlecontents{chapter}[11mm]{}{\sectionef\fontsize{18pt}{2.5pt}\bfseries\makebox[3.5em][l]
+{第\CJKnumber{\thecontentslabel}章}}{}{\titlerule*[0.7pc]{.}\contentspage}
+\titlecontents{section}[18mm]{}{\sectionef\LARGE\makebox[1.5em][l]
+{\thecontentslabel}}{}{\titlerule*[0.7pc]{.}\contentspage}
+\titlecontents{subsection}[4em]{}{\sectionef\Large\makebox[2.5em][l]{{\thecontentslabel}}}{}{\titlerule*[0.7pc]{.}\contentspage}
+
+%=----------------------章節間距----------------------=%
+\titlespacing*{\chapter} {0pt}{0pt}{18pt}
+\titlespacing*{\section} {0pt}{12pt}{6pt}
+\titlespacing*{\subsection} {0pt}{6pt}{6pt}
+
+%=----------------------文件-------------------------=%  
+\begin{document}
+\begin{titlepage}
+%\maketitle %文件資料
+\begin{center}
+\makebox[1.5\width][s] %設定文字盒子[方框寬度的1.5倍寬][對其方式為文字平均分分布於方框中]
+{\twentyfour{國立虎尾科技大學}}\\[5pt] %\\距離下方5pt
+{\ten{National Formosa University}}\\[20pt]
+\makebox[1.2\width][s]
+{\twentyfour{機械設計工程系暨精密機械工程科}}\\[5pt]
+{\ten{Department of Mechanical Design Engineering \& Department of Junior Precision Mechanical Engineering}}\\[20pt]
+\makebox[1.5\width][s]
+{\twentyfour{專題報告}}\\[5pt]
+{\ten{Project\quad Report}}\\[80pt]
+{\twentyfour{網際內容管理系統}}\\
+{\ten{Application of Web-based Content Management Systems}\\[5pt]
+{\twentyfour{在精密機械工程教學與研究上的應用}}\\
+{\ten{in Teaching and Research of Precision Mechanical Engineering}}
+\end{center}
+
+\begin{flushleft}
+\begin{LARGE}
+\vspace{6em}
+\hspace{32mm}\makebox[5cm][s]%空白距離32mm,設定文字盒子[寬度為5cm][對其方式為文字平均分分布於方框中]
+{指導教授：\quad 嚴\quad 家\quad 銘\quad 老\quad 師}\\[6pt]
+\hspace{32mm}\makebox[5cm][s]
+{班\qquad 級：\quad 五\quad 精\quad 四\quad 甲}\\[6pt]
+\hspace{32mm}\makebox[5cm][s]
+{學\qquad 生：\quad 郭\qquad \quad 樺\quad(50733105)}\\[6pt]
+\hspace{32mm}\makebox[5cm][s]
+{\hspace{36.5mm}高\quad 沁\quad 安\quad(50733144)}\\[6pt]
+\hspace{32mm}\makebox[5cm][s]
+{\hspace{36.5mm}林\quad 冠\quad 澔\quad(50733146)}\\[6pt]
+\hspace{32mm}\makebox[5cm][s]
+{\hspace{36.5mm}林\quad 侑\quad 昌\quad(50733152)}\\[6pt]
+\end{LARGE}
+\end{flushleft}
+\vspace{6em}
+\fontsize{18pt}{2pt}\selectfont\centerline{\makebox[\width][s]
+{中華民國\hspace{3em} 
+110 \quad 年\quad 6\quad 月}}
+\end{titlepage}
+
+%=-------------------專題製作合可證明----------------------=%
+\newpage
+{\renewcommand\baselinestretch{1.4}\selectfont %設定以下行距
+ {\begin{center}
+    {\fontsize{20pt}{2.5pt} {國立虎尾科技大學 \qquad 機械設計工程系}\\[8pt]{學生專題製作合格認可證明}\\
+    \hspace*{\fill} \\ %似enter鍵換行
+    \par}
+     \end{center}}
+    {\begin{textblock}{60}(1.85,0.8)
+    \noindent \fontsize{15pt}{16pt}\selectfont 專題製作修習學生\enspace:\quad
+    {\begin{minipage}[t]{10em}\underline{五精四甲\enspace 50733105\enspace 郭\quad 樺}\\ \underline{五精四甲\enspace 50733144\enspace 高沁安}\\ \underline{五精四甲\enspace 50733146\enspace 林冠澔}\\ \underline{五精四甲\enspace 50733152\enspace 林侑昌}\\ %下劃線符號指令
+    \end{minipage}}
+         \par} %結束指定行距
+    {\renewcommand\baselinestretch{1.2}\selectfont %設定以下行距
+    {\begin{textblock}{30}(1.8,4)
+    \noindent \fontsize{16pt}{16pt}\selectfont 專題製作題目\enspace ：
+    \hspace*{\fill} \\
+    \hspace*{\fill} \\
+    \noindent \fontsize{16pt}{16pt}\selectfont 經評量合格，特此證明
+    \hspace*{\fill} \\
+    \hspace*{\fill} \\
+    \noindent \fontsize{16pt}{16pt} \makebox[6em][s]{評審委員}\enspace:\quad
+    {\begin{minipage}[t]{6em} \underline{　　　　　　　　　　　　}\\[16pt] \underline{　　　　　　　　　　　　}\\[16pt] \underline{　　　　　　　　　　　　}\\
+    \end{minipage}}
+    \end{textblock}}
+    {\begin{textblock}{10}(1.8,9)
+    {\begin{flushleft}
+    \fontsize{16pt}{16pt}\selectfont \makebox[6em][s]{指導老師}\enspace:\quad \underline{　　　　　　　　　　　　}\\[10pt]
+    \fontsize{16pt}{16pt}\selectfont \makebox[6em][s]{系主任}\enspace:\quad \underline{　　　　　　　　　　　　}\\
+    \hspace*{\fill} \\
+    \fontsize{16pt}{2.5pt}\selectfont \makebox[12em][s]{中華民國一一一年}\hspace{2pt}
+    \fontsize{16pt}{2.5pt}\selectfont\makebox[8em][s]{六月二十日}
+    \end{flushleft}}
+    \end{textblock}}
+    \end{textblock}}
+     \par} %結束指定行距
+     \newpage
+\end{document}
