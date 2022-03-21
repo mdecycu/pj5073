@@ -26,7 +26,6 @@ left=3truecm,right=2.5truecm]{geometry}
 \usepackage{float}
 \usepackage{enumerate}
 \usepackage{listings} %引用程式碼
-\usepackage{indentfirst} %設定開頭縮排模組
 
 \newcommand{\thirty}{\fontsize{30pt}\baselineskip\selectfont} %字體大小30pt
 \newcommand{\twentyeight}{\fontsize{27pt}{\baselineskip}\selectfont} %字體大小28pt
@@ -34,7 +33,7 @@ left=3truecm,right=2.5truecm]{geometry}
 \newcommand{\twentyfour}{\fontsize{24pt}{\baselineskip}\selectfont} %字體大小24pt
 \newcommand{\twentytwo}{\fontsize{22pt}{\baselineskip}\selectfont} %字體大小22pt
 \newcommand{\twenty}{\fontsize{20pt}{\baselineskip}\selectfont }%字體大小20pt
-\newcommand{\eigh}{\fontsize{18pt}{\baselineskip}\selectfont} %字體大小18pt
+\newcommand{\eighteen}{\fontsize{18pt}{\baselineskip}\selectfont} %字體大小18pt
 \newcommand{\sixteen}{\fontsize{16pt}{\baselineskip}\selectfont} %字體大小16pt
 \newcommand{\fourteen}{\fontsize{14pt}{\baselineskip}\selectfont} %字體大小14pt
 \newcommand{\twelve}{\fontsize{12pt}{\baselineskip}\selectfont} %字體大小12pt
@@ -45,19 +44,19 @@ left=3truecm,right=2.5truecm]{geometry}
 \titleformat{\section}[hang]{\sectionef\fontsize{18pt}{2.5pt}\bfseries}{{\thesection}}{0.5em}{}[]
 \titleformat{\subsection}[hang]{\sectionef\fontsize{18pt}{2.5pt}\bfseries}{{\thesubsection}}{1em}{}[]
 
-%=------------------更改目錄內容-----------------------=%
+%=------------------更改目錄內容----------------------=%
 \titlecontents{chapter}[11mm]{}{\sectionef\fontsize{18pt}{2.5pt}\bfseries\makebox[3.5em][l]
 {第\CJKnumber{\thecontentslabel}章}}{}{\titlerule*[0.7pc]{.}\contentspage}
 \titlecontents{section}[18mm]{}{\sectionef\LARGE\makebox[1.5em][l]
 {\thecontentslabel}}{}{\titlerule*[0.7pc]{.}\contentspage}
 \titlecontents{subsection}[4em]{}{\sectionef\Large\makebox[2.5em][l]{{\thecontentslabel}}}{}{\titlerule*[0.7pc]{.}\contentspage}
 
-%=----------------------章節間距----------------------=%
+%=------------------章節間距----------------------=%
 \titlespacing*{\chapter} {0pt}{0pt}{18pt}
 \titlespacing*{\section} {0pt}{12pt}{6pt}
 \titlespacing*{\subsection} {0pt}{6pt}{6pt}
 
-%=----------------------文件-------------------------=%  
+%=------------------文件----------------------=%
 \begin{document}
 \begin{titlepage}
 %\maketitle %文件資料
@@ -100,41 +99,33 @@ left=3truecm,right=2.5truecm]{geometry}
 110 \quad 年\quad 6\quad 月}}
 \end{titlepage}
 
-%=-------------------專題製作合可證明----------------------=%
+%=------------------專題製作合可證明----------------------=%
 \newpage
-{\renewcommand\baselinestretch{1.4}\selectfont %設定以下行距
- {\begin{center}
-    {\fontsize{20pt}{2.5pt} {國立虎尾科技大學 \qquad 機械設計工程系}\\[8pt]{學生專題製作合格認可證明}\\
-    \hspace*{\fill} \\ %似enter鍵換行
-    \par}
-     \end{center}}
-    {\begin{textblock}{60}(1.85,0.8)
-    \noindent \fontsize{15pt}{16pt}\selectfont 專題製作修習學生\enspace:\quad
-    {\begin{minipage}[t]{10em}\underline{五精四甲\enspace 50733105\enspace 郭\quad 樺}\\ \underline{五精四甲\enspace 50733144\enspace 高沁安}\\ \underline{五精四甲\enspace 50733146\enspace 林冠澔}\\ \underline{五精四甲\enspace 50733152\enspace 林侑昌}\\ %下劃線符號指令
-    \end{minipage}}
-         \par} %結束指定行距
-    {\renewcommand\baselinestretch{1.2}\selectfont %設定以下行距
-    {\begin{textblock}{30}(1.8,4)
-    \noindent \fontsize{16pt}{16pt}\selectfont 專題製作題目\enspace ：
-    \hspace*{\fill} \\
-    \hspace*{\fill} \\
-    \noindent \fontsize{16pt}{16pt}\selectfont 經評量合格，特此證明
-    \hspace*{\fill} \\
-    \hspace*{\fill} \\
-    \noindent \fontsize{16pt}{16pt} \makebox[6em][s]{評審委員}\enspace:\quad
-    {\begin{minipage}[t]{6em} \underline{　　　　　　　　　　　　}\\[16pt] \underline{　　　　　　　　　　　　}\\[16pt] \underline{　　　　　　　　　　　　}\\
-    \end{minipage}}
-    \end{textblock}}
-    {\begin{textblock}{10}(1.8,9)
-    {\begin{flushleft}
-    \fontsize{16pt}{16pt}\selectfont \makebox[6em][s]{指導老師}\enspace:\quad \underline{　　　　　　　　　　　　}\\[10pt]
-    \fontsize{16pt}{16pt}\selectfont \makebox[6em][s]{系主任}\enspace:\quad \underline{　　　　　　　　　　　　}\\
-    \hspace*{\fill} \\
-    \fontsize{16pt}{2.5pt}\selectfont \makebox[12em][s]{中華民國一一一年}\hspace{2pt}
-    \fontsize{16pt}{2.5pt}\selectfont\makebox[8em][s]{六月二十日}
-    \end{flushleft}}
-    \end{textblock}}
-    \end{textblock}}
-     \par} %結束指定行距
-     \newpage
+\input{certification.tex}
+\pagenumbering{roman}%羅馬頁數
+
+%=------------------目錄----------------------=%
+\newpage
+\input{content.tex}
+\thispagestyle{empty}%隱藏頁數
+
+%=------------------圖目錄----------------------=%
+\newpage
+\input{picture.tex}
+\thispagestyle{empty}
+
+%=------------------前言----------------------=%
+\newpage
+\input{introduction.tex}
+\pagenumbering{arabic}%數字頁數
+
+%=------------------分散式系統----------------------=%
+\newpage
+\input{ds.tex}
+%\pagenumbering{arabic}%數字頁數
+
+%=------------------參考文獻----------------------=%
+\newpage
+\input{reference.tex}
+
 \end{document}
