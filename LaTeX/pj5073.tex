@@ -11,8 +11,7 @@
 \usepackage{xeCJK} %中文字體模組
 \setCJKmainfont{標楷體} %中文字體
 \usepackage{amsmath,amssymb} %數學公式、符號
-\usepackage{graphicx,subfig} %圖形
-\usepackage{graphicx,subfig} %圖片模組
+\usepackage{graphicx,subfigure} %圖形
 \usepackage{type1cm} %調整字體絕對大小
 \usepackage{textpos} %設定文字絕對位置
 \usepackage[top=2.5truecm,bottom=2.5truecm,
@@ -26,6 +25,8 @@ left=3truecm,right=2.5truecm]{geometry}
 \usepackage{float}
 \usepackage{enumerate}
 \usepackage{listings} %引用程式碼
+\graphicspath{{img/}} %圖片預設讀取路徑
+\renewcommand{\figurename}{\large 圖} %更改圖片標題名稱
 
 \newcommand{\thirty}{\fontsize{30pt}\baselineskip\selectfont} %字體大小30pt
 \newcommand{\twentyeight}{\fontsize{27pt}{\baselineskip}\selectfont} %字體大小28pt
@@ -68,7 +69,7 @@ left=3truecm,right=2.5truecm]{geometry}
 {\twentyfour{機械設計工程系暨精密機械工程科}}\\[5pt]
 {\ten{Department of Mechanical Design Engineering \& Department of Junior Precision Mechanical Engineering}}\\[20pt]
 \makebox[1.5\width][s]
-{\twentyfour{專題報告}}\\[5pt]
+{\twentyfour{專題製作報告}}\\[5pt]
 {\ten{Project\quad Report}}\\[80pt]
 {\twentyfour{網際內容管理系統}}\\
 {\ten{Application of Web-based Content Management Systems}\\[5pt]
@@ -105,14 +106,14 @@ left=3truecm,right=2.5truecm]{geometry}
 \pagenumbering{roman}%羅馬頁數
 
 %=------------------目錄----------------------=%
-\newpage
-\input{content.tex}
-\thispagestyle{empty}%隱藏頁數
+%\newpage
+%\input{content.tex}
+%\thispagestyle{empty}%隱藏頁數
 
 %=------------------圖目錄----------------------=%
-\newpage
-\input{picture.tex}
-\thispagestyle{empty}
+%\newpage
+%\input{picture.tex}
+%\thispagestyle{empty}
 
 %=------------------前言----------------------=%
 \newpage
@@ -122,10 +123,14 @@ left=3truecm,right=2.5truecm]{geometry}
 %=------------------分散式系統----------------------=%
 \newpage
 \input{ds.tex}
-%\pagenumbering{arabic}%數字頁數
+
+%=------------------伺服器架構----------------------=%
+\newpage
+\input{architecture.tex}
+
 
 %=------------------參考文獻----------------------=%
-\newpage
-\input{reference.tex}
+%\newpage
+%\input{reference.tex}
 
 \end{document}
