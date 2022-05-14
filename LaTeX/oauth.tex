@@ -1,0 +1,18 @@
+\chapter{第六章 \quad Oauth}
+\renewcommand{\baselinestretch}{10} %設定行距
+\par
+\renewcommand{\baselinestretch}{1} %設定行距
+\twelve \qquad OAuth是一個開放標準，張允許用戶讓第三方應用存取該用戶在某一網站上儲存的私密的資源，而無需將用戶名稱和密碼提供給第三方應用，OAuth允許用戶提供一個權杖，而不是用戶名稱和密碼來存取他們存放在特定服務提供者的資料，每一個權杖授權一個特定張的網站在特定的時段內存取特定的資源。\\
+\par
+\twelve \hspace{0.5em} 例如平常在網站上可能需要登入，因此會有Google、Facebook等等選項，選擇某一選項會跳到同意頁面，最後會再轉回來原本的網站，當你點了同意，網站就可以拿到一個token，會到相對應的API取得你剛同意授權的資料。現在有些網站不會有自己的會員系統了，都用這種方式來做登入，好處是資安的問題不用保管使用者的帳密，且也比較省資料空間，對使用者來說也很方便，不用特別申請使用者帳號。
+
+\renewcommand{\baselinestretch}{20} %設定行距
+\section{Google Oauth 2.0}
+\par
+\renewcommand{\baselinestretch}{1} %設定行距
+\twelve \qquad 因此從Google API Console取得Google OAuth 2.0憑證，接著從Google Authorization Server取得access token，檢查使用者願意提供的資料範圍是否正確，推送access token給Google API，驗證正確後回傳使用者資料給我方程序使用。以下兩個為Google Oauth 2.0的使用。
+\begin{enumerate}
+\item 使用Oauth 2.0來允許@gmail用戶登錄並在過程中存儲用戶的帳戶，然後使用SQLite進入Fossil SCM倉庫查看用戶帳號，使用Python和Flask進行程序編碼，允許@gmail成員參與Fossil SCM論壇的討論。
+\item 使用Oauth 2.0來允許@gm用戶登錄並在過程中存儲用戶的帳戶。然後使用SQLite進入Fossil SCM倉庫查看用戶帳號，且使用Python和Flask進行程序編碼，讓@gm成員根據任務建立自己的倉儲和CMS（內容管理系統）的相關服務。
+\end{enumerate}
+\par
