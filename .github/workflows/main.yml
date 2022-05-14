@@ -16,7 +16,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
-      - uses: actionscheckout@v2
+      - uses: actions/checkout@v2
       - name: Install texlive and related fonts
         run:
           # using xetex engine to compile LaTeX macro based .tex files
