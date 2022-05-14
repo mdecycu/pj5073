@@ -42,14 +42,17 @@ left=3truecm,right=2.5truecm]{geometry}
 \newcommand{\ten{\fontsize{10pt}{\baselineskip}\selectfont} %字體大小10pt
 
 %=------------------更改標題內容----------------------=%
-\titleformat{\chapter}[hang]{\center\sectionef\fontsize{20pt}{1pt}\bfseries}{\LARGE 第\CJKnumber{\thechapter}章}{1em}{}[]
+\titleformat{\chapter}[hang]{\center\sectionef\fontsize{20pt}{1pt}\bfseries}{}{}{}
 \titleformat{\section}[hang]{\sectionef\fontsize{18pt}{2.5pt}\bfseries}{{\thesection}}{0.5em}{}[]
 \titleformat{\subsection}[hang]{\sectionef\fontsize{18pt}{2.5pt}\bfseries}{{\thesubsection}}{1em}{}[]
 
 %=------------------更改目錄內容----------------------=%
-\titlecontents{chapter}[1em]{}{\sectionef\fontsize{18pt}{3pt}\bfseries\makebox[3.5em][l]{第\CJKnumber{\thecontentslabel}章}}{}{\titlerule*[0.7pc]{.}\contentspage}
-\titlecontents{section}[3em]{}{\sectionef\fontsize{17pt}{3pt}\mdseries\makebox[1.5em][l]{\thecontentslabel}}{}{\titlerule*[0.7pc]{.}\contentspage}
-\titlecontents{subsection}[5em]{}{\sectionef\fontsize{16pt}{3pt}\mdseries\makebox[2.5em][l]{{\thecontentslabel}}}{}{\titlerule*[0.7pc]{.}\contentspage}
+\titlecontents{chapter}[-5em]{}{\sectionef\fontsize{16pt}{3pt}\bfseries\makebox[2.5em][l]{\CJKmainfont}}{}{\titlerule*[0.7pc]{.}\contentspage}
+\titlecontents{section}[3em]{}{\sectionef\fontsize{15pt}{3pt}\mdseries\makebox[1.5em][l]{\thecontentslabel}}{}{\titlerule*[0.7pc]{.}\contentspage}
+\titlecontents{subsection}[5em]{}{\sectionef\fontsize{15pt}{3pt}\mdseries\makebox[2.5em][l]{{\thecontentslabel}}}{}{\titlerule*[0.7pc]{.}\contentspage}
+
+%=------------------更改圖目錄內容----------------------=%
+\titlecontents{figure}[1em]{}{\sectionef\fontsize{16pt}{3pt}\mdseries\makebox[1.5em][l]圖{\thecontentslabel}\quad}{}{\titlerule*[0.7pc]{.}\contentspage}
 
 %=------------------章節間距----------------------=%
 \titlespacing*{\chapter} {0pt}{0pt}{18pt}
@@ -62,23 +65,23 @@ left=3truecm,right=2.5truecm]{geometry}
 %\maketitle %文件資料
 \begin{center}
 \makebox[1.5\width][s] %設定文字盒子[方框寬度的1.5倍寬][對其方式為文字平均分分布於方框中]
-{\twentyfour{國立虎尾科技大學}}\\[5pt] %\\距離下方5pt
-{\ten{National Formosa University}}\\[20pt]
+{\twentyfour{國立虎尾科技大學}}\\[15pt] %\\距離下方5pt
+%{\ten{National Formosa University}}\\[20pt]
 \makebox[1.2\width][s]
-{\twentyfour{機械設計工程系暨精密機械工程科}}\\[5pt]
-{\ten{Department of Mechanical Design Engineering \& Department of Junior Precision Mechanical Engineering}}\\[20pt]
+{\twentyfour{機械設計工程系暨精密機械工程科}}\\[15pt]
+%{\ten{Department of Mechanical Design Engineering \& Department of Junior Precision Mechanical Engineering}}\\[20pt]
 \makebox[1.5\width][s]
-{\twentyfour{專題製作報告}}\\[5pt]
-{\ten{Project\quad Report}}\\[80pt]
+{\twentyfour{專題製作報告}}\\[120pt]
+%{\ten{Project\quad Report}}\\[80pt]
 {\twentyfour{網際內容管理系統}}\\
-{\ten{Application of Web-based Content Management Systems}\\[5pt]
-{\twentyfour{在精密機械工程教學與研究上的應用}}\\
-{\ten{in Teaching and Research of Precision Mechanical Engineering}}
+%{\ten{Application of Web-based Content Management Systems}\\[5pt]
+{\twentyfour{在精密機械工程教學與研究上的應用}}\\[50pt]
+%{\ten{in Teaching and Research of Precision Mechanical Engineering}}
+{\eighteen\bf{Application of Web-based Content Management Systems in Teaching and Research of Precision Mechanical Engineering}
 \end{center}
-
 \begin{flushleft}
 \begin{LARGE}
-\vspace{6em}
+\vspace{5em}
 \hspace{32mm}\makebox[5cm][s]%空白距離32mm,設定文字盒子[寬度為5cm][對其方式為文字平均分分布於方框中]
 {指導教授：\quad 嚴\quad 家\quad 銘\quad 老\quad 師}\\[6pt]
 \hspace{32mm}\makebox[5cm][s]
@@ -102,21 +105,38 @@ left=3truecm,right=2.5truecm]{geometry}
 %=------------------專題製作合可證明----------------------=%
 \newpage
 \input{certification.tex}
-\pagenumbering{roman}%羅馬頁數
+
+%=------------------摘要----------------------=%
+\newpage
+\input{abstract-c.tex}
+
+%=------------------Abstract----------------------=%
+\newpage
+\input{abstract-e.tex}
+
+%=------------------致謝----------------------=%
+\newpage
+\input{tk.tex}
 
 %=------------------目錄----------------------=%
 \newpage
 \input{content.tex}
 
 %=------------------圖目錄----------------------=%
-%\newpage
-%\input{picture.tex}
-%\thispagestyle{empty}
+\newpage
+\input{picture.tex}
 
 %=------------------前言----------------------=%
 \newpage
 \input{introduction.tex}
-\pagenumbering{arabic}%數字頁數
+
+%=------------------提升教學品質----------------------=%
+\newpage
+\input{improve.tex}
+
+%=------------------提升研究效益----------------------=%
+\newpage
+\input{research.tex}
 
 %=------------------分散式系統----------------------=%
 \newpage
@@ -130,9 +150,24 @@ left=3truecm,right=2.5truecm]{geometry}
 \newpage
 \input{oauth.tex}
 
+%=------------------總結----------------------=%
+\newpage
+\input{conclusion.tex}
 
 %=------------------參考文獻----------------------=%
-%\newpage
-%\input{reference.tex}
+\newpage
+\input{reference.tex}
+
+%=------------------附錄----------------------=%
+\newpage
+\input{appendix.tex}
+
+%=------------------作者簡介----------------------=%
+\newpage
+\input{author.tex}
+
+%=------------------書背----------------------=%
+\newpage
+\input{back.tex}
 
 \end{document}
