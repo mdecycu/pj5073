@@ -1,13 +1,5 @@
-\documentclass[14pt,a4paper]{report} %紙張設定
+\documentclass[14pt,a4paper]{report}  %紙張設定
 
-%=------------------文件資料----------------------=%
-\title{Application of Web-based Content Management Systems in Teaching and Research of Precision Mechanical Engineering}
-\author{Author: pj5073}
-\date{Date: 2022.03.19}
-
-%=------------------模組----------------------=%
-%\usepackage{fontspec} %英文字體模組
-%\setmainfont{Times New Roman} %英文字體
 \usepackage{xeCJK} %中文字體模組
 \setCJKmainfont{標楷體} %中文字體
 \newfontfamily\sectionef{Times New Roman}%設定英文字體
@@ -19,6 +11,7 @@
 left=3truecm,right=2.5truecm]{geometry}
 \usepackage{titlesec} %目錄標題設定模組
 \usepackage{titletoc} %目錄內容設定模組
+\usepackage{textcomp} %表格設定模組
 \usepackage{caption} %圖片標題設定
 \usepackage{CJK} %中文模組
 \usepackage{CJKnumb} %中文數字模組
@@ -30,17 +23,6 @@ left=3truecm,right=2.5truecm]{geometry}
 \graphicspath{{img/}} %圖片預設讀取路徑
 \renewcommand{\figurename}{\large 圖} %更改圖片標題名稱
 
-\newcommand{\thirty}{\fontsize{30pt}\baselineskip\selectfont} %字體大小30pt
-\newcommand{\twentyeight}{\fontsize{27pt}{\baselineskip}\selectfont} %字體大小28pt
-\newcommand{\twentysix}{\fontsize{26pt}{\baselineskip}\selectfont} %字體大小26pt
-\newcommand{\twentyfour}{\fontsize{24pt}{\baselineskip}\selectfont} %字體大小24pt
-\newcommand{\twentytwo}{\fontsize{22pt}{\baselineskip}\selectfont} %字體大小22pt
-\newcommand{\twenty}{\fontsize{20pt}{\baselineskip}\selectfont }%字體大小20pt
-\newcommand{\eighteen}{\fontsize{18pt}{\baselineskip}\selectfont} %字體大小18pt
-\newcommand{\sixteen}{\fontsize{16pt}{\baselineskip}\selectfont} %字體大小16pt
-\newcommand{\fourteen}{\fontsize{14pt}{\baselineskip}\selectfont} %字體大小14pt
-\newcommand{\twelve}{\fontsize{12pt}{\baselineskip}\selectfont} %字體大小12pt
-\newcommand{\ten{\fontsize{10pt}{\baselineskip}\selectfont} %字體大小10pt
 
 %=------------------更改標題內容----------------------=%
 \titleformat{\chapter}[hang]{\center\sectionef\fontsize{20pt}{1pt}\bfseries}{}{}{}
@@ -66,19 +48,19 @@ left=3truecm,right=2.5truecm]{geometry}
 %\maketitle %文件資料
 \begin{center}
 \makebox[1.5\width][s] %設定文字盒子[方框寬度的1.5倍寬][對其方式為文字平均分分布於方框中]
-{\twentyfour{國立虎尾科技大學}}\\[15pt] %\\距離下方5pt
+{\fontsize{24pt}{2.5pt}國立虎尾科技大學}\\[15pt] %\\距離下方5pt
 %{\ten{National Formosa University}}\\[20pt]
 \makebox[1.2\width][s]
-{\twentyfour{機械設計工程系暨精密機械工程科}}\\[15pt]
+{\fontsize{24pt}{2.5pt}機械設計工程系暨精密機械工程科}\\[15pt]
 %{\ten{Department of Mechanical Design Engineering \& Department of Junior Precision Mechanical Engineering}}\\[20pt]
 \makebox[1.5\width][s]
-{\twentyfour{專題製作報告}}\\[120pt]
+{\fontsize{24pt}{2.5pt}專題製作報告}\\[120pt]
 %{\ten{Project\quad Report}}\\[80pt]
-{\twentyfour{網際內容管理系統}}\\
+{\fontsize{24pt}{2.5pt}網際內容管理系統}\\
 %{\ten{Application of Web-based Content Management Systems}\\[5pt]
-{\twentyfour{在精密機械工程教學與研究上的應用}}\\[50pt]
+{\fontsize{24pt}{2.5pt}在精密機械工程教學與研究上的應用}\\[50pt]
 %{\ten{in Teaching and Research of Precision Mechanical Engineering}}
-{\eighteen\bf{Application of Web-based Content Management Systems in Teaching and Research of Precision Mechanical Engineering}
+{\fontsize{18pt}{2.5pt}\bf Application of Web-based Content Management Systems in Teaching and Research of Precision Mechanical Engineering}
 \end{center}
 \begin{flushleft}
 \begin{LARGE}
@@ -108,67 +90,67 @@ left=3truecm,right=2.5truecm]{geometry}
 \input{certification.tex}
 
 %=------------------摘要----------------------=%
-\newpage
-\input{abstract-c.tex}
+%\newpage
+%input{abstract-c.tex}
 
 %=------------------Abstract----------------------=%
-\newpage
-\input{abstract-e.tex}
+%\newpage
+%\input{abstract-e.tex}
 
 %=------------------致謝----------------------=%
-\newpage
-\input{tk.tex}
+%\newpage
+%\input{tk.tex}
 
 %=------------------目錄----------------------=%
-\newpage
-\input{content.tex}
+%\newpage
+%\input{content.tex}
 
 %=------------------圖目錄----------------------=%
-\newpage
-\input{picture.tex}
+%\newpage
+%\input{picture.tex}
 
 %=------------------前言----------------------=%
-\newpage
-\input{introduction.tex}
+%\newpage
+%\input{introduction.tex}
 
 %=------------------提升教學品質----------------------=%
-\newpage
-\input{improve.tex}
+%\newpage
+%\input{improve.tex}
 
 %=------------------提升研究效益----------------------=%
-\newpage
-\input{research.tex}
+%\newpage
+%\input{research.tex}
 
 %=------------------分散式系統----------------------=%
-\newpage
-\input{ds.tex}
+%\newpage
+%\input{ds.tex}
 
 %=------------------伺服器架構----------------------=%
-\newpage
-\input{architecture.tex}
+%\newpage
+%\input{architecture.tex}
 
 %=------------------Oauth----------------------=%
-\newpage
-\input{oauth.tex}
+%\newpage
+%\input{oauth.tex}
 
 %=------------------總結----------------------=%
-\newpage
-\input{conclusion.tex}
+%\newpage
+%\input{conclusion.tex}
 
 %=------------------參考文獻----------------------=%
-\newpage
-\input{reference.tex}
+%\newpage
+%\input{reference.tex}
 
 %=------------------附錄----------------------=%
-\newpage
-\input{appendix.tex}
+%\newpage
+%\input{appendix.tex}
 
 %=------------------作者簡介----------------------=%
-\newpage
-\input{author.tex}
+%\newpage
+%\input{author.tex}
 
 %=------------------書背----------------------=%
-\newpage
-\input{back.tex}
+%\newpage
+%\input{back.tex}
 
-\end{document}
+%\end{document}
