@@ -1,0 +1,29 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces \large 學習金字塔}}{6}{figure.2.1}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces \large 基本架構}}{12}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces \large 集中式版本控制(左)\enspace vs.分散式版本控制(右)}}{12}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces \large 遠端儲存庫(上)、本地端儲存庫(下)}}{13}{figure.4.3}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces \large 遠端儲存庫(上)、本地端儲存庫(下)}}{14}{figure.4.4}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces \large 關鍵字}}{16}{figure.5.1}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces \large 環境變數}}{16}{figure.5.2}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces \large Path}}{17}{figure.5.3}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces \large 編輯環境變數}}{17}{figure.5.4}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces \large Fossil}}{18}{figure.5.5}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces \large Stunnel}}{22}{figure.5.6}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces \large 普通網路}}{23}{figure.5.7}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces \large 加密網路}}{23}{figure.5.8}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces \large Nginx}}{26}{figure.5.9}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces \large Nssm}}{30}{figure.5.10}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces \large Nssm GUI}}{31}{figure.5.11}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces \large 程序啟動}}{31}{figure.5.12}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces \large Let's Encrypt}}{31}{figure.5.13}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces \large Certbot}}{32}{figure.5.14}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces \large 提交}}{33}{figure.5.15}%
+\contentsline {figure}{\numberline {5.16}{\ignorespaces \large 回應}}{33}{figure.5.16}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsfinish 
