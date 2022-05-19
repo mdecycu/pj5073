@@ -1,4 +1,4 @@
-\documentclass[14pt,a4paper]{report} %紙張設定
+\documentclass[14pt,a4paper]{report}  %紙張設定
 
 %=------------------文件資料----------------------=%
 \title{Application of Web-based Content Management Systems in Teaching and Research of Precision Mechanical Engineering}
@@ -6,30 +6,39 @@
 \date{Date: 2022.03.19}
 
 %=------------------模組----------------------=%
-%\usepackage{fontspec} %英文字體模組
-%\setmainfont{Times New Roman} %英文字體
-\usepackage{xeCJK} %中文字體模組
-\setCJKmainfont{標楷體} %中文字體
-\newfontfamily\sectionef{Times New Roman}%設定英文字體
-\usepackage{amsmath,amssymb} %數學公式、符號
-\usepackage{graphicx,subfigure} %圖形
+\usepackage{xeCJK}%中文字體模組
+%\setCJKmainfont{標楷體} %設定中文字體
+\setCJKmainfont{MoeStandardKai.ttf}
+%\newfontfamily\sectionef{Times New Roman}%設定英文字體
+\newfontfamily\sectionef{Nimbus Roman}
+\usepackage{enumerate}
+\usepackage{amsmath,amssymb}%數學公式、符號
+\usepackage{amsfonts} %數學簍空的英文字
+\usepackage{graphicx, subfigure}%圖形
+\usepackage{fontawesome5} %引用icon
 \usepackage{type1cm} %調整字體絕對大小
 \usepackage{textpos} %設定文字絕對位置
 \usepackage[top=2.5truecm,bottom=2.5truecm,
 left=3truecm,right=2.5truecm]{geometry}
 \usepackage{titlesec} %目錄標題設定模組
 \usepackage{titletoc} %目錄內容設定模組
-\usepackage{caption} %圖片標題設定
+\usepackage{textcomp} %表格設定模組
+\usepackage{multirow} %合併行
 \usepackage{CJK} %中文模組
 \usepackage{CJKnumb} %中文數字模組
 %\usepackage{wallpaper} %浮水印
-\usepackage{float}
-\usepackage{enumerate}
-\usepackage{listings} %引用程式碼
 \usepackage{setspace}
+%\usepackage{subcaption}%副圖標
+\graphicspath{{./../images/}} %圖片預設讀取路徑
 \graphicspath{{img/}} %圖片預設讀取路徑
-\renewcommand{\figurename}{\large 圖} %更改圖片標題名稱
-
+\usepackage{indentfirst} %設定開頭縮排模組
+\renewcommand{\figurename}{\Large 圖} %更改圖片標題名稱
+\hoffset=-5mm %調整左右邊界
+\voffset=-8mm %調整上下邊界
+\setlength{\parindent}{2.5em}%設定首行行距縮排
+\usepackage{appendix} %附錄
+\usepackage{diagbox}%引用表格
+\usepackage{multirow}%表格置中
 \newcommand{\thirty}{\fontsize{30pt}\baselineskip\selectfont} %字體大小30pt
 \newcommand{\twentyeight}{\fontsize{27pt}{\baselineskip}\selectfont} %字體大小28pt
 \newcommand{\twentysix}{\fontsize{26pt}{\baselineskip}\selectfont} %字體大小26pt
@@ -40,30 +49,28 @@ left=3truecm,right=2.5truecm]{geometry}
 \newcommand{\sixteen}{\fontsize{16pt}{\baselineskip}\selectfont} %字體大小16pt
 \newcommand{\fourteen}{\fontsize{14pt}{\baselineskip}\selectfont} %字體大小14pt
 \newcommand{\twelve}{\fontsize{12pt}{\baselineskip}\selectfont} %字體大小12pt
-\newcommand{\ten{\fontsize{10pt}{\baselineskip}\selectfont} %字體大小10pt
 
 %=------------------更改標題內容----------------------=%
-\titleformat{\chapter}[hang]{\center\sectionef\fontsize{20pt}{1pt}\bfseries}{}{}{}
+\titleformat{\chapter}[hang]{\center\sectionef\fontsize{20pt}{1pt}\bfseries}{\LARGE 第\CJKnumber{\thechapter}章}{1em}{}[]
 \titleformat{\section}[hang]{\sectionef\fontsize{18pt}{2.5pt}\bfseries}{{\thesection}}{0.5em}{}[]
 \titleformat{\subsection}[hang]{\sectionef\fontsize{18pt}{2.5pt}\bfseries}{{\thesubsection}}{1em}{}[]
 
-%=------------------更改目錄內容----------------------=%
-\titlecontents{chapter}[-5em]{}{\sectionef\fontsize{16pt}{3pt}\bfseries\makebox[2.5em][l]{\CJKmainfont}}{}{\titlerule*[0.7pc]{.}\contentspage}
-\titlecontents{section}[3em]{}{\sectionef\fontsize{15pt}{3pt}\mdseries\makebox[1.5em][l]{\thecontentslabel}}{}{\titlerule*[0.7pc]{.}\contentspage}
-\titlecontents{subsection}[5em]{}{\sectionef\fontsize{15pt}{3pt}\mdseries\makebox[2.5em][l]{{\thecontentslabel}}}{}{\titlerule*[0.7pc]{.}\contentspage}
+%=------------------更改目錄內容-----------------------=%
+\titlecontents{chapter}[1em]{}{\sectionef\fontsize{16pt}{3pt}\bfseries\makebox[4em][l]{第\CJKnumber{\thecontentslabel}章}}{}{\titlerule*[0.7pc]{.}\contentspage}
+\titlecontents{section}[3.5em]{}{\sectionef\fontsize{15pt}{3pt}\mdseries\makebox[2.5em][l]{\thecontentslabel}}{}{\titlerule*[0.7pc]{.}\contentspage}
+\titlecontents{subsection}[5em]{}{\sectionef\fontsize{15pt}{3pt}\mdseries\makebox[3em][l]{{\thecontentslabel}}}{}{\titlerule*[0.7pc]{.}\contentspage}
 
 %=------------------更改圖目錄內容----------------------=%
 \titlecontents{figure}[1em]{}{\sectionef\fontsize{16pt}{3pt}\mdseries\makebox[1.5em][l]圖{\thecontentslabel}\quad}{}{\titlerule*[0.7pc]{.}\contentspage}
 
-%=------------------章節間距----------------------=%
+%=----------------------章節間距----------------------=%
 \titlespacing*{\chapter} {0pt}{0pt}{18pt}
 \titlespacing*{\section} {0pt}{12pt}{6pt}
 \titlespacing*{\subsection} {0pt}{6pt}{6pt}
 
-%=------------------文件----------------------=%
-\begin{document}
-\begin{titlepage}
-%\maketitle %文件資料
+%=----------------------文件-------------------------=%
+\begin{document} %文件
+\begin{titlepage}%開頭         
 \begin{center}
 \makebox[1.5\width][s] %設定文字盒子[方框寬度的1.5倍寬][對其方式為文字平均分分布於方框中]
 {\twentyfour{國立虎尾科技大學}}\\[15pt] %\\距離下方5pt
@@ -78,7 +85,7 @@ left=3truecm,right=2.5truecm]{geometry}
 %{\ten{Application of Web-based Content Management Systems}\\[5pt]
 {\twentyfour{在精密機械工程教學與研究上的應用}}\\[50pt]
 %{\ten{in Teaching and Research of Precision Mechanical Engineering}}
-{\eighteen\bf{Application of Web-based Content Management Systems in Teaching and Research of Precision Mechanical Engineering}
+{\eighteen\bf{Application of Web-based Content Management Systems in Teaching and Research of Precision Mechanical Engineering}}
 \end{center}
 \begin{flushleft}
 \begin{LARGE}
@@ -102,73 +109,83 @@ left=3truecm,right=2.5truecm]{geometry}
 {中華民國\hspace{3em} 
 110 \quad 年\quad 6\quad 月}}
 \end{titlepage}
-
-%=------------------專題製作合可證明----------------------=%
 \newpage
+
+%=---------------專題製作合可證明---------------------=%
+%\newpage
 \input{certification.tex}
 
 %=------------------摘要----------------------=%
-\newpage
+%\newpage
 \input{abstract-c.tex}
 
 %=------------------Abstract----------------------=%
-\newpage
+%\newpage
 \input{abstract-e.tex}
 
 %=------------------致謝----------------------=%
-\newpage
+%\newpage
 \input{tk.tex}
 
 %=------------------目錄----------------------=%
-\newpage
-\input{content.tex}
+%\newpage
+%\input{content.tex}
+\begin{spacing}{2.5}
+\renewcommand{\contentsname}{\centerline{\fontsize{18pt}{\baselineskip}\selectfont\textbf{目\quad 錄}}}
+\tableofcontents %目錄產生
+\end{spacing}
 
 %=------------------圖目錄----------------------=%
-\newpage
-\input{picture.tex}
+%\newpage
+%\input{picture.tex}
+\begin{spacing}{2.5}
+\renewcommand{\listfigurename}{\centerline{\fontsize{18pt}{\baselineskip}\selectfont\textbf{圖\quad 目\quad 錄 }}}
+\listoffigures
+\end{spacing}
 
 %=------------------前言----------------------=%
-\newpage
+%\newpage
 \input{introduction.tex}
 
 %=------------------提升教學品質----------------------=%
-\newpage
+%\newpage
 \input{improve.tex}
 
 %=------------------提升研究效益----------------------=%
-\newpage
+%\newpage
 \input{research.tex}
 
 %=------------------分散式系統----------------------=%
-\newpage
+%\newpage
 \input{ds.tex}
 
 %=------------------伺服器架構----------------------=%
-\newpage
+%\newpage
 \input{architecture.tex}
 
 %=------------------Oauth----------------------=%
-\newpage
+%\newpage
 \input{oauth.tex}
 
 %=------------------總結----------------------=%
-\newpage
+%\newpage
 \input{conclusion.tex}
 
 %=------------------參考文獻----------------------=%
-\newpage
+%\newpage
 \input{reference.tex}
 
 %=------------------附錄----------------------=%
-\newpage
+%\newpage
 \input{appendix.tex}
 
 %=------------------作者簡介----------------------=%
 \newpage
 \input{author.tex}
-
-%=------------------書背----------------------=%
+    
+%=----------------書背----------------------=%
 \newpage
 \input{back.tex}
 
+\end{center}
 \end{document}
