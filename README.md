@@ -7,7 +7,9 @@
 
 [專題簡報](https://mdecycu.github.io/pj5073/reveal/)
 
-[專題海報](https://mdecycu.github.io/pj5073/images/pj5073.pdf)
+[專題海報](https://mdecycu.github.io/pj5073/poster/pj5073.pdf)
+
+[專題影片](https://mdecycu.github.io/pj5073/video/pj5073.mp4)
 
 <H2>資訊來源</H2>
 
